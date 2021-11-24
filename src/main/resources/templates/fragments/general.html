@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headfiles">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/main.css">
+</head>
+<body>
+
+<header th:fragment="header">
+    <div id="navbar">
+        <div class="header">
+
+            <!--Referance Alpha Solutions: https://www.alpha-solutions.com/da-->
+            <!--logo-->
+            <div id="logo">
+                <a href="/">
+                    <img src="https://media.alpha-solutions.com/da/-/media/alphawebsite2019/defaults/logo.ashx?iar=0&amp;hash=47313F5015E221C5AA54A61AFA0E9CA6"
+                         alt="Alpha Solutions Logo"/>
+                </a>
+            </div>
+
+            <div id="headermenu">
+                <!--Top menu-->
+                <nav class="headermenubuttons">
+                    <ul>
+                        <li>
+                            <a class="headerchoice" href="/overview">
+                                <span>OVERVIEW</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="headerchoice" href="/">
+                                <span>LOGOUT</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
+            </div>
+        </div>
+    </div>
+    <!--Referance fra Alpha solutions slut-->
+</header>
+
+
+<footer th:fragment="footer">
+<!--Taget alt fra - Referance til Alpha Solutions https://www.alpha-solutions.com/da -->
+    <div class="footer" id="adr">
+        <div class="footboxes first">
+
+            <div class="footlogo">
+                <img src="https://media.alpha-solutions.com/da/-/media/alphawebsite2019/defaults/logo.ashx?iar=0&amp;hash=47313F5015E221C5AA54A61AFA0E9CA6" alt="Alpha Solutions Logo" />
+            </div>
+            <div id="footmail">
+                <p><a href="mailto:info@alpha-solutions.com">info@alpha-solutions.com</a></p>
+            </div>
+
+
+            <div class="footlinked">
+                <a href="https://www.linkedin.com/company/alpha-solutions/" rel="noopener noreferrer" target="_blank">
+                    <div class="bglinkedlogo">
+                        <img src="https://media.alpha-solutions.com/da/-/media/alphawebsite2019/defaults/linkedinlogo.ashx?h=24&amp;iar=0&amp;w=23&amp;hash=CE433FA3888C525F290451FE9B0FCB43" alt="LinkedIn Logo" width="23" height="24" />
+                    </div>
+                    <p>LinkedIn DK</p>
+                </a>
+            </div>
+
+
+            <div class="footlinked">
+                <a href="https://www.linkedin.com/company/alpha-solutions-norway/ " rel="noopener noreferrer" target="_blank">
+                    <div class="bglinkedlogo">
+                        <img src="https://media.alpha-solutions.com/da/-/media/alphawebsite2019/defaults/linkedinlogo.ashx?h=24&amp;iar=0&amp;w=23&amp;hash=CE433FA3888C525F290451FE9B0FCB43" alt="LinkedIn Logo" width="23" height="24" />
+                    </div>
+                    <p>LinkedIn NO</p>
+                </a>
+            </div>
+
+
+            <div class="footlinked">
+                <a href="https://www.linkedin.com/company/alpha-solutions-usa/" rel="noopener noreferrer" target="_blank">
+                    <div class="bglinkedlogo">
+                        <img src="https://media.alpha-solutions.com/da/-/media/alphawebsite2019/defaults/linkedinlogo.ashx?h=24&amp;iar=0&amp;w=23&amp;hash=CE433FA3888C525F290451FE9B0FCB43" alt="LinkedIn Logo" width="23" height="24" />
+                    </div>
+                    <p>LinkedIn US</p>
+                </a>
+            </div>
+
+            <div class="footerbottom">
+
+
+                <div class="footlinked">
+                    <a href="/da/indsigt/persondatapolitik">
+                        <div class="bglinkedlogo">
+
+                        </div>
+                        <p>Persondatapolitik</p>
+                    </a>
+                </div>
+
+
+                <div class="footlinked">
+                    <a href="/da/indsigt/cookies">
+                        <div class="bglinkedlogo">
+
+                        </div>
+                        <p>Cookies</p>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+        <div class="footAdrBox">
+            <div class="footboxes">
+
+
+                <div class="footadr ">
+                    <p class="ph">K&Oslash;BENHAVN</p>
+                    <p>Alpha Solutions<br />
+                        Gothersgade 14, 4. sal<br />
+                        1123 K&oslash;benhavn K<br />
+                        Danmark<br />
+                        <a href="tel:+45 70 20 65 38">+45 70 20 65 38</a><br />
+                        <a href="mailto:cph@alpha-solutions.com">cph@alpha-solutions.com</a></p>
+                </div>
+
+
+                <div class="footadr ">
+                    <p class="ph">OSLO</p>
+                    <p>Alpha Solutions<br />
+                        Tollbugata 8 A/B</p>
+                    <p>0152 Oslo<br />
+                        Norway<br />
+                        <a href="tel:+47 900 54 940">+47 900 54 940</a><br />
+                        <a href="mailto:oslo@alpha-solutions.com">oslo@alpha-solutions.com</a></p>
+                </div>
+
+
+                <div class="footadr empty">
+
+                </div>
+
+
+                <div class="footadr ">
+                    <p class="ph">NEW JERSEY</p>
+                    <p>Alpha Solutions<br />
+                        211 River St., 9th Fl<br />
+                        Hoboken<br />
+                        NJ 07030<br />
+                        USA<br />
+                        <a href="tel:+1 (347) 338-2220">+1 (347) 338-2220</a><br />
+                        <a href="mailto:ny@alpha-solutions.com ">ny@alpha-solutions.com&nbsp;</a></p>
+                </div>
+
+
+                <div class="footadr ">
+                    <p class="ph">DALLAS</p>
+                    <p>Alpha Solutions<br />
+                        5080 Spectrum Drive<br />
+                        Suite 1000 East&nbsp;Addison<br />
+                        TX 75001<br />
+                        USA<br />
+                        <a href="tel:+1 (347) 338-2220">+1 (347) 338-2220</a><br />
+                        <a href="mailto:dallas@alpha-solutions.com">dallas@alpha-solutions.com</a></p>
+                </div>
+
+
+                <div class="footadr ">
+                    <p class="ph">LOS ANGELES</p>
+                    <p>Alpha Solutions<br />
+                        15303 Ventura Boulevard<br />
+                        Suite 900 Sherman Oaks<br />
+                        CA 91403<br />
+                        USA<br />
+                        <a href="tel:+1 (347) 338-2220">+1 (347) 338-2220</a><br />
+                        <a href="mailto:la@alpha-solutions.com">la@alpha-solutions.com</a></p>
+                </div>
+
+            </div>
+        </div>
+        <div class="footerbottom mobile">
+
+
+            <div class="footlinked">
+                <a href="/da/indsigt/persondatapolitik">
+                    <div class="bglinkedlogo">
+
+                    </div>
+                    <p>Persondatapolitik</p>
+                </a>
+            </div>
+
+
+            <div class="footlinked">
+                <a href="/da/indsigt/cookies">
+                    <div class="bglinkedlogo">
+
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!--Referance slut-->
+</footer>
+</body>
+</html>

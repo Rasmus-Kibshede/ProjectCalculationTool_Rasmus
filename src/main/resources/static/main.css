@@ -1,0 +1,306 @@
+/* Overall */
+
+/* Header */
+
+/*Hentet fra Alpha Solutions https://www.alpha-solutions.com/da*/
+#navbar {
+    background-color: #FFFFFF;
+    position: fixed;
+    z-index: 5;
+    max-width: 1330px;
+    width: 100%;
+    display: block;
+    height: 108px;
+}
+
+#navbar.fixed {
+    position: fixed;
+    z-index: 5;
+}
+
+#navbar .header {
+    margin: 29px 0 auto 0;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    display: -ms-flexbox;
+    display: flex;
+    height: 50px;
+    position: relative;
+}
+
+#navbar .header #logo {
+    margin-right: 100px;
+    display: inline-block;
+    background-size: contain;
+    width: 186px;
+}
+
+#navbar .header #headermenu {
+    position: absolute;
+    text-align: right;
+    margin-top: auto;
+    margin-bottom: 12px;
+    right: 0px;
+    bottom: 0px;
+}
+
+#navbar .header #headermenu ul {
+    list-style-type: none;
+}
+
+#navbar .header #headermenu li {
+    display: inline-block;
+    text-align: right;
+    margin-right: 3px;
+}
+
+#navbar .header #headermenu .headermenubuttons {
+    display: inline-block;
+    text-align: right;
+    margin-right: -1px;
+    margin-bottom: 1px;
+}
+
+#navbar .header #headermenu .headermenubuttons ul li {
+    margin: 0px 0px 0px 35px;
+    font-size: 15px;
+    font-weight: 800;
+    text-align: right;
+}
+
+#navbar .header #headermenu .headermenubuttons ul li.active {
+    border-bottom: #FF325A 2px solid;
+}
+
+#navbar .header #headermenu .headermenubuttons ul li.txtBig {
+    font-size: 15px;
+}
+
+#navbar .header #headermenu .headermenubuttons ul li.txtSmall {
+    font-size: 12px;
+}
+
+/*Alpha solutions slut*/
+
+
+
+
+
+
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+
+
+
+
+
+
+
+
+
+/* Footer hentet fra Alpha Solutions hjemmeside https://www.alpha-solutions.com/da */
+.footer {
+    background-color: #dedede;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 5.1% 3.8% 5% 3.7%;
+}
+
+@media only screen and (max-width: 768px) {
+    .footer {
+        padding-left: 5%;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .footer {
+        padding-left: 5%;
+        min-height: 1000px;
+    }
+}
+
+.footer#adr a {
+    color: #000;
+}
+
+.footer#adr .footboxes {
+    margin: 5px auto 0 0%;
+    width: 20%;
+    line-height: 1.5;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.footer#adr .footboxes.first {
+    min-height: 450px;
+    margin-right: 8%;
+    position: relative;
+}
+
+@media only screen and (max-width: 768px) {
+    .footer#adr .footboxes.first {
+        min-height: 290px;
+        margin-bottom: 0px;
+        margin-right: 0;
+        width: 40%;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .footer#adr .footboxes.first {
+        min-height: 290px;
+        margin-bottom: 0px;
+        margin-right: 0;
+        width: 80%;
+    }
+}
+
+.footer#adr .footboxes.first .footlogo img {
+    width: 100%;
+    height: auto;
+}
+
+.footer#adr .footboxes.first #footmail {
+    margin: 45px 0px 28px 0px;
+}
+
+.footer#adr .footboxes.first .footlinked .bglinkedlogo {
+    display: inline-block;
+    vertical-align: bottom;
+    background-color: #FFFFFF;
+    z-index: 1;
+    background-size: contain;
+    height: 20px;
+    margin: 5px 0;
+}
+
+.footer#adr .footboxes.first .footlinked .bglinkedlogo img {
+    z-index: 2;
+    width: 100%;
+    height: auto;
+}
+
+.footer#adr .footboxes.first .footlinked p {
+    display: inline-block;
+    vertical-align: bottom;
+    margin-left: 2px;
+}
+
+.footer#adr .footboxes .footerbottom {
+    position: absolute;
+    bottom: 5px;
+}
+
+@media only screen and (max-width: 768px) {
+    .footer#adr .footboxes .footerbottom {
+        display: none;
+    }
+}
+
+.footer#adr .footboxes .footerbottom .footlinked {
+    height: 20px;
+}
+
+.footer#adr .footboxes .footerbottom .footlinked .bglinkedlogo {
+    display: none;
+}
+
+.footer#adr .footboxes .footerbottom .footlinked p {
+    font-size: 12px;
+}
+
+.footer#adr .footAdrBox {
+    width: 70%;
+}
+
+@media only screen and (max-width: 768px) {
+    .footer#adr .footAdrBox {
+        width: 100%;
+        margin-bottom: 25px;
+    }
+}
+
+.footer#adr .footAdrBox .footboxes {
+    margin: 5px 0px 0 0%;
+    width: auto;
+    line-height: 1.5;
+    display: inline-block;
+    vertical-align: top;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+@media only screen and (max-width: 768px) {
+    .footer#adr .footAdrBox .footboxes {
+        margin: 5px 0px 0 0%;
+    }
+}
+
+.footer#adr .footAdrBox .footboxes .footadr {
+    margin-top: -2px;
+    width: 33%;
+}
+
+@media only screen and (max-width: 768px) {
+    .footer#adr .footAdrBox .footboxes .footadr {
+        width: 50%;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .footer#adr .footAdrBox .footboxes .footadr {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .footer#adr .footAdrBox .footboxes .footadr.empty {
+        width: 0px;
+    }
+}
+
+.footer#adr .footAdrBox .footboxes .footadr p:last-child {
+    display: inline-block;
+    margin-bottom: 35px;
+}
+
+@media only screen and (max-width: 1100px) {
+    .footer#adr .footAdrBox .footboxes:nth-child(2) {
+        margin-right: unset;
+    }
+}
+
+.footer#adr .footerbottom.mobile {
+    display: none;
+}
+
+@media only screen and (max-width: 768px) {
+    .footer#adr .footerbottom.mobile {
+        display: block;
+        left: 8%;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .footer#adr .footerbottom.mobile {
+        left: 5%;
+    }
+}
+
+.footer#adr .footerbottom.mobile .footlinked {
+    height: 20px;
+}
+
+.footer#adr .footerbottom.mobile .footlinked .bglinkedlogo {
+    display: none;
+}
+
+.footer#adr .footerbottom.mobile .footlinked p {
+    font-size: 12px;
+}
+
+/*Alpha solutions slut*/

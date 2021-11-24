@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home</title>
+    <th:block th:include="fragments/general :: headfiles"></th:block>
+    <link rel="stylesheet" href="/main.css">
+
+</head>
+<body>
+<div id="wrapper">
+    <!--Referance fra Alpha solutions https://www.alpha-solutions.com/da-->
+    <div id="logo">
+        <a href="/">
+            <img src="https://media.alpha-solutions.com/da/-/media/alphawebsite2019/defaults/logo.ashx?iar=0&amp;hash=47313F5015E221C5AA54A61AFA0E9CA6"
+                 alt="Alpha Solutions Logo"/>
+        </a>
+    </div>
+    <!--Slut referance-->
+
+    <div id="content">
+        <h1>Project Calculation Tool</h1>
+
+        <div id="login">
+            <form action="login" method="post">
+                <input type="email" placeholder="example@mail.com" name="email" required>
+                <input type="password" name="password" placeholder="Enter password" required>
+                <input type="submit" value="Login">
+            </form>
+        </div>
+    </div>
+
+    <th:block th:insert="fragments/general :: footer"></th:block>
+</div>
+</body>
+</html>
