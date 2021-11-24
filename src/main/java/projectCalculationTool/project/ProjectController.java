@@ -6,9 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.WebRequest;
 
-
+import java.util.Objects;
 @Controller
-
 public class ProjectController {
 
   private final ProjectService PROJECT_SERVICE = new ProjectService(new ProjectRepository());
@@ -16,7 +15,7 @@ public class ProjectController {
   @GetMapping("/overview")
   public String projectPage(WebRequest webRequest, Model model){
 
-    int projectID = Integer.parseInt(webRequest.getParameter("id"));
+    int projectID = Integer.parseInt(Objects.requireNonNull(webRequest.getParameter("id")));
     Project project = PROJECT_SERVICE.readProject(projectID);
     model.addAttribute("projectname", project);
 
@@ -26,12 +25,13 @@ public class ProjectController {
   @PostMapping("/addproject")
   public String createProject(WebRequest webRequest){
 
-    String projectName = webRequest.getParameter("name");
+   String projectName = webRequest.getParameter("name");
 
     Project project = new Project();
     project.setName(projectName);
     PROJECT_SERVICE.createProject(project);
 
-    return "redirect:/overview";
+    return "redirect:/";
   }
+
 }
