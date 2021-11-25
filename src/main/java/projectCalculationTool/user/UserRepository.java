@@ -24,6 +24,7 @@ public class UserRepository implements UserRepositoryInterface {
                 user.setUserID(rs.getInt(1));
                 user.setEmail(rs.getString(2));
                 user.setPassword(rs.getString(3));
+
                 return user;
             }
 
@@ -31,6 +32,5 @@ public class UserRepository implements UserRepositoryInterface {
             err.printStackTrace();
         }
         return null;
-
     }
 }
