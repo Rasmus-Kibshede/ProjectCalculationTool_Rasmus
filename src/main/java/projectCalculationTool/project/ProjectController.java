@@ -17,7 +17,7 @@ public class ProjectController {
     @GetMapping("/profile")
     public String projectPage(WebRequest webRequest, Model model) {
 
-        int projectID = Integer.parseInt((Objects.requireNonNull(webRequest.getParameter("id"))));
+        int projectID = Integer.parseInt(Objects.requireNonNull(webRequest.getParameter("id")));
 
         Project project = PROJECT_SERVICE.readProject(projectID);
 

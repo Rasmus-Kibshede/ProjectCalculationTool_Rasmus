@@ -1,9 +1,13 @@
 package projectCalculationTool.user;
 
 public class UserService {
-    UserRepositoryInterface userRepositoryInterface;
+  UserRepository userRepository;
 
-    public UserService(UserRepositoryInterface userRepositoryInterface) {
-        this.userRepositoryInterface = userRepositoryInterface;
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public User readUser(String userMail, String userPassword){
+        return userRepository.read(userMail, userPassword);
     }
 }
