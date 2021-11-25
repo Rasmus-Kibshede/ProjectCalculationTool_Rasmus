@@ -10,6 +10,8 @@ public class UserController {
 
     @PostMapping("/login")
     public String login(WebRequest webRequest) {
+        String mail = webRequest.getParameter("mail");
+        String pw = webRequest.getParameter("password");
         webRequest.setAttribute("user", "hej", WebRequest.SCOPE_SESSION);
         return "profile";
     }
