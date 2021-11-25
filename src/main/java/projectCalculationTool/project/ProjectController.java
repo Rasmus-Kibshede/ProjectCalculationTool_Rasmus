@@ -7,31 +7,39 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.WebRequest;
 
 import java.util.Objects;
+
 @Controller
 public class ProjectController {
 
-  private final ProjectService PROJECT_SERVICE = new ProjectService(new ProjectRepository());
+    private final ProjectService PROJECT_SERVICE = new ProjectService(new ProjectRepository());
 
-  @GetMapping("/overview")
-  public String projectPage(WebRequest webRequest, Model model){
 
-    int projectID = Integer.parseInt(Objects.requireNonNull(webRequest.getParameter("id")));
-    Project project = PROJECT_SERVICE.readProject(projectID);
-    model.addAttribute("projectname", project);
+    @GetMapping("/overview")
+    public String projectPage(WebRequest webRequest, Model model) {
 
-    return "overview";
-  }
+        int projectID = Integer.parseInt((Objects.requireNonNull(webRequest.getParameter("id"))));
 
-  @PostMapping("/addproject")
-  public String createProject(WebRequest webRequest){
+        Project project = PROJECT_SERVICE.readProject(projectID);
 
-   String projectName = webRequest.getParameter("name");
+//Logik skal ikke ligge her skal ligge i repository
+        if (project != null) {
+            model.addAttribute("project", project);
+            return "/overview";
+        }
 
-    Project project = new Project();
-    project.setName(projectName);
-    PROJECT_SERVICE.createProject(project);
+        return "redirect:/";
+    }
 
-    return "redirect:/";
-  }
+    @PostMapping("/addproject")
+    public String createProject(WebRequest webRequest) {
+
+        String projectName = webRequest.getParameter("name");
+
+        Project project = new Project();
+        project.setName(projectName);
+        PROJECT_SERVICE.createProject(project);
+
+        return "redirect:/overview";
+    }
 
 }
