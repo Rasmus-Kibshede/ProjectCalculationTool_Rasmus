@@ -7,22 +7,37 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ProjectRepositoryTest {
 
-  private ProjectRepository projectRepository;
+  ProjectRepository projectRepository;
+
+  @BeforeEach
+  public void setUp() {
+    projectRepository = new ProjectRepository();
+  }
 
   @Test
   public void test_create(){
+
+    //Arrange
     Project project = new Project();
     project.setName("TestProject");
+    project.setProjectHoursTotal(11);
 
+    //Act
+    Project newProject = projectRepository.create(project);
 
-    //Project newProject = projectRepository.create(project);
-
-    assertEquals(project.getName(), "TestProject"); // Find ud af returtype reporsitory wise
+    //Assert
+    assertTrue(newProject.getProjectID() != 0);
 
   }
 
+  /*
   public void test_read(){
 
+    Project newProject = projectRepository.read(1);
+
+    assertNull(newProject.getProjectID());
+
   }
+   */
 
 }

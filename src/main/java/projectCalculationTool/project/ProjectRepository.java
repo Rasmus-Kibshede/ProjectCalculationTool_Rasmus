@@ -2,27 +2,37 @@ package projectCalculationTool.project;
 
 import projectCalculationTool.util.DBManager;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class ProjectRepository implements ProjectRepositoryInterface {
 
   private static Connection connection = DBManager.getConnection();
 
-
-  public void create(Project project){
+  public Project create(Project project){
 
     try{
-      PreparedStatement preparedStatement = connection.prepareStatement("CALL create_project(?,?)");
+      String SQL = "INSERT INTO projects (project_name) VALUES (?)";
+      PreparedStatement preparedStatement = connection.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
+      //PreparedStatement preparedStatement = connection.prepareStatement("CALL create_project(?,?)", Statement.RETURN_GENERATED_KEYS);
       preparedStatement.setString(1, project.getName());
-      preparedStatement.setDouble(2, project.getProjectHoursTotal());
+      //preparedStatement.setDouble(2, project.getProjectHoursTotal());
 
-      preparedStatement.executeQuery();
+      //preparedStatement.executeQuery();
+      preparedStatement.executeUpdate();
+
+      ResultSet resultSet = preparedStatement.getGeneratedKeys();
+      resultSet.next();
+      int id = resultSet.getInt(1);
+
+      project.setProjectID(id);
+
+      return project;
+
     }catch (SQLException e){
       e.printStackTrace(); //MAKE OWN EXCEPTION???
     }
+
+    return null;
   }
 
   public Project read(int projectID){
