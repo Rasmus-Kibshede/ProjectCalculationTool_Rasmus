@@ -1,4 +1,28 @@
 /* Overall */
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;/*Fra Alpha Solution*/
+    font-family: Montserrat, sans-serif;
+}
+
+#wrapper{
+    /*Fra Alpha Solution*/
+    max-width: 1330px;
+    margin: auto;
+    position: relative;
+    /*Slut*/
+}
+
+#content {
+    /*Alpha solutions*/
+    padding: 150px 2% 150px 2%;
+    text-align: center;
+    max-width: 1330px;
+    margin: auto;
+    position: relative;
+    /* Slut Alpha solutions*/
+}
 
 /* Header */
 
@@ -303,4 +327,18 @@
     font-size: 12px;
 }
 
+#adr .ph {
+    font-weight: 800;
+}
+
+#adr p {
+    font-size: 16px;
+    letter-spacing: 0.6px;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.footer#adr a {
+    color: #000;
+}
 /*Alpha solutions slut*/
