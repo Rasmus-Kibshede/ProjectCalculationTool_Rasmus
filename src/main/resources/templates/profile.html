@@ -9,12 +9,13 @@
 <div id="wrapper">
     <div id="content">
         <div id="projects">
-            <form action="/addproject" method="post">
-                <input type="text" placeholder="project name" name="projectname" required>
-            </form>
+            <!--              <form action="/addproject" method="post">
+                            <input type="text" placeholder="project name" name="projectname" required>
+                        </form>
+                        -->
             <tr>
                 <td>
-                    <p th:text="${project.getName()}">Project name</p>
+                    <a th:href="'/project?id=' + ${project.projectID}" th:text="${project.name}"></a>Project name</p>
                 </td>
             </tr>
         </div>
