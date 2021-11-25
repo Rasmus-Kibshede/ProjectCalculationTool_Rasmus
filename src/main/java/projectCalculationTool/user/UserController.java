@@ -12,8 +12,10 @@ public class UserController {
     public String login(WebRequest webRequest) {
         String mail = webRequest.getParameter("mail");
         String password = webRequest.getParameter("password");
-        userService.readUser(mail,password);
+        User user = userService.readUser(mail,password);
 
-        return "redirect:/profile";
+        //Set session with user obj
+
+        return "/profile";
     }
 }
