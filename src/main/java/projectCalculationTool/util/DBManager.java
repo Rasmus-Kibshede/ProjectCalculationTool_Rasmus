@@ -17,9 +17,9 @@ public class DBManager {
     if(connection != null){
       return connection;
     }
-    user = System.getenv(user);
-    password = System.getenv(password);
-    url = System.getenv(url);
+    user = System.getenv("user");
+    password = System.getenv("password");
+    url = System.getenv("url");
 
     try{
       connection = DriverManager.getConnection(user, password, url);
