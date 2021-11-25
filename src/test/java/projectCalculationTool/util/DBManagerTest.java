@@ -20,5 +20,4 @@ class DBManagerTest {
         Connection conn2 = DBManager.getConnection();
         assertEquals(conn1, conn2);
     }
-
 }

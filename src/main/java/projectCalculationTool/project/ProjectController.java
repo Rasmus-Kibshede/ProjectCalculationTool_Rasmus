@@ -14,7 +14,7 @@ public class ProjectController {
     private final ProjectService PROJECT_SERVICE = new ProjectService(new ProjectRepository());
 
 
-    @GetMapping("/overview")
+    @GetMapping("/profile")
     public String projectPage(WebRequest webRequest, Model model) {
 
         int projectID = Integer.parseInt((Objects.requireNonNull(webRequest.getParameter("id"))));
@@ -24,7 +24,7 @@ public class ProjectController {
 //Logik skal ikke ligge her skal ligge i repository
         if (project != null) {
             model.addAttribute("project", project);
-            return "/overview";
+            return "/profile";
         }
 
         return "redirect:/";
@@ -39,7 +39,7 @@ public class ProjectController {
         project.setName(projectName);
         PROJECT_SERVICE.createProject(project);
 
-        return "redirect:/overview";
+        return "redirect:/profile";
     }
 
 }

@@ -11,6 +11,6 @@ public class UserController {
     @PostMapping("/login")
     public String login(WebRequest webRequest) {
         webRequest.setAttribute("user", "hej", WebRequest.SCOPE_SESSION);
-        return "overview";
+        return "profile";
     }
 }
