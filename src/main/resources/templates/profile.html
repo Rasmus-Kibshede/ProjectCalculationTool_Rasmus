@@ -14,7 +14,7 @@
                 <a th:href="'/project?id=' + ${project.projectID}" th:text="${project.name}"></a>
             </div>
             <form action="/addproject" method="get">
-            <input type="text" placeholder="Project Name" name="projectname" class="textfield" required>
+            <input type="text" placeholder="Project Name" name="project" class="textfield" required>
             <input type="submit" value="Save Project" class="submit">
             </form>
         </div>
