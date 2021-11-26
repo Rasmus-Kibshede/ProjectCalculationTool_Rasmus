@@ -9,7 +9,7 @@
 <div id="wrapper">
     <div id="content">
         <div id="projects">
-            <h2 th:text="${employee.name}"></h2>
+            <h2 th:text="${employee.email}"></h2>
             <div th:each="project: ${employee.projects}">
                 <a th:href="'/project?id=' + ${project.projectID}" th:text="${project.name}"></a>
             </div>

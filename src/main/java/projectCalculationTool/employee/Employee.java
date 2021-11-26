@@ -1,9 +1,22 @@
 package projectCalculationTool.employee;
 
+import projectCalculationTool.project.Project;
+
+import java.util.ArrayList;
+
 public class Employee {
     private String password;
     private String email;
     private int employeeID;
+    private ArrayList<Project> projects; // Add to diagram!!!!!!!
+
+    public ArrayList<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(ArrayList<Project> projects) {
+        this.projects = projects;
+    }
 
     public String getPassword() {
         return password;

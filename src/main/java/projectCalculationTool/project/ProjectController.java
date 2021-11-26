@@ -21,9 +21,10 @@ public class ProjectController {
         Employee employee = (Employee) webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION);
 
         if (employee != null) {
-            Project project = PROJECT_SERVICE.readProject(employee.getEmployeeID());
+            //Project project = PROJECT_SERVICE.readProject(employee.getEmployeeID());
 
-            model.addAttribute("project", project);
+            model.addAttribute("employee", employee);
+            //model.addAttribute("project", project);
 
             return "profile";
         }
