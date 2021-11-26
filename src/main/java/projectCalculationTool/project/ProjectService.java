@@ -2,17 +2,17 @@ package projectCalculationTool.project;
 
 public class ProjectService {
 
-  private ProjectRepository projectRepository;
+  private ProjectRepositoryInterface projectRepositoryInterface;
 
-  public ProjectService(ProjectRepository projectRepository){
-    this.projectRepository = projectRepository;
+  public ProjectService(ProjectRepositoryInterface projectRepositoryInterface){
+    this.projectRepositoryInterface = projectRepositoryInterface;
   }
   public Project createProject(Project project){
-    return projectRepository.create(project);
+    return projectRepositoryInterface.create(project);
   }
 
   public Project readProject(int employeeID){
-    return projectRepository.read(employeeID);
+    return projectRepositoryInterface.read(employeeID);
   }
 
 }

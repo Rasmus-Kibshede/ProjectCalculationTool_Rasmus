@@ -6,14 +6,14 @@ import org.springframework.web.context.request.WebRequest;
 
 @Controller
 public class EmployeeController {
-    EmployeeService employeeService = new EmployeeService(new EmployeeRepository());
+    private EmployeeService employeeService = new EmployeeService(new EmployeeRepository());
 
     @PostMapping("/login")
     public String login(WebRequest webRequest) {
-        String mail = webRequest.getParameter("email");
+        String email = webRequest.getParameter("email");
         String password = webRequest.getParameter("password");
-        Employee employee = employeeService.readUser(mail, password);
-
+        Employee employee = employeeService.readEmployee(email, password);
+//er det sikkert at sende password op i webrequest
         if (employee != null) {
             webRequest.setAttribute("employee", employee, WebRequest.SCOPE_SESSION);
             return "redirect:/profile";

@@ -1,13 +1,17 @@
 package projectCalculationTool.employee;
 
 public class EmployeeService {
-  EmployeeRepository employeeRepository;
+  EmployeeRepositoryInterface employeeRepositoryInterface;
 
-    public EmployeeService(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
+    public EmployeeService(EmployeeRepositoryInterface employeeRepositoryInterface) {
+        this.employeeRepositoryInterface = employeeRepositoryInterface;
     }
 
-    public Employee readUser(String employeeMail, String employeePassword){
-        return employeeRepository.read(employeeMail, employeePassword);
+    public Employee readEmployee(String employeeEmail, String employeePassword){
+        return employeeRepositoryInterface.read(employeeEmail, employeePassword);
+    }
+
+    public Employee createEmployee(Employee employee) {
+        return null;
     }
 }

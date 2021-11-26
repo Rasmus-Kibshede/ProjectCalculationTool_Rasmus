@@ -8,13 +8,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class EmployeeRepository implements EmployeeRepositoryInterface {
-    Connection connect = DBManager.getConnection();
+    private static Connection connection = DBManager.getConnection();
 
     @Override
-    public Employee read(String employeeMail, String employeePassword) {
+    public Employee read(String employeeEmail, String employeePassword) {
         try {
-            PreparedStatement ps = connect.prepareStatement("CALL read_employees(?,?) ");
-            ps.setString(1, employeeMail);
+            PreparedStatement ps = connection.prepareStatement("CALL read_employees(?,?) ");
+            ps.setString(1, employeeEmail);
             ps.setString(2, employeePassword);
 
             ResultSet rs = ps.executeQuery();
@@ -31,6 +31,10 @@ public class EmployeeRepository implements EmployeeRepositoryInterface {
         } catch (SQLException err) {
             err.printStackTrace();
         }
+        return null;
+    }
+
+    public Employee create(Employee employee) {
         return null;
     }
 }

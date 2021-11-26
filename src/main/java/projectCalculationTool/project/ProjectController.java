@@ -13,10 +13,10 @@ import projectCalculationTool.employee.EmployeeService;
 public class ProjectController {
 
     private final ProjectService PROJECT_SERVICE = new ProjectService(new ProjectRepository());
-    private final EmployeeService EMPLOYEE_SERVICE = new EmployeeService(new EmployeeRepository());
+    //private final EmployeeService EMPLOYEE_SERVICE = new EmployeeService(new EmployeeRepository());
 
     @GetMapping("/profile")
-    public String projectPage(WebRequest webRequest, Model model) {
+    public String profile(WebRequest webRequest, Model model) {
 
         Employee employee = (Employee) webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION);
 

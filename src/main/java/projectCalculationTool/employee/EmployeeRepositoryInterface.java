@@ -2,5 +2,5 @@ package projectCalculationTool.employee;
 
 public interface EmployeeRepositoryInterface {
 
-    Employee read(String userMail, String userPassword);
+    Employee read(String EmployeeEmail, String EmployeePassword);
 }

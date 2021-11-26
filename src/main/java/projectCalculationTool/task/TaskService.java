@@ -1,17 +1,17 @@
 package projectCalculationTool.task;
 
 public class TaskService {
-  private TaskRepository taskRepository;
+  private TaskRepositoryInterface taskRepositoryInterface;
 
-  public TaskService(TaskRepository taskRepository) {
-    this.taskRepository = taskRepository;
+  public TaskService(TaskRepositoryInterface taskRepositoryInterface) {
+    this.taskRepositoryInterface = taskRepositoryInterface;
   }
 
-  public Task create(Task task) {
+  public Task createTask(Task task) {
     return null;
   }
 
-  public Task read(int taskID) {
+  public Task readTask(int taskID) {
     return null;
   }
 }

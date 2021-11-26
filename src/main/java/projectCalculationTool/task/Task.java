@@ -1,16 +1,16 @@
 package projectCalculationTool.task;
 
 public class Task {
-  private double time;
+  private double timeHours;
   private String name;
   private int taskID;
 
-  public double getTime() {
-    return time;
+  public double getTimeHours() {
+    return timeHours;
   }
 
-  public void setTime(double time) {
-    this.time = time;
+  public void setTimeHours(double timeHours) {
+    this.timeHours = timeHours;
   }
 
   public String getName() {
@@ -30,7 +30,7 @@ public class Task {
   }
 
   public Task(double time, String name, int taskID) {
-    this.time = time;
+    this.timeHours = time;
     this.name = name;
     this.taskID = taskID;
   }

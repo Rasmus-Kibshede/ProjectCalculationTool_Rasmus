@@ -1,9 +1,14 @@
 package projectCalculationTool.project;
 
+import projectCalculationTool.subproject.SubProject;
+
+import java.util.ArrayList;
+
 public class Project {
   private String name;
   private double projectHoursTotal;
   private int projectID;
+  private ArrayList<SubProject> subProjects;
 
   public String getName() {
     return name;
