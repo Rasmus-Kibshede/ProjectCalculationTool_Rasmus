@@ -1,7 +1,7 @@
 package projectCalculationTool.employee;
 
 public class EmployeeService {
-  EmployeeRepositoryInterface employeeRepositoryInterface;
+  private EmployeeRepositoryInterface employeeRepositoryInterface;
 
     public EmployeeService(EmployeeRepositoryInterface employeeRepositoryInterface) {
         this.employeeRepositoryInterface = employeeRepositoryInterface;
