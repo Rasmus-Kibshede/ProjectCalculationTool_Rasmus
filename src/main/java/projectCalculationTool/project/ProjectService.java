@@ -11,7 +11,8 @@ public class ProjectService {
     return projectRepository.create(project);
   }
 
-  public Project readProject(int projectID){
-    return projectRepository.read(projectID);
+  public Project readProject(int employeeID){
+    return projectRepository.read(employeeID);
   }
+
 }
