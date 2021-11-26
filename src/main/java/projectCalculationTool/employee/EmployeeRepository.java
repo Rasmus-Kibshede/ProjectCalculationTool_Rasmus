@@ -1,4 +1,4 @@
-package projectCalculationTool.user;
+package projectCalculationTool.employee;
 
 import projectCalculationTool.util.DBManager;
 
@@ -7,11 +7,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserRepository implements UserRepositoryInterface {
+public class EmployeeRepository implements EmployeeRepositoryInterface {
     Connection connect = DBManager.getConnection();
 
     @Override
-    public User read(String userMail, String userPassword) {
+    public Employee read(String userMail, String userPassword) {
         try {
             PreparedStatement ps = connect.prepareStatement("CALL read_user(?,?) ");
             ps.setString(1, userMail);
@@ -20,12 +20,12 @@ public class UserRepository implements UserRepositoryInterface {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                User user = new User();
-                user.setUserID(rs.getInt(1));
-                user.setEmail(rs.getString(2));
-                user.setPassword(rs.getString(3));
+                Employee employee = new Employee();
+                employee.setUserID(rs.getInt(1));
+                employee.setEmail(rs.getString(2));
+                employee.setPassword(rs.getString(3));
 
-                return user;
+                return employee;
             }
 
         } catch (SQLException err) {

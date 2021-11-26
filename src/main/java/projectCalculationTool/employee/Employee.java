@@ -1,6 +1,6 @@
-package projectCalculationTool.user;
+package projectCalculationTool.employee;
 
-public class User {
+public class Employee {
     private String password;
 
     public String getPassword() {
