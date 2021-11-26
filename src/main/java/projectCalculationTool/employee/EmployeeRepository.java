@@ -11,11 +11,11 @@ public class EmployeeRepository implements EmployeeRepositoryInterface {
     Connection connect = DBManager.getConnection();
 
     @Override
-    public Employee read(String userMail, String userPassword) {
+    public Employee read(String employeeMail, String employeePassword) {
         try {
-            PreparedStatement ps = connect.prepareStatement("CALL read_user(?,?) ");
-            ps.setString(1, userMail);
-            ps.setString(2, userPassword);
+            PreparedStatement ps = connect.prepareStatement("CALL read_employees(?,?) ");
+            ps.setString(1, employeeMail);
+            ps.setString(2, employeePassword);
 
             ResultSet rs = ps.executeQuery();
 

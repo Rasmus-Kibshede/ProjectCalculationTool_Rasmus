@@ -7,7 +7,7 @@ public class EmployeeService {
         this.employeeRepository = employeeRepository;
     }
 
-    public Employee readUser(String userMail, String userPassword){
-        return employeeRepository.read(userMail, userPassword);
+    public Employee readUser(String employeeMail, String employeePassword){
+        return employeeRepository.read(employeeMail, employeePassword);
     }
 }
