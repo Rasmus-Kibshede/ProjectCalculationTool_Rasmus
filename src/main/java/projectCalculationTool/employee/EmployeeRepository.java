@@ -21,7 +21,7 @@ public class EmployeeRepository implements EmployeeRepositoryInterface {
 
             if (rs.next()) {
                 Employee employee = new Employee();
-                employee.setUserID(rs.getInt(1));
+                employee.setEmployeeID(rs.getInt(1));
                 employee.setEmail(rs.getString(2));
                 employee.setPassword(rs.getString(3));
 

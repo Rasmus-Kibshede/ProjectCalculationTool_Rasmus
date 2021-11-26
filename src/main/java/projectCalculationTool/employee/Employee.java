@@ -2,6 +2,8 @@ package projectCalculationTool.employee;
 
 public class Employee {
     private String password;
+    private String email;
+    private int employeeID;
 
     public String getPassword() {
         return password;
@@ -19,16 +21,14 @@ public class Employee {
         this.email = email;
     }
 
-    public int getUserID() {
-        return userID;
+    public int getEmployeeID() {
+        return employeeID;
     }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public void setEmployeeID(int employeeID) {
+        this.employeeID = employeeID;
     }
 
-    private String email;
-    private int userID;
 
 
 

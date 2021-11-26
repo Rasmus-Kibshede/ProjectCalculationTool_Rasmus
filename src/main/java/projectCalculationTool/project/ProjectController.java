@@ -20,14 +20,14 @@ public class ProjectController {
 
         Employee employee = (Employee) webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION);
 
-        //int projectid = Integer.parseInt(webRequest.getParameter("id"));
-        //Get session with userID
-
-        //Logik skal ikke ligge her skal ligge i repository
         if (employee != null) {
+            Project project = PROJECT_SERVICE.readProject(employee.getEmployeeID());
+
+            model.addAttribute("project", project);
+
             return "profile";
         }
-        return "profile";
+        return "/";
     }
 
     @PostMapping("/addproject")
