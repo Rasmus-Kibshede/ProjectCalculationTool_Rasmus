@@ -1,0 +1,31 @@
+#navbar {
+    background-color: #FFFFFF;
+    position: fixed;
+    z-index: 5;
+    max-width: 1330px;
+    width: 100%;
+    display: block;
+    height: 108px;
+}
+
+#navbar.fixed {
+    position: fixed;
+    z-index: 5;
+}
+
+#navbar .header {
+    margin: 29px 0 auto 0;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    display: -ms-flexbox;
+    display: flex;
+    height: 50px;
+    position: relative;
+}
+
+#navbar .header #logo {
+    margin-right: 100px;
+    display: inline-block;
+    background-size: contain;
+    width: 186px;
+}
