@@ -10,6 +10,8 @@
     <div id="content">
         <h2 th:text${project.name}></h2>
 
+        <a th:href="'/projectOverview?id=' + ${project.id}">Fulde Projekt Oversigt</a>
+
         <h3>SubProjects</h3>
         <div id="subprojects" th:each="sp: ${subprojects}">
             <a th:href="'/subproject?id=' + ${sp.id}" th:text="${sp.name}"></a>
