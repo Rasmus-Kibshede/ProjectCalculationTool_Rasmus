@@ -13,11 +13,11 @@
                             <input type="text" placeholder="project name" name="projectname" required>
                         </form>
                         -->
-            <tr>
-                <td>
-                    <a th:href="'/project?id=' + ${project.projectID}" th:text="${project.name}"></a>
-                </td>
-            </tr>
+       <div th:each="project: ${projects}">
+           <a th:href="'/project?id=' + ${project.projectID}" th:text="${project.name}"></a>
+       </div>
+            <input type="text" placeholder="Project Name" name="projectname" class="textfield" required>
+            <input type="submit" value="Save Project" class="submit">
         </div>
     </div>
 </div>
