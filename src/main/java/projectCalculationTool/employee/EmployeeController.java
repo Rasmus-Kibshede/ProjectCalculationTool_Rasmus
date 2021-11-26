@@ -10,7 +10,7 @@ public class EmployeeController {
 
     @PostMapping("/login")
     public String login(WebRequest webRequest) {
-        String mail = webRequest.getParameter("mail");
+        String mail = webRequest.getParameter("email");
         String password = webRequest.getParameter("password");
         Employee employee = employeeService.readUser(mail, password);
 
