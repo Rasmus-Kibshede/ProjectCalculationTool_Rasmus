@@ -2,13 +2,13 @@
 * {
     margin: 0;
     padding: 0;
-    /*Fra Alpha Solution*/
     text-decoration: none;
+    /*Fra Alpha Solution*/
     font-family: Montserrat, sans-serif;
     /*Slut Alpha Solution*/
 }
 
-#wrapper{
+#wrapper {
     /*Fra Alpha Solution*/
     max-width: 1330px;
     margin: auto;
@@ -24,6 +24,13 @@
     margin: auto;
     position: relative;
     /* Slut Alpha solutions*/
+}
+
+/*
+Does not work
+ */
+#content .error {
+    color: #FF325A;
 }
 
 /* Header */
@@ -109,19 +116,7 @@
 /*Alpha solutions slut*/
 
 
-
-
-
-
-
 /*--------------------------------------------------------------------------------------------------------------------*/
-
-
-
-
-
-
-
 
 
 /* Footer hentet fra Alpha Solutions hjemmeside https://www.alpha-solutions.com/da */
@@ -343,4 +338,5 @@
 .footer#adr a {
     color: #000;
 }
+
 /*Alpha solutions slut*/

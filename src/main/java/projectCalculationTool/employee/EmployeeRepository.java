@@ -1,6 +1,7 @@
 package projectCalculationTool.employee;
 
 import projectCalculationTool.util.DBManager;
+import projectCalculationTool.util.exception.LoginException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,7 +12,7 @@ public class EmployeeRepository implements EmployeeRepositoryInterface {
     private static Connection connection = DBManager.getConnection();
 
     @Override
-    public Employee read(String employeeEmail, String employeePassword) {
+    public Employee read(String employeeEmail, String employeePassword) throws LoginException {
         try {
             PreparedStatement ps = connection.prepareStatement("CALL read_employees(?,?) ");
             ps.setString(1, employeeEmail);
@@ -26,12 +27,13 @@ public class EmployeeRepository implements EmployeeRepositoryInterface {
                 employee.setPassword(rs.getString(3));
 
                 return employee;
+            } else {
+                throw new LoginException("Invalid email or password");
             }
 
         } catch (SQLException err) {
-            err.printStackTrace();
+            throw new LoginException(err.getMessage());
         }
-        return null;
     }
 
     public Employee create(Employee employee) {

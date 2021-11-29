@@ -1,5 +1,7 @@
 package projectCalculationTool.employee;
 
+import projectCalculationTool.util.exception.LoginException;
+
 public class EmployeeService {
   private EmployeeRepositoryInterface employeeRepositoryInterface;
 
@@ -7,7 +9,7 @@ public class EmployeeService {
         this.employeeRepositoryInterface = employeeRepositoryInterface;
     }
 
-    public Employee readEmployee(String employeeEmail, String employeePassword){
+    public Employee readEmployee(String employeeEmail, String employeePassword) throws LoginException {
         return employeeRepositoryInterface.read(employeeEmail, employeePassword);
     }
 
