@@ -24,6 +24,31 @@ public class ProjectRepository implements ProjectRepositoryInterface {
         }
     }
 
+    public Project readProject(int projectID) throws SQLException {
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("CALL read_project(?)");
+
+            preparedStatement.setInt(1, projectID);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                Project project = new Project();
+
+                //Needs more information, like employee via joins
+                project.setProjectID(resultSet.getInt("project_id"));
+                project.setName(resultSet.getString("project_name"));
+
+                return project;
+            } else {
+                throw new SQLException("Can´t add new project");
+            }
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage());
+        }
+    }
+
     public ArrayList<Project> readProjects(Employee employee) {
 
         try {

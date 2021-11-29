@@ -12,29 +12,41 @@ public class Project {
     private int projectID;
     private ArrayList<SubProject> subProjects;
 
-    public String getName() {
-        return name;
-    }
+  public ArrayList<SubProject> getSubProjects() {
+    return subProjects;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public void setSubProjects(ArrayList<SubProject> subProjects) {
+    this.subProjects = subProjects;
+  }
 
-    public double getProjectHoursTotal() {
-        return projectHoursTotal;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public void setProjectHoursTotal(double projectHoursTotal) {
-        this.projectHoursTotal = projectHoursTotal;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public int getProjectID() {
-        return projectID;
-    }
+  public double getProjectHoursTotal() {
+    return projectHoursTotal;
+  }
 
-    public void setProjectID(int projectID) {
-        this.projectID = projectID;
-    }
+  public void setProjectHoursTotal(double projectHoursTotal) {
+    this.projectHoursTotal = projectHoursTotal;
+  }
+
+  public int getProjectID() {
+    return projectID;
+  }
+
+  public void setProjectID(int projectID) {
+    this.projectID = projectID;
+  }
+
+  public void addSubproject(SubProject subProject){
+    subProjects.add(subProject);
+  }
 
     public Employee getEmployee() {
         return employee;

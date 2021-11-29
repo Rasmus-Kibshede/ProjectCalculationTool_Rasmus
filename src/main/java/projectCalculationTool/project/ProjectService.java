@@ -2,6 +2,7 @@ package projectCalculationTool.project;
 
 import projectCalculationTool.employee.Employee;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ProjectService {
@@ -23,4 +24,7 @@ public class ProjectService {
         return projectRepositoryInterface.readProjects(employee);
     }
 
+    public Project readProject(int projectID) throws SQLException {
+        return projectRepositoryInterface.readProject(projectID);
+    }
 }
