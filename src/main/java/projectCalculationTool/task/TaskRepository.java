@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class TaskRepository implements TaskRepositoryInterface {
   private static Connection connection = DBManager.getConnection();
@@ -30,6 +31,24 @@ public class TaskRepository implements TaskRepositoryInterface {
 
   @Override
   public Task read(int taskID) {
+    try {
+      PreparedStatement ps = connection.prepareStatement("CALL read_task(?)");
+      ps.setInt(1,taskID);
+      ResultSet rs = ps.executeQuery();
+
+      ArrayList<Task> tasks = new ArrayList<>();
+
+      while (rs.next()){
+        int id = rs.getInt(1);
+        //Skal task have en constructor?
+        Task task = new Task(20,"placeholder");
+
+        tasks.add(task);
+      }
+    } catch (SQLException err){
+      err.printStackTrace();
+    }
+
     return null;
   }
 }
