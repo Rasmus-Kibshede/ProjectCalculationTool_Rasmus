@@ -9,6 +9,8 @@ import projectCalculationTool.employee.Employee;
 import projectCalculationTool.employee.EmployeeRepository;
 import projectCalculationTool.employee.EmployeeService;
 
+import java.util.ArrayList;
+
 @Controller
 public class ProjectController {
 
@@ -21,10 +23,9 @@ public class ProjectController {
         Employee employee = (Employee) webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION);
 
         if (employee != null) {
-            //Project project = PROJECT_SERVICE.readProject(employee.getEmployeeID());
-
+            ArrayList<Project> projects = PROJECT_SERVICE.readProjects(employee);
             model.addAttribute("employee", employee);
-            //model.addAttribute("project", project);
+            model.addAttribute("project", projects);
 
             return "profile";
         }
@@ -33,12 +34,10 @@ public class ProjectController {
 
     @PostMapping("/addproject")
     public String createProject(WebRequest webRequest) {
+        String projectName = webRequest.getParameter("projectname");
 
-        String projectName = webRequest.getParameter("name");
-
-        Project project = new Project();
-        project.setName(projectName);
-        PROJECT_SERVICE.createProject(project);
+        PROJECT_SERVICE.createProject(projectName,
+                (Employee) webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION));
 
         return "redirect:/profile";
     }

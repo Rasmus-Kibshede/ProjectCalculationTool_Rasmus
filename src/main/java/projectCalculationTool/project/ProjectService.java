@@ -1,18 +1,26 @@
 package projectCalculationTool.project;
 
+import projectCalculationTool.employee.Employee;
+
+import java.util.ArrayList;
+
 public class ProjectService {
 
-  private ProjectRepositoryInterface projectRepositoryInterface;
+    private ProjectRepositoryInterface projectRepositoryInterface;
 
-  public ProjectService(ProjectRepositoryInterface projectRepositoryInterface){
-    this.projectRepositoryInterface = projectRepositoryInterface;
-  }
-  public Project createProject(Project project){
-    return projectRepositoryInterface.create(project);
-  }
+    public ProjectService(ProjectRepositoryInterface projectRepositoryInterface) {
+        this.projectRepositoryInterface = projectRepositoryInterface;
+    }
 
-  public Project readProject(int employeeID){
-    return projectRepositoryInterface.read(employeeID);
-  }
+    public void createProject(String projectName, Employee employee) {
+        Project project = new Project();
+        project.setEmployee(employee);
+        project.setName(projectName);
+        projectRepositoryInterface.create(project);
+    }
+
+    public ArrayList<Project> readProjects(Employee employee) {
+        return projectRepositoryInterface.readProjects(employee);
+    }
 
 }

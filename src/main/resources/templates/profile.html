@@ -10,11 +10,11 @@
     <div id="content">
         <div id="projects">
             <h2 th:text="${employee.email}"></h2>
-            <div th:each="project: ${employee.projects}">
+            <div th:each="project: ${project}">
                 <a th:href="'/project?id=' + ${project.projectID}" th:text="${project.name}"></a>
             </div>
-            <form action="/addproject" method="get">
-            <input type="text" placeholder="Project Name" name="project" class="textfield" required>
+            <form action="/addproject" method="POST">
+            <input type="text" placeholder="Project Name" name="projectname" class="textfield" required>
             <input type="submit" value="Save Project" class="submit">
             </form>
         </div>

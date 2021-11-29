@@ -5,10 +5,11 @@ import projectCalculationTool.subproject.SubProject;
 import java.util.ArrayList;
 
 public class Project {
-  private String name;
-  private double projectHoursTotal;
-  private int projectID;
-  private ArrayList<SubProject> subProjects;
+    private String name;
+    private Employee employee;
+    private double projectHoursTotal;
+    private int projectID;
+    private ArrayList<SubProject> subProjects;
 
   public ArrayList<SubProject> getSubProjects() {
     return subProjects;
@@ -46,4 +47,11 @@ public class Project {
     subProjects.add(subProject);
   }
 
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
 }

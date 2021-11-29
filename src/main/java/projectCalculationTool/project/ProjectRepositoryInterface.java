@@ -1,8 +1,12 @@
 package projectCalculationTool.project;
 
+import projectCalculationTool.employee.Employee;
+
+import java.util.ArrayList;
+
 public interface ProjectRepositoryInterface {
 
-  Project create(Project project);
+  void create(Project project);
 
-  Project read(int projectID);
+  ArrayList<Project> readProjects(Employee employee);
 }
