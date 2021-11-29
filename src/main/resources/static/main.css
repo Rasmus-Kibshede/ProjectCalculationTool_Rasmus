@@ -2,8 +2,10 @@
 * {
     margin: 0;
     padding: 0;
-    text-decoration: none;/*Fra Alpha Solution*/
+    /*Fra Alpha Solution*/
+    text-decoration: none;
     font-family: Montserrat, sans-serif;
+    /*Slut Alpha Solution*/
 }
 
 #wrapper{
