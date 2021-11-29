@@ -1,37 +1,46 @@
 package projectCalculationTool.project;
 
+import projectCalculationTool.employee.Employee;
 import projectCalculationTool.subproject.SubProject;
 
 import java.util.ArrayList;
 
 public class Project {
-  private String name;
-  private double projectHoursTotal;
-  private int projectID;
-  private ArrayList<SubProject> subProjects;
+    private String name;
+    private Employee employee;
+    private double projectHoursTotal;
+    private int projectID;
+    private ArrayList<SubProject> subProjects;
 
-  public String getName() {
-    return name;
-  }
+    public String getName() {
+        return name;
+    }
 
-  public void setName(String name) {
-    this.name = name;
-  }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-  public double getProjectHoursTotal() {
-    return projectHoursTotal;
-  }
+    public double getProjectHoursTotal() {
+        return projectHoursTotal;
+    }
 
-  public void setProjectHoursTotal(double projectHoursTotal) {
-    this.projectHoursTotal = projectHoursTotal;
-  }
+    public void setProjectHoursTotal(double projectHoursTotal) {
+        this.projectHoursTotal = projectHoursTotal;
+    }
 
-  public int getProjectID() {
-    return projectID;
-  }
+    public int getProjectID() {
+        return projectID;
+    }
 
-  public void setProjectID(int projectID) {
-    this.projectID = projectID;
-  }
+    public void setProjectID(int projectID) {
+        this.projectID = projectID;
+    }
 
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
 }

@@ -21,10 +21,9 @@ public class ProjectController {
         Employee employee = (Employee) webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION);
 
         if (employee != null) {
-            //Project project = PROJECT_SERVICE.readProject(employee.getEmployeeID());
-
+            Project project = PROJECT_SERVICE.readProject(employee.getEmployeeID());
             model.addAttribute("employee", employee);
-            //model.addAttribute("project", project);
+            model.addAttribute("projectname", project);
 
             return "profile";
         }
@@ -33,12 +32,10 @@ public class ProjectController {
 
     @PostMapping("/addproject")
     public String createProject(WebRequest webRequest) {
+        String projectName = webRequest.getParameter("projectname");
 
-        String projectName = webRequest.getParameter("name");
-
-        Project project = new Project();
-        project.setName(projectName);
-        PROJECT_SERVICE.createProject(project);
+        PROJECT_SERVICE.createProject(projectName,
+                (Employee) webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION));
 
         return "redirect:/profile";
     }
