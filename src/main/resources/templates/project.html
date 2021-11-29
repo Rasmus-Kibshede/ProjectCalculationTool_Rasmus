@@ -18,6 +18,7 @@
         </div>
         <div id="add">
             <form action="addSubProject" method="POST">
+                <input type="hidden" name="projectID" th:value="${project.projectID}">
                 <input type="text" name="subprojectname" placeholder="Name" class="textfield" required>
                 <input type="submit" value="Save SubProject" class="submit">
             </form>

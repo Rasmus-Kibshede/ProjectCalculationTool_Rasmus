@@ -52,7 +52,7 @@ public class ProjectRepository implements ProjectRepositoryInterface {
     public ArrayList<Project> readProjects(Employee employee) {
 
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("CALL read_project(?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("CALL read_projects(?)");
             preparedStatement.setInt(1, employee.getEmployeeID());
 
             ResultSet resultSet = preparedStatement.executeQuery();

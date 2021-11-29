@@ -11,8 +11,9 @@ public class SubProjectService {
         this.subProjectRepositoryInterface = subProjectRepositoryInterface;
     }
 
-    public void createSubProject(String subProjectName) throws SQLException {
+    public void createSubProject(String subProjectName, int projectID) throws SQLException {
         Project project = new Project();
+        project.setProjectID(projectID);
         project.addSubproject(new SubProject(subProjectName));
 
         subProjectRepositoryInterface.create(project);
