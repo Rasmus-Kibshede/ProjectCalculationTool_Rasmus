@@ -10,6 +10,14 @@ public class Project {
   private int projectID;
   private ArrayList<SubProject> subProjects;
 
+  public ArrayList<SubProject> getSubProjects() {
+    return subProjects;
+  }
+
+  public void setSubProjects(ArrayList<SubProject> subProjects) {
+    this.subProjects = subProjects;
+  }
+
   public String getName() {
     return name;
   }
@@ -32,6 +40,10 @@ public class Project {
 
   public void setProjectID(int projectID) {
     this.projectID = projectID;
+  }
+
+  public void addSubproject(SubProject subProject){
+    subProjects.add(subProject);
   }
 
 }

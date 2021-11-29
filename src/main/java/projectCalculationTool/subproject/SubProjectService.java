@@ -1,22 +1,27 @@
 package projectCalculationTool.subproject;
 
+import projectCalculationTool.project.Project;
+
+import java.sql.SQLException;
+
 public class SubProjectService {
-  private SubProjectRepositoryInterface subProjectRepositoryInterface;
+    private SubProjectRepositoryInterface subProjectRepositoryInterface;
 
-  public SubProjectService(SubProjectRepositoryInterface subProjectRepositoryInterface) {
-    this.subProjectRepositoryInterface = subProjectRepositoryInterface;
-  }
+    public SubProjectService(SubProjectRepositoryInterface subProjectRepositoryInterface) {
+        this.subProjectRepositoryInterface = subProjectRepositoryInterface;
+    }
 
-  //Edit method name in class diagram
-  public SubProject createSubProject(SubProject subProject){
-    //Return a SubProject
-    return null;
-  }
+    public void createSubProject(String subProjectName) throws SQLException {
+        Project project = new Project();
+        project.addSubproject(new SubProject(subProjectName));
 
-  //Edit method name in class diagram
-  public SubProject readSubProject(int subProjectID){
-    //Return a SubProject
-    return null;
-  }
+        subProjectRepositoryInterface.create(project);
+    }
+
+    //Edit method name in class diagram
+    public SubProject readSubProject(int subProjectID) {
+        //Return a SubProject
+        return null;
+    }
 
 }

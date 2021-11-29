@@ -21,6 +21,7 @@
                 <input type="text" name="subprojectname" placeholder="Name" class="textfield" required>
                 <input type="submit" value="Save SubProject" class="submit">
             </form>
+            <p th:text="${error}"></p>
         </div>
     </div>
     <th:block th:insert="fragments/general :: footer"></th:block>
