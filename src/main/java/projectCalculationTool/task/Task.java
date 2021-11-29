@@ -1,9 +1,12 @@
 package projectCalculationTool.task;
 
+import projectCalculationTool.subproject.SubProject;
+
 public class Task {
   private double timeHours;
   private String name;
   private int taskID;
+  private SubProject subProject;
 
   public double getTimeHours() {
     return timeHours;
@@ -29,10 +32,17 @@ public class Task {
     this.taskID = taskID;
   }
 
-  public Task(double time, String name, int taskID) {
+  public Task(double time, String name) {
     this.timeHours = time;
     this.name = name;
-    this.taskID = taskID;
+  }
+
+  public SubProject getSubProject() {
+    return subProject;
+  }
+
+  public void setSubProject(SubProject subProject) {
+    this.subProject = subProject;
   }
 
 }

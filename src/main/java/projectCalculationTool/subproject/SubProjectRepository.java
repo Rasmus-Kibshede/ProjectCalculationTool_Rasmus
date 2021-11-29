@@ -15,27 +15,31 @@ public class SubProjectRepository implements SubProjectRepositoryInterface {
     public void create(Project project) throws SQLException {
 
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("CALL create_sub_project(?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("CALL create_sub_project(?,?)");
+            for (SubProject subproject : project.getSubProjects()) {
+                preparedStatement.setInt(2, project.getProjectID());
+                preparedStatement.setString(1, subproject.getName());
+                preparedStatement.addBatch();
+            }
+            preparedStatement.executeBatch();
 
-            preparedStatement.setString(1, project.getSubProjects().get(0).getName());
-            //preparedStatement.setArray(1, project.getSubProjects());
-
-            //Found on https://stackoverflow.com/questions/1915166/how-to-get-the-insert-id-in-jdbc
+            /*Found on https://stackoverflow.com/questions/1915166/how-to-get-the-insert-id-in-jdbc
 
             int affectedRows = preparedStatement.executeUpdate();
 
             if (affectedRows == 0) {
-                throw new SQLException("Creating user failed, no rows affected.");
+                throw new SQLException("Creating subproject failed, no rows affected.");
             }
 
             try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     project.getSubProjects().get(0).setSubProjectID(generatedKeys.getInt(1));
                 } else {
-                    throw new SQLException("Creating user failed, no ID obtained.");
+                    throw new SQLException("Creating subproject failed, no ID obtained.");
                 }
-            }
-            //END
+
+            }            //END
+            */
 
         } catch (SQLException e) {
             throw new SQLException(e.getMessage());

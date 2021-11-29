@@ -22,6 +22,7 @@ public class ProjectController {
     @GetMapping("/project")
     public String project(WebRequest webRequest, Model model) throws SQLException {
         int projectID = Integer.parseInt(webRequest.getParameter("id"));
+        Employee employee = (Employee) webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION);
 
         Project project = PROJECT_SERVICE.readProject(projectID);
 

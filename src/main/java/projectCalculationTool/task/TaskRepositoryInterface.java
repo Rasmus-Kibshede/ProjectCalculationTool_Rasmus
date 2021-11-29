@@ -1,6 +1,8 @@
 package projectCalculationTool.task;
 
+import java.sql.SQLException;
+
 public interface TaskRepositoryInterface {
-  Task create(Task task);
+  void create(Task task) throws SQLException;
   Task read(int taskID);
 }
