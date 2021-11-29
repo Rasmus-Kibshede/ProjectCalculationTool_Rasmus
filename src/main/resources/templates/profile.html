@@ -3,21 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="/overview.css">
+    <th:block th:include="fragments/general :: headfiles"></th:block>
+    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/profile.css">
 </head>
 <body>
 <div id="wrapper">
     <div id="content">
         <div id="projects">
-            <h2 th:text="${employee.email}"></h2>
-            <div th:each="project: ${project}">
-                <a th:href="'/project?id=' + ${project.projectID}" th:text="${project.name}"></a>
+            <!-- Project menu -->
+            <div class="projectmenu">
+                <h2 th:text="${employee.email}"></h2>
+                <form action="/addproject" method="POST">
+                    <input type="text" placeholder="Project Name" name="projectname" class="textfield" required>
+                    <input type="submit" value="Save Project" class="submit">
+                </form>
             </div>
-            <form action="/addproject" method="POST">
-            <input type="text" placeholder="Project Name" name="projectname" class="textfield" required>
-            <input type="submit" value="Save Project" class="submit">
-            </form>
+            <!-- project menu-->
+            <!-- project box-->
+            <div class="projectbox" th:each="project: ${project}">
+                <a th:href="'/project?id=' + ${project.projectID}" th:text="${project.name}"></a>
+                <p>Description:</p>
+                <p>Project members:</p>
+            </div>
+            <!-- project box-->
         </div>
+        <th:block th:insert="fragments/general :: footer"></th:block>
     </div>
 </div>
 </body>

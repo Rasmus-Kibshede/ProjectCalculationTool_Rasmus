@@ -1,0 +1,17 @@
+.projectmenu{
+    width: 100%;
+    background: #59869d;
+}
+
+
+.projectbox{
+    width: 310px;
+    background: lightgray;
+    display: inline-block;
+    margin: 10px;
+    height: 150px;
+}
+
+.projectbox :hover{
+    background: gray;
+}
