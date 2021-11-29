@@ -2,6 +2,8 @@ package projectCalculationTool.project;
 
 import projectCalculationTool.employee.Employee;
 
+import java.util.ArrayList;
+
 public class ProjectService {
 
     private ProjectRepositoryInterface projectRepositoryInterface;
@@ -17,8 +19,8 @@ public class ProjectService {
         projectRepositoryInterface.create(project);
     }
 
-    public Project readProject(int employeeID) {
-        return projectRepositoryInterface.read(employeeID);
+    public ArrayList<Project> readProjects(Employee employee) {
+        return projectRepositoryInterface.readProjects(employee);
     }
 
 }

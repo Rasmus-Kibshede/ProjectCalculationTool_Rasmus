@@ -1,9 +1,11 @@
 package projectCalculationTool.project;
 
+import projectCalculationTool.employee.Employee;
 import projectCalculationTool.subproject.SubProjectRepository;
 import projectCalculationTool.util.DBManager;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class ProjectRepository implements ProjectRepositoryInterface {
 
@@ -22,21 +24,27 @@ public class ProjectRepository implements ProjectRepositoryInterface {
         }
     }
 
-    public Project read(int projectID) {
+    public ArrayList<Project> readProjects(Employee employee) {
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("CALL read_project(?)");
-            preparedStatement.setInt(1, projectID);
+            preparedStatement.setInt(1, employee.getEmployeeID());
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            if (resultSet.next()) {
+
+            ArrayList<Project> projects = new ArrayList<>();
+
+            while (resultSet.next()) {
                 Project project = new Project();
-                project.setProjectID(projectID);
+
+                project.setProjectID(resultSet.getInt("project_ID"));
                 project.setName(resultSet.getString("project_name"));
 
-                return project;
+                projects.add(project);
             }
+
+          return projects;
         } catch (SQLException e) {
             e.printStackTrace();
         }

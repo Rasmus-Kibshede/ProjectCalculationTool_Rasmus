@@ -9,6 +9,8 @@ import projectCalculationTool.employee.Employee;
 import projectCalculationTool.employee.EmployeeRepository;
 import projectCalculationTool.employee.EmployeeService;
 
+import java.util.ArrayList;
+
 @Controller
 public class ProjectController {
 
@@ -21,9 +23,9 @@ public class ProjectController {
         Employee employee = (Employee) webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION);
 
         if (employee != null) {
-            Project project = PROJECT_SERVICE.readProject(employee.getEmployeeID());
+            ArrayList<Project> projects = PROJECT_SERVICE.readProjects(employee);
             model.addAttribute("employee", employee);
-            model.addAttribute("projectname", project);
+            model.addAttribute("project", projects);
 
             return "profile";
         }
