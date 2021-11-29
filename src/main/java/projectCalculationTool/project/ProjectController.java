@@ -29,7 +29,7 @@ public class ProjectController {
 
             return "profile";
         }
-        return "/";
+        return "redirect:/";
     }
 
     @PostMapping("/addproject")
