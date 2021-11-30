@@ -12,7 +12,7 @@ import java.sql.SQLException;
 public class TaskController {
   private TaskService TASK_SERVICE = new TaskService(new TaskRepository());
 
- /* @GetMapping("/addTask")
+  @GetMapping("/addTask")
   public String addTask(WebRequest webRequest) throws SQLException {
 
     String taskName = webRequest.getParameter("taskname");
@@ -23,7 +23,7 @@ public class TaskController {
 
     return "/addTask"; //HTML SIDEN MAGLER
   }
-*/
+
   @ExceptionHandler(SQLException.class)
   public String crateFailedHandler(Model model, Exception exception){
     model.addAttribute("Error", exception.getMessage());
