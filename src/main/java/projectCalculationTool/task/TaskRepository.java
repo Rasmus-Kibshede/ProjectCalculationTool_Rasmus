@@ -55,7 +55,7 @@ public class TaskRepository implements TaskRepositoryInterface {
 
     ArrayList<Task> tasks = new ArrayList<>();
 
-    int counter = resultSet.getRow();
+    int counter = resultSet.getRow() -1;
 
     //resultSet.beforeFirst();
 
