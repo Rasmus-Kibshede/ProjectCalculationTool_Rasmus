@@ -2,6 +2,10 @@ package projectCalculationTool.project;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import projectCalculationTool.employee.Employee;
+
+import java.rmi.UnexpectedException;
+import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,20 +19,20 @@ class ProjectRepositoryTest {
     }
 
     @Test
-    public void test_create() {
-
-        //Arrange
+    public void createWithException(){
         Project project = new Project();
-        project.setName("TestProject");
+        project.setName("TestProject-with to many characters to se if it throws an exception");
         project.setProjectHoursTotal(11);
+        Employee employee = new Employee();
+        project.setEmployee(employee);
 
-        //Act
-        projectRepository.create(project);
+        Throwable exception = assertThrows(SQLException.class, () -> projectRepository.create(project));
 
-        //Assert
-        //assertTrue(newProject.getProjectID() != 0);
+        assertEquals("Project name can't be longer then 45 characters.", exception.getMessage());
 
+        // KILDE: https://www.vogella.com/tutorials/JUnit/article.html#testing-for-exceptions
     }
+
 
   /*
   public void test_read(){

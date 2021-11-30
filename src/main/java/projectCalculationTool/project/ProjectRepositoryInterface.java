@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public interface ProjectRepositoryInterface {
 
-  void create(Project project);
+  void create(Project project) throws SQLException;
 
   ArrayList<Project> readProjects(Employee employee);
 

@@ -47,7 +47,7 @@ public class ProjectController {
     }
 
     @PostMapping("/addproject")
-    public String createProject(WebRequest webRequest) {
+    public String createProject(WebRequest webRequest) throws SQLException {
         String projectName = webRequest.getParameter("projectname");
 
         PROJECT_SERVICE.createProject(projectName,

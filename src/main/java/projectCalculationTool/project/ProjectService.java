@@ -13,7 +13,7 @@ public class ProjectService {
         this.projectRepositoryInterface = projectRepositoryInterface;
     }
 
-    public void createProject(String projectName, Employee employee) {
+    public void createProject(String projectName, Employee employee) throws SQLException {
         Project project = new Project();
         project.setEmployee(employee);
         project.setName(projectName);

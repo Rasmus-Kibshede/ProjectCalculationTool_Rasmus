@@ -11,16 +11,20 @@ public class ProjectRepository implements ProjectRepositoryInterface {
 
     private static Connection connection = DBManager.getConnection();
 
-    public void create(Project project) {
+    public void create(Project project)throws SQLException{
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("CALL create_project(?,?)");
-            preparedStatement.setString(1, project.getName());
+            if(project.getName().length() <= 45) {
+                preparedStatement.setString(1, project.getName());
+            } else {
+                throw new SQLException("Project name can't be longer then 45 characters.");
+            }
             preparedStatement.setInt(2, project.getEmployee().getEmployeeID());
 
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace(); //MAKE OWN EXCEPTION???
+            throw new SQLException(e.getMessage());
         }
     }
 
