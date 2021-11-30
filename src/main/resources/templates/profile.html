@@ -1,35 +1,47 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Profile</title>
     <th:block th:include="fragments/general :: headfiles"></th:block>
     <link rel="stylesheet" href="/main.css">
     <link rel="stylesheet" href="/profile.css">
 </head>
 <body>
 <div id="wrapper">
-    <div id="content">
-        <div id="projects">
-            <!-- Project menu -->
-            <div class="projectmenu">
-                <h2 th:text="${employee.email}"></h2>
-                <form action="/addproject" method="POST">
-                    <input type="text" placeholder="Project Name" name="projectname" class="textfield" required>
-                    <input type="submit" value="Save Project" class="submit">
-                </form>
+    <!--Referance fra Alpha solutions https://www.alpha-solutions.com/da-->
+    <header>
+        <div id="navbar">
+            <div class="header">
+                <div id="logo">
+                    <a href="/">
+                        <img src="https://media.alpha-solutions.com/da/-/media/alphawebsite2019/defaults/logo.ashx?iar=0&amp;hash=47313F5015E221C5AA54A61AFA0E9CA6"
+                             alt="Alpha Solutions Logo"/>
+                    </a>
+                </div>
             </div>
-            <!-- project menu-->
-            <!-- project box-->
-            <div class="projectbox" th:each="project: ${project}">
-                <a th:href="'/project?id=' + ${project.projectID}" th:text="${project.name}"></a>
-                <p>Description:</p>
-                <p>Project members:</p>
-            </div>
-            <!-- project box-->
         </div>
-        <th:block th:insert="fragments/general :: footer"></th:block>
+    </header>
+    <!--Slut referance fra Alpha Solution-->
+    <div id="content">
+        <!-- Project menu -->
+        <div class="projectmenu">
+            <h2 th:text="${employee.email}"></h2>
+            <form action="/addproject" method="POST">
+                <input type="text" placeholder="Project Name" name="projectname" class="textfield" required>
+                <input type="submit" value="Save Project" class="submit">
+            </form>
+        </div>
+        <!-- project menu-->
+        <!-- project box-->
+        <div class="projectbox" th:each="project: ${project}">
+            <a th:href="'/project?id=' + ${project.projectID}" th:text="${project.name}"></a>
+            <p>Description:</p>
+            <p>Project members:</p>
+        </div>
+        <!-- project box-->
+
     </div>
+    <th:block th:insert="fragments/general :: footer"></th:block>
 </div>
 </body>
 </html>
