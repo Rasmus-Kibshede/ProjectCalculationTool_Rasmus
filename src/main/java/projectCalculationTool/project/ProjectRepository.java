@@ -14,10 +14,10 @@ public class ProjectRepository implements ProjectRepositoryInterface {
     public void create(Project project)throws SQLException{
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("CALL create_project(?,?)");
-            if(project.getName().length() <= 45) {
+            if(project.getName() != null && project.getName().length() <= 45) {
                 preparedStatement.setString(1, project.getName());
             } else {
-                throw new SQLException("Project name can't be longer then 45 characters.");
+                throw new SQLException("Project name can't be null or longer then 45 characters.");
             }
             preparedStatement.setInt(2, project.getEmployee().getEmployeeID());
 
@@ -46,7 +46,7 @@ public class ProjectRepository implements ProjectRepositoryInterface {
 
                 return project;
             } else {
-                throw new SQLException("Can´t add new project");
+                throw new SQLException("Can´t read project from database");
             }
         } catch (SQLException e) {
             throw new SQLException(e.getMessage());
