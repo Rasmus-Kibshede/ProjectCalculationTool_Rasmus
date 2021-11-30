@@ -1,12 +1,9 @@
 package projectCalculationTool.task;
 
-import projectCalculationTool.subproject.SubProject;
-
 public class Task {
   private double timeHours;
   private String name;
   private int taskID;
-  private SubProject subProject;
 
   public double getTimeHours() {
     return timeHours;
@@ -36,13 +33,4 @@ public class Task {
     this.timeHours = time;
     this.name = name;
   }
-
-  public SubProject getSubProject() {
-    return subProject;
-  }
-
-  public void setSubProject(SubProject subProject) {
-    this.subProject = subProject;
-  }
-
 }

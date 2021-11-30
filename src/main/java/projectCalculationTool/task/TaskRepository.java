@@ -1,5 +1,6 @@
 package projectCalculationTool.task;
 
+import projectCalculationTool.subproject.SubProject;
 import projectCalculationTool.util.DBManager;
 
 import java.sql.Connection;
@@ -12,16 +13,18 @@ public class TaskRepository implements TaskRepositoryInterface {
   private static Connection connection = DBManager.getConnection();
 
   @Override
-  public void create(Task task) throws SQLException{
+  public void create(SubProject subProject) throws SQLException{
 
     try{
-      PreparedStatement preparedStatement = connection.prepareStatement("CALL create_task(?)"); //LAV STORED PROCEDURE
+      PreparedStatement preparedStatement = connection.prepareStatement("CALL create_task(?,?,?)"); //LAV STORED PROCEDURE
 
-      preparedStatement.setString(1, task.getName());
-      preparedStatement.setDouble(2, task.getTimeHours());
-      preparedStatement.setInt(3, task.getSubProject().getSubProjectID());
-
-      preparedStatement.executeUpdate();
+      for (Task task: subProject.getTasks()) {
+        preparedStatement.setString(1, task.getName());
+        preparedStatement.setDouble(2, task.getTimeHours());
+        preparedStatement.setInt(3, subProject.getSubProjectID());
+        preparedStatement.addBatch();
+      }
+      preparedStatement.executeBatch();
 
     }catch (SQLException e){
       throw new SQLException("Creating Task failed");
