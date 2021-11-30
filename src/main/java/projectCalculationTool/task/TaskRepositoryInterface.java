@@ -8,5 +8,5 @@ import java.util.ArrayList;
 
 public interface TaskRepositoryInterface {
   void create(SubProject subProject) throws SQLException;
-  Task read(ResultSet resultSet) throws SQLException;
+  ArrayList<Task> read(ResultSet resultSet, int subProjectID) throws SQLException;
 }

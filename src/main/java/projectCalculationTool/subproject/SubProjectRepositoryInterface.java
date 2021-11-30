@@ -8,5 +8,5 @@ import java.util.ArrayList;
 
 public interface SubProjectRepositoryInterface {
   void create(Project project) throws SQLException;
-  SubProject read(ResultSet resultSet) throws SQLException;
+  ArrayList<SubProject> read(ResultSet resultSet) throws SQLException;
 }
