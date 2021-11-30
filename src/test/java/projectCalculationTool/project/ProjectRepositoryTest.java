@@ -33,6 +33,15 @@ class ProjectRepositoryTest {
         // KILDE: https://www.vogella.com/tutorials/JUnit/article.html#testing-for-exceptions
     }
 
+    @Test
+    public void readWithException() throws SQLException{
+        Project project = projectRepository.readProject(1);
+        assertNotNull(project);
+        assertEquals(1, project.getProjectID());
+
+
+    }
+
 
   /*
   public void test_read(){
