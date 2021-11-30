@@ -1,7 +1,10 @@
 package projectCalculationTool.project;
 
 import projectCalculationTool.employee.Employee;
+import projectCalculationTool.subproject.SubProject;
 import projectCalculationTool.subproject.SubProjectRepository;
+import projectCalculationTool.task.Task;
+import projectCalculationTool.task.TaskRepository;
 import projectCalculationTool.util.DBManager;
 
 import java.sql.*;
@@ -10,6 +13,8 @@ import java.util.ArrayList;
 public class ProjectRepository implements ProjectRepositoryInterface {
 
     private static Connection connection = DBManager.getConnection();
+    private final SubProjectRepository SUB_PROJECT_REPOSITORY = new SubProjectRepository();
+    private final TaskRepository TASK_REPOSITORY = new TaskRepository();
 
     public void create(Project project) {
         try {
@@ -32,18 +37,20 @@ public class ProjectRepository implements ProjectRepositoryInterface {
             preparedStatement.setInt(1, projectID);
 
             ResultSet resultSet = preparedStatement.executeQuery();
+            Project project = new Project();
+            SubProject subProject;
+            Task task;
 
-            if (resultSet.next()) {
-                Project project = new Project();
-
-                //Needs more information, like employee via joins
+            while (resultSet.next()) {
                 project.setProjectID(resultSet.getInt("project_id"));
                 project.setName(resultSet.getString("project_name"));
 
-                return project;
-            } else {
-                throw new SQLException("Can´t add new project");
+                subProject = SUB_PROJECT_REPOSITORY.read(resultSet);
+                task = TASK_REPOSITORY.read(resultSet);
+                subProject.addTask(task);
+                project.addSubproject(SUB_PROJECT_REPOSITORY.read(resultSet));
             }
+            return project;
         } catch (SQLException e) {
             throw new SQLException(e.getMessage());
         }

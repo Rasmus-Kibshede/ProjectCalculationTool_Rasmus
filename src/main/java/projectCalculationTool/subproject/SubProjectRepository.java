@@ -6,6 +6,7 @@ import projectCalculationTool.util.DBManager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -30,6 +31,13 @@ public class SubProjectRepository implements SubProjectRepositoryInterface {
             connection.setAutoCommit(false);
             int affectedRows = preparedStatement.executeUpdate();
 
+            PreparedStatement preparedStatement2 = connection.prepareStatement("CALL get_last_id");
+            ResultSet resultSet = preparedStatement2.executeQuery();
+
+            if (resultSet.next()) {
+                lastSubProject.setSubProjectID(resultSet.getInt(1));
+            }
+
             /*Found on https://stackoverflow.com/questions/1915166/how-to-get-the-insert-id-in-jdbc  */
             if (affectedRows == 0) {
                 throw new SQLException("Creating subproject failed");
@@ -45,7 +53,17 @@ public class SubProjectRepository implements SubProjectRepositoryInterface {
     }
 
     @Override
-    public SubProject read(int subProjectID) {
-        return null;
+    public SubProject read(ResultSet resultSet) throws SQLException {
+
+        String name;
+        int id;
+
+
+        id = resultSet.getInt("subproject_id");
+        name = resultSet.getString("subproject_name");
+        SubProject subProject = new SubProject(name);
+        subProject.setSubProjectID(id);
+
+        return subProject;
     }
 }
