@@ -17,7 +17,6 @@ import java.util.ArrayList;
 public class ProjectController {
 
     private final ProjectService PROJECT_SERVICE = new ProjectService(new ProjectRepository());
-    //private final EmployeeService EMPLOYEE_SERVICE = new EmployeeService(new EmployeeRepository());
 
     @GetMapping("/project")
     public String project(WebRequest webRequest, Model model) throws SQLException {
@@ -35,7 +34,6 @@ public class ProjectController {
 
     @GetMapping("/profile")
     public String profile(WebRequest webRequest, Model model) {
-
         Employee employee = (Employee) webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION);
 
         if (employee != null) {
