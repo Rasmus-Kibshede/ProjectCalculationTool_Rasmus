@@ -19,7 +19,13 @@
         <div id="add">
             <form action="addSubProject" method="POST">
                 <input type="hidden" name="projectID" th:value="${project.projectID}">
-                <input type="text" name="subprojectname" placeholder="Name" class="textfield" required>
+                <input type="text" name="subprojectname" placeholder="Subproject Name" class="textfield" required>
+                <input type="text" name="taskname1" placeholder="1st Task Name" class="textfield" required>
+                <input type="number" name="tasktime1" placeholder="1st Task Time in Hours" class="textfield" required>
+                <input type="text" name="taskname2" placeholder="2nd Task Name" class="textfield">
+                <input type="number" name="tasktime2" placeholder="2ndTask Time in Hours" class="textfield">
+                <input type="text" name="taskname3" placeholder=" 3rd Task Name" class="textfield">
+                <input type="number" name="tasktime3" placeholder="3rd Task Time in Hours" class="textfield">
                 <input type="submit" value="Save SubProject" class="submit">
             </form>
             <p th:text="${message}" class="error"></p>

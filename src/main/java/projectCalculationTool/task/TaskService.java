@@ -13,8 +13,8 @@ public class TaskService {
 
   public void createTask(String taskName, double taskTime, SubProject subProject) throws SQLException {
     Task task = new Task(taskTime, taskName);
-    task.setSubProject(subProject);
-    taskRepositoryInterface.create(task);
+    subProject.addTask(task);
+    taskRepositoryInterface.create(subProject);
   }
 
   public Task readTask(int taskID) {

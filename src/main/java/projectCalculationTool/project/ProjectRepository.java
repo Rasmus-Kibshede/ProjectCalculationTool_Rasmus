@@ -9,7 +9,8 @@ import java.util.ArrayList;
 
 public class ProjectRepository implements ProjectRepositoryInterface {
 
-    private static Connection connection = DBManager.getConnection();
+  private static Connection connection = DBManager.getConnection();
+  private final SubProjectRepository SUB_PROJECT_REPOSITORY = new SubProjectRepository();
 
     public void create(Project project)throws SQLException{
         try {
@@ -28,30 +29,31 @@ public class ProjectRepository implements ProjectRepositoryInterface {
         }
     }
 
-    public Project readProject(int projectID) throws SQLException {
+  public Project readProject(int projectID) throws SQLException {
 
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement("CALL read_project(?)");
+    try {
+      PreparedStatement preparedStatement = connection.prepareStatement("CALL read_project(?)", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
-            preparedStatement.setInt(1, projectID);
+      preparedStatement.setInt(1, projectID);
 
-            ResultSet resultSet = preparedStatement.executeQuery();
+      ResultSet resultSet = preparedStatement.executeQuery();
+      resultSet.getRow();
+      Project project = new Project();
 
-            if (resultSet.next()) {
-                Project project = new Project();
 
-                //Needs more information, like employee via joins
-                project.setProjectID(resultSet.getInt("project_id"));
-                project.setName(resultSet.getString("project_name"));
+      if (resultSet.first()) {
+        project.setProjectID(resultSet.getInt("project_id"));
+        project.setName(resultSet.getString("project_name"));
 
-                return project;
-            } else {
-                throw new SQLException("Can´t read project from database");
-            }
-        } catch (SQLException e) {
-            throw new SQLException(e.getMessage());
-        }
+        project.setSubProjects(SUB_PROJECT_REPOSITORY.read(resultSet));
+      }
+
+      return project;
+
+    } catch (SQLException e) {
+      throw new SQLException(e.getMessage());
     }
+  }
 
     public ArrayList<Project> readProjects(Employee employee) {
 
