@@ -32,6 +32,8 @@ public class ProjectRepository implements ProjectRepositoryInterface {
   public Project readProject(int projectID) throws SQLException {
 
     try {
+      // Resultset defaulæt kan kun bevæge sig frem - derfor gøres brug af type_scroll_insensitive og concur_read_only
+      //læs på disse
       PreparedStatement preparedStatement = connection.prepareStatement("CALL read_project(?)", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
       preparedStatement.setInt(1, projectID);
