@@ -20,14 +20,34 @@ public class ProjectRepository implements ProjectRepositoryInterface {
       } else {
         throw new SQLException("Project name can't be null or longer then 45 characters.");
       }
+
       preparedStatement.setInt(2, project.getEmployee().getEmployeeID());
 
-      preparedStatement.executeUpdate();
+      /*Found on https://stackoverflow.com/questions/1915166/how-to-get-the-insert-id-in-jdbc  */
+      int affectedRows = preparedStatement.executeUpdate();
+
+      //Do we need this?
+      //How to trigger this?
+      if (affectedRows == 0) {
+        throw new SQLException("Creating subproject failed");
+      }
+
+      setProjectID(project);
 
     } catch (SQLException e) {
       throw new SQLException(e.getMessage());
     }
   }
+
+  public void setProjectID(Project project) throws SQLException {
+    PreparedStatement preparedStatement2 = connection.prepareStatement("CALL get_last_id()");
+    ResultSet resultSet = preparedStatement2.executeQuery();
+
+    if (resultSet.next()) {
+      project.setProjectID(resultSet.getInt(1));
+    }
+  }
+
 
   public Project readProject(int projectID) throws SQLException {
 
@@ -52,6 +72,8 @@ public class ProjectRepository implements ProjectRepositoryInterface {
         project.setName(resultSet.getString("project_name"));
 
         project.setSubProjects(SUB_PROJECT_REPOSITORY.readSubProject(resultSet));
+      } else {
+        throw new SQLException("Could not find an employee");
       }
 
       return project;

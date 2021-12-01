@@ -3,59 +3,75 @@ package projectCalculationTool.project;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import projectCalculationTool.employee.Employee;
+
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ProjectRepositoryTest {
 
-    ProjectRepository projectRepository;
+  private ProjectRepository projectRepository;
+  private Project project;
 
-    @BeforeEach
-    public void setUp() {
-        projectRepository = new ProjectRepository();
-    }
+  @BeforeEach
+  public void setUp() {
+    projectRepository = new ProjectRepository();
+    project = new Project();
+  }
 
-    @Test
-    public void createProjectWithExceptionToLong(){
-        Project project = new Project();
-        project.setName("TestProject-with to many characters to se if it throws an exception");
-        Employee employee = new Employee();
-        project.setEmployee(employee);
+  //-----------------------READ tests-----------------------
+  @Test
+  public void readProject() throws SQLException {
+    Project project = projectRepository.readProject(18);
 
-        Throwable exception = assertThrows(SQLException.class, () -> projectRepository.createProject(project));
+    assertEquals(18, project.getProjectID());
 
-        assertEquals("Project name can't be null or longer then 45 characters.", exception.getMessage());
+    // KILDE: https://github.com/Tine-m/2.semLoginSample/blob/testautomation/loginsample/src/test/java/login/repositories/UserRepositoryTest2.java
+  }
 
-        // KILDE: https://www.vogella.com/tutorials/JUnit/article.html#testing-for-exceptions
-    }
+  @Test
+  public void readProjectWithException() {
+    assertThrows(SQLException.class, () -> projectRepository.readProject(-1));
+  }
 
-    @Test
-    public void createProjectWithExceptionToShort(){
-        Project project = new Project();
-        project.setName(null);
-        Employee employee = new Employee();
-        project.setEmployee(employee);
 
-        Throwable exception = assertThrows(SQLException.class, () -> projectRepository.createProject(project));
+  //-----------------------CREATE tests-----------------------
+  @Test
+  public void createProjectWithExceptionToLong() {
+    project.setName("TestProject-with to many characters to se if it throws an exception");
 
-        assertEquals("Project name can't be null or longer then 45 characters.", exception.getMessage());
-    }
+    Throwable exception = assertThrows(SQLException.class, () -> projectRepository.createProject(project));
 
-    @Test
-    public void readProject() throws SQLException{
-        Project project = projectRepository.readProject(1);
-        //assertNotNull(project); HVORFOR LAVE DEN???
-        assertEquals(1, project.getProjectID());
+    assertEquals("Project name can't be null or longer then 45 characters.", exception.getMessage());
 
-        // KILDE: https://github.com/Tine-m/2.semLoginSample/blob/testautomation/loginsample/src/test/java/login/repositories/UserRepositoryTest2.java
-    }
+    // KILDE: https://www.vogella.com/tutorials/JUnit/article.html#testing-for-exceptions
+  }
 
-    @Test
-    public void readProjectWithException(){
-        Throwable exception = assertThrows(SQLException.class, () -> projectRepository.readProject(500));
+  @Test
+  public void createProjectWithExceptionToShort() {
+    project.setName(null);
 
-        assertEquals("Can´t read project from database", exception.getMessage());
-    }
+    Throwable exception = assertThrows(SQLException.class, () -> projectRepository.createProject(project));
+
+    assertEquals("Project name can't be null or longer then 45 characters.", exception.getMessage());
+  }
+
+  @Test
+  public void createProjectWithNoErrors() throws SQLException{
+
+   Employee employee = new Employee();
+   employee.setEmployeeID(1);
+   employee.setEmail("test@yes.com");
+   employee.setPassword("123");
+
+    Project project1 = new Project();
+    project1.setName("JUnitTest");
+    project1.setEmployee(employee);
+
+   projectRepository.createProject(project1);
+
+   assertTrue(project1.getProjectID() != 0);
+
+  }
 
 }
