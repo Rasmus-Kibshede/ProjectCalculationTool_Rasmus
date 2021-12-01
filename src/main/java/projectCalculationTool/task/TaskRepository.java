@@ -35,7 +35,7 @@ public class TaskRepository implements TaskRepositoryInterface {
   public ArrayList<Task> read(ResultSet resultSet, int subProjectID) throws SQLException {
     ArrayList<Task> tasks = new ArrayList<>();
 
-    int counter = resultSet.getRow() -1;
+    int counter = resultSet.getRow() - 1;
 
     while (resultSet.absolute(counter) && resultSet.getInt("fk_subproject_id") == subProjectID) {
 

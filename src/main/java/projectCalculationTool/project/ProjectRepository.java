@@ -1,10 +1,7 @@
 package projectCalculationTool.project;
 
 import projectCalculationTool.employee.Employee;
-import projectCalculationTool.subproject.SubProject;
 import projectCalculationTool.subproject.SubProjectRepository;
-import projectCalculationTool.task.Task;
-import projectCalculationTool.task.TaskRepository;
 import projectCalculationTool.util.DBManager;
 
 import java.sql.*;
@@ -14,18 +11,21 @@ public class ProjectRepository implements ProjectRepositoryInterface {
 
   private static Connection connection = DBManager.getConnection();
   private final SubProjectRepository SUB_PROJECT_REPOSITORY = new SubProjectRepository();
-  private final TaskRepository TASK_REPOSITORY = new TaskRepository();
 
-  public void create(Project project) {
+  public void create(Project project) throws SQLException {
     try {
       PreparedStatement preparedStatement = connection.prepareStatement("CALL create_project(?,?)");
-      preparedStatement.setString(1, project.getName());
+      if (project.getName() != null && project.getName().length() <= 45) {
+        preparedStatement.setString(1, project.getName());
+      } else {
+        throw new SQLException("Project name can't be null or longer then 45 characters.");
+      }
       preparedStatement.setInt(2, project.getEmployee().getEmployeeID());
 
       preparedStatement.executeUpdate();
 
     } catch (SQLException e) {
-      e.printStackTrace(); //MAKE OWN EXCEPTION???
+      throw new SQLException(e.getMessage());
     }
   }
 
