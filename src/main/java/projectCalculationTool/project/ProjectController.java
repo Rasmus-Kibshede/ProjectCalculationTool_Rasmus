@@ -9,9 +9,11 @@ import org.springframework.web.context.request.WebRequest;
 import projectCalculationTool.employee.Employee;
 import projectCalculationTool.employee.EmployeeRepository;
 import projectCalculationTool.employee.EmployeeService;
+import projectCalculationTool.util.exception.LoginException;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.MissingFormatArgumentException;
 
 @Controller
 public class ProjectController {
@@ -47,8 +49,8 @@ public class ProjectController {
     }
 
     @PostMapping("/addproject")
-    public String createProject(WebRequest webRequest) throws SQLException {
-        String projectName = webRequest.getParameter("projectname");
+    public String createProject(WebRequest webRequest) throws MissingFormatArgumentException, SQLException{
+        String projectName = PROJECT_SERVICE.validateProjectName(webRequest.getParameter("projectname"));
 
         PROJECT_SERVICE.createProject(projectName,
                 (Employee) webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION));
@@ -56,10 +58,12 @@ public class ProjectController {
         return "redirect:/profile";
     }
 
-    @ExceptionHandler(SQLException.class)
+    @ExceptionHandler({SQLException.class, MissingFormatArgumentException.class})
     public String handleSQLException(Model model, Exception exception) {
         model.addAttribute("message", exception.getMessage());
 
         return "profile";
     }
+
+
 }

@@ -16,7 +16,8 @@ public class TaskController {
   public String addTask(WebRequest webRequest) throws SQLException {
 
     String taskName = webRequest.getParameter("taskname");
-    double taskTime = Double.parseDouble(webRequest.getParameter("tasktime"));
+    double taskTime = TASK_SERVICE.validateTaskTime(webRequest.getParameter("tasktime"));
+    //double taskTime = Double.parseDouble(webRequest.getParameter("tasktime"));
     SubProject subProject = (SubProject) webRequest.getAttribute("subproject", webRequest.SCOPE_SESSION);
 
     TASK_SERVICE.createTask(taskName, taskTime, subProject);

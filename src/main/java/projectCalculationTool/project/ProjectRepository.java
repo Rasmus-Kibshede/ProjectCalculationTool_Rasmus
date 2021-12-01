@@ -6,6 +6,7 @@ import projectCalculationTool.util.DBManager;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.MissingFormatArgumentException;
 
 public class ProjectRepository implements ProjectRepositoryInterface {
 
@@ -22,6 +23,7 @@ public class ProjectRepository implements ProjectRepositoryInterface {
 
     } catch (SQLException e) {
       throw new SQLException(e.getMessage());
+
     }
   }
 
