@@ -115,7 +115,20 @@ public class ProjectRepository implements ProjectRepositoryInterface {
   }
 
   @Override
-  public void deleteProject(int projectID) {
+  public void deleteProject(int projectID) throws SQLException {
+    try {
 
+      PreparedStatement preparedStatement = connection.prepareStatement("CALL delete_project(?)");
+      preparedStatement.setInt(1, projectID);
+
+      int i = preparedStatement.executeUpdate();
+
+      if (i == 0){
+        throw new SQLException("Could not delete project");
+      }
+
+    } catch (SQLException e) {
+      throw new SQLException(e.getMessage());
+    }
   }
 }

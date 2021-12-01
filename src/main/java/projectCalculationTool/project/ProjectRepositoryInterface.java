@@ -13,7 +13,7 @@ public interface ProjectRepositoryInterface {
 
   Project readProject(int projectID) throws SQLException;
 
-  Project updateProject(Project project);
+  Project updateProject(Project project) throws SQLException;
 
-  void deleteProject(int projectID);
+  void deleteProject(int projectID) throws SQLException;
 }

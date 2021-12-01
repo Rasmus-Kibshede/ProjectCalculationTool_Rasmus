@@ -1,5 +1,6 @@
 package projectCalculationTool.project;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import projectCalculationTool.employee.Employee;
@@ -26,6 +27,7 @@ class ProjectRepositoryTest {
     employee.setPassword("123");
   }
 
+
   //-----------------------READ tests-----------------------
   @Test
   public void readProject() throws SQLException {
@@ -42,13 +44,12 @@ class ProjectRepositoryTest {
   }
 
   @Test
-  public void readProjectsNotNull() throws SQLException{
+  public void readAllProjectNotNull() throws SQLException{
 
     ArrayList<Project> projects = projectRepository.readProjects(employee);
 
     assertNotNull(projects);
   }
-
 
   //-----------------------CREATE tests-----------------------
   @Test
@@ -72,7 +73,7 @@ class ProjectRepositoryTest {
   }
 
   @Test
-  public void createProjectWithNoErrors() throws SQLException{
+  public void createProject() throws SQLException{
 
     Project project1 = new Project();
     project1.setName("JUnitTest");
@@ -81,6 +82,8 @@ class ProjectRepositoryTest {
    projectRepository.createProject(project1);
 
    assertTrue(project1.getProjectID() != 0);
+
+   projectRepository.deleteProject(project1.getProjectID());
 
   }
 
