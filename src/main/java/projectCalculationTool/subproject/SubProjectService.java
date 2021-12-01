@@ -25,11 +25,11 @@ public class SubProjectService {
 
         Project project = new Project();
         project.setProjectID(projectID);
-        SubProject subProject = new SubProject(subProjectName);
+        SubProject subProject = new SubProject(validateSubProjectName(subProjectName));
         subProject.addTask(new Task(taskTime1, taskName1));
         subProject.addTask(new Task(taskTime2, taskName2));
         subProject.addTask(new Task(taskTime3, taskName3));
-        project.addSubproject(subProject);
+        project.addSubproject(validateSubProjectIncludesTask(subProject));
 
         subProjectRepositoryInterface.createSubProject(project);
     }
@@ -45,4 +45,21 @@ public class SubProjectService {
     }
 
     public void deleteSubProject(){}
+
+    //ER DET DEN RIGTIGE EXCEPTION???
+    public String validateSubProjectName(String subprojectName) throws SQLException{
+        if (subprojectName != null && !subprojectName.isEmpty() && subprojectName.length() <= 45) {
+            return subprojectName;
+        } else {
+            throw new SQLException("Project name can't be null or longer then 45 characters.");
+        }
+    }
+
+    public SubProject validateSubProjectIncludesTask(SubProject subProject) throws SQLException{
+        if(subProject.getTasks() != null){
+            return subProject;
+        }else {
+            throw new SQLException("You can't create SubProject without at least one Task");
+        }
+    }
 }

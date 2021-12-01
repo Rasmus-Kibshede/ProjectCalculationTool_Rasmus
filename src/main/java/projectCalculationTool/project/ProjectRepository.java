@@ -6,6 +6,7 @@ import projectCalculationTool.util.DBManager;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.MissingFormatArgumentException;
 
 public class ProjectRepository implements ProjectRepositoryInterface {
 
@@ -15,12 +16,7 @@ public class ProjectRepository implements ProjectRepositoryInterface {
   public void createProject(Project project) throws SQLException {
     try {
       PreparedStatement preparedStatement = connection.prepareStatement("CALL create_project(?,?)");
-      if (project.getName() != null && project.getName().length() <= 45) {
-        preparedStatement.setString(1, project.getName());
-      } else {
-        throw new SQLException("Project name can't be null or longer then 45 characters.");
-      }
-
+      preparedStatement.setString(1, project.getName());
       preparedStatement.setInt(2, project.getEmployee().getEmployeeID());
 
       /*Found on https://stackoverflow.com/questions/1915166/how-to-get-the-insert-id-in-jdbc  */
@@ -36,6 +32,7 @@ public class ProjectRepository implements ProjectRepositoryInterface {
 
     } catch (SQLException e) {
       throw new SQLException(e.getMessage());
+
     }
   }
 
