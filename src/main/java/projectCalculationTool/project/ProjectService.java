@@ -17,7 +17,7 @@ public class ProjectService {
         Project project = new Project();
         project.setEmployee(employee);
         project.setName(projectName);
-        projectRepositoryInterface.create(project);
+        projectRepositoryInterface.createProject(project);
     }
 
     public ArrayList<Project> readProjects(Employee employee) {
@@ -27,4 +27,11 @@ public class ProjectService {
     public Project readProject(int projectID) throws SQLException {
         return projectRepositoryInterface.readProject(projectID);
     }
+
+    public Project updateProject(Project project){
+        return null;
+    }
+
+    public void deleteProject(int projectID){}
+
 }

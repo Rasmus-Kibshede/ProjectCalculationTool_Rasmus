@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Project {
     private String name;
     private Employee employee;
-    private double projectHoursTotal;
+    private int projectDaysTotal;
     private int projectID;
     private ArrayList<SubProject> subProjects = new ArrayList<>();
 
@@ -28,12 +28,12 @@ public class Project {
         this.name = name;
     }
 
-    public double getProjectHoursTotal() {
-        return projectHoursTotal;
+    public int getProjectDaysTotal() {
+        return projectDaysTotal;
     }
 
-    public void setProjectHoursTotal(double projectHoursTotal) {
-        this.projectHoursTotal = projectHoursTotal;
+    public void setProjectDaysTotal(int projectDaysTotal) {
+        this.projectDaysTotal = projectDaysTotal;
     }
 
     public int getProjectID() {

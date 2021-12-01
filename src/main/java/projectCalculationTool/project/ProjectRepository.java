@@ -12,7 +12,7 @@ public class ProjectRepository implements ProjectRepositoryInterface {
   private static Connection connection = DBManager.getConnection();
   private final SubProjectRepository SUB_PROJECT_REPOSITORY = new SubProjectRepository();
 
-  public void create(Project project) throws SQLException {
+  public void createProject(Project project) throws SQLException {
     try {
       PreparedStatement preparedStatement = connection.prepareStatement("CALL create_project(?,?)");
       if (project.getName() != null && project.getName().length() <= 45) {
@@ -51,7 +51,7 @@ public class ProjectRepository implements ProjectRepositoryInterface {
         project.setProjectID(resultSet.getInt("project_id"));
         project.setName(resultSet.getString("project_name"));
 
-        project.setSubProjects(SUB_PROJECT_REPOSITORY.read(resultSet));
+        project.setSubProjects(SUB_PROJECT_REPOSITORY.readSubProject(resultSet));
       }
 
       return project;
@@ -85,7 +85,16 @@ public class ProjectRepository implements ProjectRepositoryInterface {
     } catch (SQLException e) {
       e.printStackTrace();
     }
-
     return null;
+  }
+
+  @Override
+  public Project updateProject(Project project) {
+    return null;
+  }
+
+  @Override
+  public void deleteProject(int projectID) {
+
   }
 }

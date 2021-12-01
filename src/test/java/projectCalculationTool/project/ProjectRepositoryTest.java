@@ -23,7 +23,7 @@ class ProjectRepositoryTest {
         Employee employee = new Employee();
         project.setEmployee(employee);
 
-        Throwable exception = assertThrows(SQLException.class, () -> projectRepository.create(project));
+        Throwable exception = assertThrows(SQLException.class, () -> projectRepository.createProject(project));
 
         assertEquals("Project name can't be null or longer then 45 characters.", exception.getMessage());
 
@@ -37,7 +37,7 @@ class ProjectRepositoryTest {
         Employee employee = new Employee();
         project.setEmployee(employee);
 
-        Throwable exception = assertThrows(SQLException.class, () -> projectRepository.create(project));
+        Throwable exception = assertThrows(SQLException.class, () -> projectRepository.createProject(project));
 
         assertEquals("Project name can't be null or longer then 45 characters.", exception.getMessage());
     }

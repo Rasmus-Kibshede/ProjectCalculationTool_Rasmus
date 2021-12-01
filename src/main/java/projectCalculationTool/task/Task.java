@@ -33,4 +33,6 @@ public class Task {
     this.timeHours = time;
     this.name = name;
   }
+
+  public void calculateTimeInDays(){}
 }
