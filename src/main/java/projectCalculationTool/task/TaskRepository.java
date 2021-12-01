@@ -33,31 +33,11 @@ public class TaskRepository implements TaskRepositoryInterface {
 
   @Override
   public ArrayList<Task> read(ResultSet resultSet, int subProjectID) throws SQLException {
-    /*try {
-      PreparedStatement ps = connection.prepareStatement("CALL read_task(?)");
-      ps.setInt(1,taskID);
-      ResultSet rs = ps.executeQuery();
-
-      ArrayList<Task> tasks = new ArrayList<>();
-
-      while (rs.next()){
-        int id = rs.getInt(1);
-        //Skal task have en constructor?
-        Task task = new Task(20,"placeholder");
-
-        tasks.add(task);
-      }
-    } catch (SQLException err){
-      err.printStackTrace();
-    }
-
-     */
 
     ArrayList<Task> tasks = new ArrayList<>();
 
-    int counter = resultSet.getRow() -1;
+    int counter = resultSet.getRow() - 1;
 
-    //resultSet.beforeFirst();
 
     while (resultSet.absolute(counter) && resultSet.getInt("fk_subproject_id") == subProjectID) {
 

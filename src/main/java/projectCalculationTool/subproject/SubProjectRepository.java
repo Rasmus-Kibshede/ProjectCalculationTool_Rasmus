@@ -57,8 +57,6 @@ public class SubProjectRepository implements SubProjectRepositoryInterface {
 
     ArrayList<SubProject> subProjects = new ArrayList<>();
 
-    //resultSet.first();
-
     while (resultSet.next()) {
 
       int id = resultSet.getInt("subproject_id");

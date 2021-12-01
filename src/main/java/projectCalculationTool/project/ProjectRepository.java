@@ -12,22 +12,22 @@ public class ProjectRepository implements ProjectRepositoryInterface {
   private static Connection connection = DBManager.getConnection();
   private final SubProjectRepository SUB_PROJECT_REPOSITORY = new SubProjectRepository();
 
-    public void create(Project project)throws SQLException{
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement("CALL create_project(?,?)");
-            if(project.getName() != null && project.getName().length() <= 45) {
-                preparedStatement.setString(1, project.getName());
-            } else {
-                throw new SQLException("Project name can't be null or longer then 45 characters.");
-            }
-            preparedStatement.setInt(2, project.getEmployee().getEmployeeID());
+  public void create(Project project) throws SQLException {
+    try {
+      PreparedStatement preparedStatement = connection.prepareStatement("CALL create_project(?,?)");
+      if (project.getName() != null && project.getName().length() <= 45) {
+        preparedStatement.setString(1, project.getName());
+      } else {
+        throw new SQLException("Project name can't be null or longer then 45 characters.");
+      }
+      preparedStatement.setInt(2, project.getEmployee().getEmployeeID());
 
-            preparedStatement.executeUpdate();
+      preparedStatement.executeUpdate();
 
-        } catch (SQLException e) {
-            throw new SQLException(e.getMessage());
-        }
+    } catch (SQLException e) {
+      throw new SQLException(e.getMessage());
     }
+  }
 
   public Project readProject(int projectID) throws SQLException {
 
@@ -55,31 +55,31 @@ public class ProjectRepository implements ProjectRepositoryInterface {
     }
   }
 
-    public ArrayList<Project> readProjects(Employee employee) {
+  public ArrayList<Project> readProjects(Employee employee) {
 
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement("CALL read_projects(?)");
-            preparedStatement.setInt(1, employee.getEmployeeID());
-            ResultSet resultSet = preparedStatement.executeQuery();
+    try {
+      PreparedStatement preparedStatement = connection.prepareStatement("CALL read_projects(?)");
+      preparedStatement.setInt(1, employee.getEmployeeID());
+      ResultSet resultSet = preparedStatement.executeQuery();
 
 
-            ArrayList<Project> projects = new ArrayList<>();
+      ArrayList<Project> projects = new ArrayList<>();
 
-            while (resultSet.next()) {
-                int id = resultSet.getInt(1);
-                String name = resultSet.getString(2);
+      while (resultSet.next()) {
+        int id = resultSet.getInt(1);
+        String name = resultSet.getString(2);
 
-                Project project = new Project();
-                project.setName(name);
-                project.setProjectID(id);
-                projects.add(project);
-            }
+        Project project = new Project();
+        project.setName(name);
+        project.setProjectID(id);
+        projects.add(project);
+      }
 
-            return projects;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+      return projects;
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
+
+    return null;
+  }
 }
