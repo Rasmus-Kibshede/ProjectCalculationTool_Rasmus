@@ -31,12 +31,11 @@ public class SubProjectController {
         return "redirect:/project?id=" + projectID;
     }
 
-    /*@ExceptionHandler(SQLException.class)
-    public String sqlHandler(Model model, Exception exception) {
+    @ExceptionHandler(SQLException.class)
+    public String handlerSQLException(Model model, Exception exception) {
         model.addAttribute("error", exception.getMessage());
-        return "redirect:/project";
+        return "/project";
     }
 
-     */
 
 }
