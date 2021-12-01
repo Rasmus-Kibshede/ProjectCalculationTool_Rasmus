@@ -83,7 +83,7 @@ public class ProjectRepository implements ProjectRepositoryInterface {
     }
   }
 
-  public ArrayList<Project> readProjects(Employee employee) {
+  public ArrayList<Project> readProjects(Employee employee) throws SQLException {
 
     try {
       PreparedStatement preparedStatement = connection.prepareStatement("CALL read_projects(?)");
@@ -105,9 +105,8 @@ public class ProjectRepository implements ProjectRepositoryInterface {
 
       return projects;
     } catch (SQLException e) {
-      e.printStackTrace();
+      throw new SQLException(e.getMessage());
     }
-    return null;
   }
 
   @Override

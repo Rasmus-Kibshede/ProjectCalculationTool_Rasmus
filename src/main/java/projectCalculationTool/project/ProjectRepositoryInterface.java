@@ -9,7 +9,7 @@ public interface ProjectRepositoryInterface {
 
   void createProject(Project project) throws SQLException;
 
-  ArrayList<Project> readProjects(Employee employee);
+  ArrayList<Project> readProjects(Employee employee) throws SQLException;
 
   Project readProject(int projectID) throws SQLException;
 

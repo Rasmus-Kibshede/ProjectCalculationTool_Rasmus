@@ -34,7 +34,7 @@ public class ProjectController {
     }
 
     @GetMapping("/profile")
-    public String profile(WebRequest webRequest, Model model) {
+    public String profile(WebRequest webRequest, Model model) throws SQLException{
 
         Employee employee = (Employee) webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION);
 

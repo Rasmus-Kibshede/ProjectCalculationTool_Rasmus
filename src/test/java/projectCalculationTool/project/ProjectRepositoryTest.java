@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import projectCalculationTool.employee.Employee;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,11 +13,17 @@ class ProjectRepositoryTest {
 
   private ProjectRepository projectRepository;
   private Project project;
+  private Employee employee;
 
   @BeforeEach
   public void setUp() {
     projectRepository = new ProjectRepository();
     project = new Project();
+
+    employee = new Employee();
+    employee.setEmployeeID(1);
+    employee.setEmail("test@yes.com");
+    employee.setPassword("123");
   }
 
   //-----------------------READ tests-----------------------
@@ -32,6 +39,14 @@ class ProjectRepositoryTest {
   @Test
   public void readProjectWithException() {
     assertThrows(SQLException.class, () -> projectRepository.readProject(-1));
+  }
+
+  @Test
+  public void readProjectsNotNull() throws SQLException{
+
+    ArrayList<Project> projects = projectRepository.readProjects(employee);
+
+    assertNotNull(projects);
   }
 
 
@@ -58,11 +73,6 @@ class ProjectRepositoryTest {
 
   @Test
   public void createProjectWithNoErrors() throws SQLException{
-
-   Employee employee = new Employee();
-   employee.setEmployeeID(1);
-   employee.setEmail("test@yes.com");
-   employee.setPassword("123");
 
     Project project1 = new Project();
     project1.setName("JUnitTest");

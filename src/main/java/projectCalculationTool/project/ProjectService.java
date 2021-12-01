@@ -20,7 +20,7 @@ public class ProjectService {
         projectRepositoryInterface.createProject(project);
     }
 
-    public ArrayList<Project> readProjects(Employee employee) {
+    public ArrayList<Project> readProjects(Employee employee) throws SQLException {
         return projectRepositoryInterface.readProjects(employee);
     }
 
