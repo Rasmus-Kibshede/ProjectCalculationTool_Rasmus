@@ -26,6 +26,8 @@ public class ProjectController {
 
         Project project = PROJECT_SERVICE.readProject(projectID);
 
+        project.setEmployee(employee);
+
         model.addAttribute("project", project);
 
         return "project";

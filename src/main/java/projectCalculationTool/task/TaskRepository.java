@@ -13,12 +13,12 @@ public class TaskRepository implements TaskRepositoryInterface {
   private static Connection connection = DBManager.getConnection();
 
   @Override
-  public void create(SubProject subProject) throws SQLException{
+  public void create(SubProject subProject) throws SQLException {
 
-    try{
-      PreparedStatement preparedStatement = connection.prepareStatement("CALL create_task(?,?,?)"); //LAV STORED PROCEDURE
+    try {
+      PreparedStatement preparedStatement = connection.prepareStatement("CALL create_task(?,?,?)");
 
-      for (Task task: subProject.getTasks()) {
+      for (Task task : subProject.getTasks()) {
         preparedStatement.setString(1, task.getName());
         preparedStatement.setDouble(2, task.getTimeHours());
         preparedStatement.setInt(3, subProject.getSubProjectID());
@@ -26,32 +26,29 @@ public class TaskRepository implements TaskRepositoryInterface {
       }
       preparedStatement.executeBatch();
 
-    }catch (SQLException e){
+    } catch (SQLException e) {
       throw new SQLException("Creating Task failed");
     }
-
   }
 
   @Override
-  public Task read(int taskID) {
-    try {
-      PreparedStatement ps = connection.prepareStatement("CALL read_task(?)");
-      ps.setInt(1,taskID);
-      ResultSet rs = ps.executeQuery();
+  public ArrayList<Task> read(ResultSet resultSet, int subProjectID) throws SQLException {
+    ArrayList<Task> tasks = new ArrayList<>();
 
-      ArrayList<Task> tasks = new ArrayList<>();
+    int counter = resultSet.getRow() -1;
 
-      while (rs.next()){
-        int id = rs.getInt(1);
-        //Skal task have en constructor?
-        Task task = new Task(20,"placeholder");
+    while (resultSet.absolute(counter) && resultSet.getInt("fk_subproject_id") == subProjectID) {
 
-        tasks.add(task);
-      }
-    } catch (SQLException err){
-      err.printStackTrace();
+      String name = resultSet.getString("task_name");
+      int id = resultSet.getInt("task_id");
+      double hours = resultSet.getDouble("task_hours");
+      Task task = new Task(hours, name);
+      task.setTaskID(id);
+
+      tasks.add(task);
+      counter++;
     }
 
-    return null;
+    return tasks;
   }
 }

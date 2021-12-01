@@ -9,7 +9,7 @@ public class SubProject {
     private int subProjectID;
     private String name;
     private double timeSubTotal;
-    private ArrayList<Task> tasks;
+    private ArrayList<Task> tasks = new ArrayList<>();
 
     public SubProject(String subProjectName) {
         this.name = subProjectName;
@@ -45,5 +45,9 @@ public class SubProject {
 
     public void setTasks(ArrayList<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    public void addTask(Task task) {
+        this.tasks.add(task);
     }
 }
