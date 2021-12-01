@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface SubProjectRepositoryInterface {
-  void create(Project project) throws SQLException;
-  ArrayList<SubProject> read(ResultSet resultSet) throws SQLException;
+  void createSubProject(Project project) throws SQLException;
+  ArrayList<SubProject> readSubProject(ResultSet resultSet) throws SQLException;
+  SubProject updateSubProject(SubProject subProject);
+  void deleteSubProject(int subProjectID);
 }

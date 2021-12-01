@@ -13,7 +13,7 @@ public class TaskRepository implements TaskRepositoryInterface {
   private static Connection connection = DBManager.getConnection();
 
   @Override
-  public void create(SubProject subProject) throws SQLException {
+  public void createTask(SubProject subProject) throws SQLException {
 
     try {
       PreparedStatement preparedStatement = connection.prepareStatement("CALL create_task(?,?,?)");
@@ -32,7 +32,7 @@ public class TaskRepository implements TaskRepositoryInterface {
   }
 
   @Override
-  public ArrayList<Task> read(ResultSet resultSet, int subProjectID) throws SQLException {
+  public ArrayList<Task> readTask(ResultSet resultSet, int subProjectID) throws SQLException {
     ArrayList<Task> tasks = new ArrayList<>();
 
     int counter = resultSet.getRow() - 1;
@@ -50,5 +50,15 @@ public class TaskRepository implements TaskRepositoryInterface {
     }
 
     return tasks;
+  }
+
+  @Override
+  public Task updateTask(Task task) {
+    return null;
+  }
+
+  @Override
+  public void deleteTask(int taskID) {
+
   }
 }

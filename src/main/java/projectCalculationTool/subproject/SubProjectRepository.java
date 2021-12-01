@@ -15,7 +15,7 @@ public class SubProjectRepository implements SubProjectRepositoryInterface {
   private final TaskRepository TASK_REPOSITORY = new TaskRepository();
 
   @Override
-  public void create(Project project) throws SQLException {
+  public void createSubProject(Project project) throws SQLException {
 
     try {
       PreparedStatement preparedStatement = connection.prepareStatement("CALL create_sub_project(?,?)");
@@ -44,7 +44,7 @@ public class SubProjectRepository implements SubProjectRepositoryInterface {
       }
       /*Done*/
 
-      TASK_REPOSITORY.create(lastSubProject);
+      TASK_REPOSITORY.createTask(lastSubProject);
       connection.commit();
 
     } catch (SQLException e) {
@@ -53,7 +53,7 @@ public class SubProjectRepository implements SubProjectRepositoryInterface {
   }
 
   @Override
-  public ArrayList<SubProject> read(ResultSet resultSet) throws SQLException {
+  public ArrayList<SubProject> readSubProject(ResultSet resultSet) throws SQLException {
 
     ArrayList<SubProject> subProjects = new ArrayList<>();
 
@@ -65,12 +65,22 @@ public class SubProjectRepository implements SubProjectRepositoryInterface {
       SubProject subProject = new SubProject(name);
       subProject.setSubProjectID(id);
 
-      subProject.setTasks(TASK_REPOSITORY.read(resultSet, id));
+      subProject.setTasks(TASK_REPOSITORY.readTask(resultSet, id));
 
       subProjects.add(subProject);
     }
 
 
     return subProjects;
+  }
+
+  @Override
+  public SubProject updateSubProject(SubProject subProject) {
+    return null;
+  }
+
+  @Override
+  public void deleteSubProject(int subProjectID) {
+
   }
 }

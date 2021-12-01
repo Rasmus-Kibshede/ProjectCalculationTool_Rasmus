@@ -31,7 +31,7 @@ public class SubProjectService {
         subProject.addTask(new Task(taskTime3, taskName3));
         project.addSubproject(subProject);
 
-        subProjectRepositoryInterface.create(project);
+        subProjectRepositoryInterface.createSubProject(project);
     }
 
     //Edit method name in class diagram
@@ -40,4 +40,9 @@ public class SubProjectService {
         return null;
     }
 
+    public SubProject updateSubProject(){
+        return null;
+    }
+
+    public void deleteSubProject(){}
 }
