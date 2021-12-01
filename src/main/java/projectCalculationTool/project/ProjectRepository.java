@@ -15,11 +15,7 @@ public class ProjectRepository implements ProjectRepositoryInterface {
   public void createProject(Project project) throws SQLException {
     try {
       PreparedStatement preparedStatement = connection.prepareStatement("CALL create_project(?,?)");
-      if (project.getName() != null && project.getName().length() <= 45) {
-        preparedStatement.setString(1, project.getName());
-      } else {
-        throw new SQLException("Project name can't be null or longer then 45 characters.");
-      }
+      preparedStatement.setString(1, project.getName());
       preparedStatement.setInt(2, project.getEmployee().getEmployeeID());
 
       preparedStatement.executeUpdate();
