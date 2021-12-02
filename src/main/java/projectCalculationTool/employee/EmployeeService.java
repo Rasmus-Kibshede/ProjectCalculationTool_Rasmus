@@ -22,7 +22,7 @@ public class EmployeeService {
       if (email.matches(regexApproved)) {
         return email;
       } else {
-        throw new LoginException("This is not an email");
+        throw new LoginException("Please enter a valid email");
       }
     }
 

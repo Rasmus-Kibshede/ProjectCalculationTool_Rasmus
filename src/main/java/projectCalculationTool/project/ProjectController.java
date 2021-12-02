@@ -57,6 +57,20 @@ public class ProjectController {
         return "redirect:/profile";
     }
 
+    @GetMapping("/projectoverview")
+    public String showOverview(WebRequest webRequest, Model model) throws ProjectException {
+        int projectID = Integer.parseInt(webRequest.getParameter("id"));
+        Employee employee = (Employee) webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION);
+
+        Project project = PROJECT_SERVICE.readProject(projectID);
+
+        project.setEmployee(employee);
+
+        model.addAttribute("project", project);
+
+        return "projectoverview";
+    }
+
     @ExceptionHandler({ProjectException.class})
     public String handleSQLException(Model model, Exception exception) {
         model.addAttribute("message", exception.getMessage());
