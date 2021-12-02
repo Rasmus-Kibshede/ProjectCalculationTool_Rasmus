@@ -11,73 +11,49 @@ import java.util.MissingFormatArgumentException;
 public class ProjectRepository implements ProjectRepositoryInterface {
 
   private static Connection connection = DBManager.getConnection();
-  private final SubProjectRepository SUB_PROJECT_REPOSITORY = new SubProjectRepository();
+  private final SubProjectRepository SUBPROJECT_REPOSITORY = new SubProjectRepository();
 
   public void createProject(Project project) throws SQLException {
     try {
-      PreparedStatement preparedStatement = connection.prepareStatement("CALL create_project(?,?)");
+      PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO projects(project_name, fk_employee_ID) VALUE (?, ?);", Statement.RETURN_GENERATED_KEYS);
       preparedStatement.setString(1, project.getName());
       preparedStatement.setInt(2, project.getEmployee().getEmployeeID());
 
-      /*Found on https://stackoverflow.com/questions/1915166/how-to-get-the-insert-id-in-jdbc  */
-      int affectedRows = preparedStatement.executeUpdate();
+      preparedStatement.executeUpdate();
+      ResultSet resultSet = preparedStatement.getGeneratedKeys();
 
-      //Do we need this?
-      //How to trigger this?
-      if (affectedRows == 0) {
-        throw new SQLException("Creating subproject failed");
+      if (resultSet.next()) {
+        project.setProjectID(resultSet.getInt(1));
       }
 
-      setProjectID(project);
 
     } catch (SQLException e) {
       throw new SQLException(e.getMessage());
-
-    }
-  }
-
-  public void setProjectID(Project project) throws SQLException {
-    PreparedStatement preparedStatement2 = connection.prepareStatement("CALL get_last_id()");
-    ResultSet resultSet = preparedStatement2.executeQuery();
-
-    if (resultSet.next()) {
-      project.setProjectID(resultSet.getInt(1));
     }
   }
 
 
   public Project readProject(int projectID) throws SQLException {
 
-    try {
-      // Resultset default kan kun bevæge sig frem - derfor gøres brug af type_scroll_insensitive og concur_read_only
-      //læs på disse
+    PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM projects WHERE project_id = ?;");
+    preparedStatement.setInt(1, projectID);
 
-      //ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY
-      //Found on: https://www.codejava.net/java-se/jdbc/how-to-use-scrollable-result-sets-with-jdbc
+    ResultSet resultSet = preparedStatement.executeQuery();
 
-      PreparedStatement preparedStatement = connection.prepareStatement("CALL read_project(?)", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+    Project project = new Project();
 
-      preparedStatement.setInt(1, projectID);
+    if (resultSet.next()) {
+      int id = resultSet.getInt(1);
+      String name = resultSet.getString(2);
 
-      ResultSet resultSet = preparedStatement.executeQuery();
-      resultSet.getRow();
-      Project project = new Project();
+      project.setName(name);
+      project.setProjectID(id);
 
 
-      if (resultSet.first()) {
-        project.setProjectID(resultSet.getInt("project_id"));
-        project.setName(resultSet.getString("project_name"));
-
-        project.setSubProjects(SUB_PROJECT_REPOSITORY.readSubProject(resultSet));
-      } else {
-        throw new SQLException("Could not find an employee");
-      }
-
-      return project;
-
-    } catch (SQLException e) {
-      throw new SQLException(e.getMessage());
+      project = SUBPROJECT_REPOSITORY.readSubProject(project);
     }
+
+    return project;
   }
 
   public ArrayList<Project> readProjects(Employee employee) throws SQLException {
@@ -120,7 +96,7 @@ public class ProjectRepository implements ProjectRepositoryInterface {
 
       int i = preparedStatement.executeUpdate();
 
-      if (i == 0){
+      if (i == 0) {
         throw new SQLException("Could not delete project");
       }
 

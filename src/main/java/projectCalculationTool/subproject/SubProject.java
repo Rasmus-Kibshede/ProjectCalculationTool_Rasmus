@@ -6,48 +6,51 @@ import java.util.ArrayList;
 
 public class SubProject {
 
-    private int subProjectID;
-    private String name;
-    private int daysSubTotal;
-    private ArrayList<Task> tasks = new ArrayList<>();
+  private int subProjectID;
+  private String name;
+  private int daysSubTotal;
+  private ArrayList<Task> tasks = new ArrayList<>();
 
-    public SubProject(String subProjectName) {
-        this.name = subProjectName;
-    }
+  public SubProject() {
+  }
 
-    public int getSubProjectID() {
-        return subProjectID;
-    }
+  public SubProject(String subProjectName) {
+    this.name = subProjectName;
+  }
 
-    public void setSubProjectID(int subProjectID) {
-        this.subProjectID = subProjectID;
-    }
+  public int getSubProjectID() {
+    return subProjectID;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public void setSubProjectID(int subProjectID) {
+    this.subProjectID = subProjectID;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public int getDaysSubTotal() {
-        return daysSubTotal;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public void setDaysSubTotal(int daysSubTotal) {
-        this.daysSubTotal = daysSubTotal;
-    }
+  public int getDaysSubTotal() {
+    return daysSubTotal;
+  }
 
-    public ArrayList<Task> getTasks() {
-        return tasks;
-    }
+  public void setDaysSubTotal(int daysSubTotal) {
+    this.daysSubTotal = daysSubTotal;
+  }
 
-    public void setTasks(ArrayList<Task> tasks) {
-        this.tasks = tasks;
-    }
+  public ArrayList<Task> getTasks() {
+    return tasks;
+  }
 
-    public void addTask(Task task) {
-        this.tasks.add(task);
-    }
+  public void setTasks(ArrayList<Task> tasks) {
+    this.tasks = tasks;
+  }
+
+  public void addTask(Task task) {
+    this.tasks.add(task);
+  }
 }

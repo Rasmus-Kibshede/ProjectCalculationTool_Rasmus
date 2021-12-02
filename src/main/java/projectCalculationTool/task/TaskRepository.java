@@ -1,30 +1,36 @@
 package projectCalculationTool.task;
 
+import projectCalculationTool.project.Project;
 import projectCalculationTool.subproject.SubProject;
 import projectCalculationTool.util.DBManager;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class TaskRepository implements TaskRepositoryInterface {
   private static Connection connection = DBManager.getConnection();
 
   @Override
-  public void createTask(SubProject subProject) throws SQLException {
+  public SubProject createTask(SubProject subProject) throws SQLException {
 
     try {
-      PreparedStatement preparedStatement = connection.prepareStatement("CALL create_task(?,?,?)");
+      Task task = subProject.getTasks().get(subProject.getTasks().size() - 1);
 
-      for (Task task : subProject.getTasks()) {
-        preparedStatement.setString(1, task.getName());
-        preparedStatement.setDouble(2, task.getTimeHours());
-        preparedStatement.setInt(3, subProject.getSubProjectID());
-        preparedStatement.addBatch();
+      PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO tasks(task_name, task_hours, fk_subproject_id) VALUE (?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
+
+      preparedStatement.setString(1, task.getName());
+      preparedStatement.setDouble(2, task.getTimeHours());
+      preparedStatement.setInt(3, subProject.getSubProjectID());
+
+      preparedStatement.executeUpdate();
+
+      ResultSet resultSet = preparedStatement.getGeneratedKeys();
+
+      if (resultSet.next()){
+        task.setTaskID(resultSet.getInt(1));
       }
-      preparedStatement.executeBatch();
+
+      return subProject;
 
     } catch (SQLException e) {
       throw new SQLException("Creating Task failed");
@@ -32,24 +38,28 @@ public class TaskRepository implements TaskRepositoryInterface {
   }
 
   @Override
-  public ArrayList<Task> readTask(ResultSet resultSet, int subProjectID) throws SQLException {
-    ArrayList<Task> tasks = new ArrayList<>();
+  public SubProject readTask(SubProject subProject) {
 
-    int counter = resultSet.getRow() - 1;
+    try {
 
-    while (resultSet.absolute(counter) && resultSet.getInt("fk_subproject_id") == subProjectID) {
+      PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM tasks WHERE fk_subproject_id = ?;");
+      preparedStatement.setInt(1, subProject.getSubProjectID());
 
-      String name = resultSet.getString("task_name");
-      int id = resultSet.getInt("task_id");
-      double hours = resultSet.getDouble("task_hours");
-      Task task = new Task(hours, name);
-      task.setTaskID(id);
+      ResultSet resultSet = preparedStatement.executeQuery();
 
-      tasks.add(task);
-      counter++;
+      while (resultSet.next()) {
+        Task task = new Task(resultSet.getDouble("task_hours"), resultSet.getString("task_name"));
+        task.setTaskID(resultSet.getInt("task_id"));
+        subProject.addTask(task);
+      }
+
+      return subProject;
+
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
+    return null;
 
-    return tasks;
   }
 
   @Override

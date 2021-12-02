@@ -17,16 +17,18 @@ public class SubProjectController {
     public String addSubProject(WebRequest webRequest) throws SQLException {
 
         String subProjectName = webRequest.getParameter("subprojectname");
-        String taskname1 = webRequest.getParameter("taskname1");
+        /*String taskname1 = webRequest.getParameter("taskname1");
         int tasktime1= Integer.parseInt(webRequest.getParameter("tasktime1"));
         String taskname2 = webRequest.getParameter("taskname2");
         int tasktime2= Integer.parseInt(webRequest.getParameter("tasktime1"));
         String taskname3 = webRequest.getParameter("taskname3");
-        int tasktime3= Integer.parseInt(webRequest.getParameter("tasktime1"));
+        int tasktime3= Integer.parseInt(webRequest.getParameter("tasktime1"));*/
 
+        //tag imod et project object
+        //project id er 0
         int projectID = Integer.parseInt(webRequest.getParameter("projectID"));
 
-        SUB_PROJECT_SERVICE.createSubProject(subProjectName, projectID, taskname1, tasktime1, taskname2, tasktime2, taskname3, tasktime3);
+        SUB_PROJECT_SERVICE.createSubProject(subProjectName, projectID);
 
         return "redirect:/project?id=" + projectID;
     }

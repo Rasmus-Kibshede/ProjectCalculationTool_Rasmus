@@ -4,10 +4,8 @@ import projectCalculationTool.project.Project;
 import projectCalculationTool.task.TaskRepository;
 import projectCalculationTool.util.DBManager;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.lang.reflect.Field;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class SubProjectRepository implements SubProjectRepositoryInterface {
@@ -18,34 +16,19 @@ public class SubProjectRepository implements SubProjectRepositoryInterface {
   public void createSubProject(Project project) throws SQLException {
 
     try {
-      PreparedStatement preparedStatement = connection.prepareStatement("CALL create_sub_project(?,?)");
+      SubProject subProject = project.getSubProjects().get(project.getSubProjects().size() - 1);
 
-      ArrayList<SubProject> subprojects = project.getSubProjects();
-      int lastIndex = subprojects.size() - 1;
-      SubProject lastSubProject = subprojects.get(lastIndex);
-
+      PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO subprojects(subproject_name, fk_project_id) VALUE (?, ?);", Statement.RETURN_GENERATED_KEYS);
+      preparedStatement.setString(1, subProject.getName());
       preparedStatement.setInt(2, project.getProjectID());
-      preparedStatement.setString(1, lastSubProject.getName());
 
+      preparedStatement.executeUpdate();
 
-      connection.setAutoCommit(false);
-      int affectedRows = preparedStatement.executeUpdate();
-
-      PreparedStatement preparedStatement2 = connection.prepareStatement("CALL get_last_id");
-      ResultSet resultSet = preparedStatement2.executeQuery();
+      ResultSet resultSet = preparedStatement.getGeneratedKeys();
 
       if (resultSet.next()) {
-        lastSubProject.setSubProjectID(resultSet.getInt(1));
+        subProject.setSubProjectID(resultSet.getInt(1));
       }
-
-      /*Found on https://stackoverflow.com/questions/1915166/how-to-get-the-insert-id-in-jdbc  */
-      if (affectedRows == 0) {
-        throw new SQLException("Creating subproject failed");
-      }
-      /*Done*/
-
-      TASK_REPOSITORY.createTask(lastSubProject);
-      connection.commit();
 
     } catch (SQLException e) {
       throw new SQLException(e.getMessage());
@@ -53,25 +36,35 @@ public class SubProjectRepository implements SubProjectRepositoryInterface {
   }
 
   @Override
-  public ArrayList<SubProject> readSubProject(ResultSet resultSet) throws SQLException {
+  public Project readSubProject(Project project) {
 
-    ArrayList<SubProject> subProjects = new ArrayList<>();
+    try {
+      PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM subprojects WHERE fk_project_id = ?");
 
-    while (resultSet.next()) {
+      preparedStatement.setInt(1, project.getProjectID());
 
-      int id = resultSet.getInt("subproject_id");
+      ResultSet resultSet = preparedStatement.executeQuery();
 
-      String name = resultSet.getString("subproject_name");
-      SubProject subProject = new SubProject(name);
-      subProject.setSubProjectID(id);
+      while (resultSet.next()) {
+        SubProject subProject = new SubProject();
 
-      subProject.setTasks(TASK_REPOSITORY.readTask(resultSet, id));
+        subProject.setSubProjectID(resultSet.getInt("subproject_id"));
+        subProject.setName(resultSet.getString("subproject_name"));
 
-      subProjects.add(subProject);
+        subProject = TASK_REPOSITORY.readTask(subProject);
+
+        project.addSubproject(subProject);
+      }
+
+
+
+      return project;
+
+    } catch (SQLException e) {
+      //Ret til en passende exception
+      return null;
     }
 
-
-    return subProjects;
   }
 
   @Override
