@@ -1,15 +1,12 @@
 package projectCalculationTool.task;
 
 import projectCalculationTool.subproject.SubProject;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
+import projectCalculationTool.util.exception.ProjectException;
 
 public interface TaskRepositoryInterface {
-  SubProject createTask(SubProject subProject) throws SQLException;
+  SubProject createTask(SubProject subProject) throws ProjectException;
 
-  SubProject readTask(SubProject subProject) throws SQLException;
+  SubProject readTask(SubProject subProject) throws ProjectException;
 
   Task updateTask(Task task);
 

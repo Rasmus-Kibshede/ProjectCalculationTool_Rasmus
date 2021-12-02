@@ -35,8 +35,4 @@ public class EmployeeRepository implements EmployeeRepositoryInterface {
             throw new LoginException(err.getMessage());
         }
     }
-
-    public Employee create(Employee employee) {
-        return null;
-    }
 }

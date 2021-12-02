@@ -1,9 +1,7 @@
 package projectCalculationTool.subproject;
 
 import projectCalculationTool.project.Project;
-import projectCalculationTool.task.Task;
-
-import java.sql.SQLException;
+import projectCalculationTool.util.exception.ProjectException;
 
 public class SubProjectService {
   private SubProjectRepositoryInterface subProjectRepositoryInterface;
@@ -12,7 +10,7 @@ public class SubProjectService {
     this.subProjectRepositoryInterface = subProjectRepositoryInterface;
   }
 
-  public void createSubProject(String subProjectName, int projectID) throws SQLException {
+  public void createSubProject(String subProjectName, int projectID) throws ProjectException {
 
     //skal ikke laves nyt project, der skal sendes et project med
     Project project = new Project();
@@ -39,19 +37,19 @@ public class SubProjectService {
   }
 
   //ER DET DEN RIGTIGE EXCEPTION???
-  public String validateSubProjectName(String subprojectName) throws SQLException {
+  public String validateSubProjectName(String subprojectName) throws ProjectException {
     if (subprojectName != null && !subprojectName.isEmpty() && subprojectName.length() <= 45) {
       return subprojectName;
     } else {
-      throw new SQLException("Project name can't be null or longer then 45 characters.");
+      throw new ProjectException("SubProject name can't be null or longer then 45 characters.");
     }
   }
 
-  public SubProject validateSubProjectIncludesTask(SubProject subProject) throws SQLException {
+  public SubProject validateSubProjectIncludesTask(SubProject subProject) throws ProjectException {
     if (subProject.getTasks() != null) {
       return subProject;
     } else {
-      throw new SQLException("You can't create SubProject without at least one Task");
+      throw new ProjectException("You can't create SubProject without at least one Task");
     }
   }
 }

@@ -1,17 +1,16 @@
 package projectCalculationTool.task;
 
-import projectCalculationTool.project.Project;
 import projectCalculationTool.subproject.SubProject;
 import projectCalculationTool.util.DBManager;
+import projectCalculationTool.util.exception.ProjectException;
 
 import java.sql.*;
-import java.util.ArrayList;
 
 public class TaskRepository implements TaskRepositoryInterface {
   private static Connection connection = DBManager.getConnection();
 
   @Override
-  public SubProject createTask(SubProject subProject) throws SQLException {
+  public SubProject createTask(SubProject subProject) throws ProjectException {
 
     try {
       Task task = subProject.getTasks().get(subProject.getTasks().size() - 1);
@@ -33,7 +32,7 @@ public class TaskRepository implements TaskRepositoryInterface {
       return subProject;
 
     } catch (SQLException e) {
-      throw new SQLException("Creating Task failed");
+      throw new ProjectException("Creating Task failed");
     }
   }
 
@@ -69,6 +68,5 @@ public class TaskRepository implements TaskRepositoryInterface {
 
   @Override
   public void deleteTask(int taskID) {
-
   }
 }

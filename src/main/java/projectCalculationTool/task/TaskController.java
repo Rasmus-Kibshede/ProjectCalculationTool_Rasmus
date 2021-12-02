@@ -1,22 +1,19 @@
 package projectCalculationTool.task;
 
-import org.springframework.scheduling.support.SimpleTriggerContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.context.request.WebRequest;
 import projectCalculationTool.subproject.SubProject;
-
-//PUHA NEJ NEJ NEJ FJERN
-import java.sql.SQLException;
+import projectCalculationTool.util.exception.ProjectException;
 
 @Controller
 public class TaskController {
   private TaskService TASK_SERVICE = new TaskService(new TaskRepository());
 
   @GetMapping("/addTask")
-  public String addTask(WebRequest webRequest) throws SQLException {
+  public String addTask(WebRequest webRequest) throws ProjectException {
 
     String taskName = webRequest.getParameter("taskname");
     double taskTime = TASK_SERVICE.validateTaskTime(webRequest.getParameter("tasktime"));
@@ -28,7 +25,7 @@ public class TaskController {
     return "/addTask"; //HTML SIDEN MANGLER
   }
 
-  @ExceptionHandler(SQLException.class)
+  @ExceptionHandler(ProjectException.class)
   public String crateFailedHandler(Model model, Exception exception){
     model.addAttribute("Error", exception.getMessage());
 

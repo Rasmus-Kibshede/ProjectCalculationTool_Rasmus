@@ -1,14 +1,11 @@
 package projectCalculationTool.subproject;
 
 import projectCalculationTool.project.Project;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
+import projectCalculationTool.util.exception.ProjectException;
 
 public interface SubProjectRepositoryInterface {
-  void createSubProject(Project project) throws SQLException;
-  Project readSubProject(Project project) throws SQLException;
+  void createSubProject(Project project) throws ProjectException;
+  Project readSubProject(Project project) throws ProjectException;
   SubProject updateSubProject(SubProject subProject);
   void deleteSubProject(int subProjectID);
 }

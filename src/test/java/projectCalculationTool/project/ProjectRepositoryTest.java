@@ -1,9 +1,9 @@
 package projectCalculationTool.project;
 
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import projectCalculationTool.employee.Employee;
+import projectCalculationTool.util.exception.ProjectException;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ class ProjectRepositoryTest {
 
   //-----------------------READ tests-----------------------
   @Test
-  public void readProject() throws SQLException {
+  public void readProject() throws ProjectException {
     Project project = projectRepository.readProject(18);
 
     assertEquals(18, project.getProjectID());
@@ -44,7 +44,7 @@ class ProjectRepositoryTest {
   }
 
   @Test
-  public void readAllProjectNotNull() throws SQLException{
+  public void readAllProjectNotNull() throws ProjectException {
 
     ArrayList<Project> projects = projectRepository.readProjects(employee);
 
@@ -73,7 +73,7 @@ class ProjectRepositoryTest {
   }
 
   @Test
-  public void createProject() throws SQLException{
+  public void createProject() throws ProjectException {
 
     Project project1 = new Project();
     project1.setName("JUnitTest");

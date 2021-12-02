@@ -8,7 +8,7 @@ import org.springframework.web.context.request.WebRequest;
 import projectCalculationTool.util.exception.LoginException;
 
 @Controller
-public class EmployeeController {
+public class LoginController {
     private EmployeeService employeeService = new EmployeeService(new EmployeeRepository());
 
     @PostMapping("/login")
