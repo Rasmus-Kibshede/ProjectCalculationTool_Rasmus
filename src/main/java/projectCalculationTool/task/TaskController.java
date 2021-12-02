@@ -22,7 +22,7 @@ public class TaskController {
 
     TASK_SERVICE.createTask(taskName, taskTime, subProject);
 
-    return "/addTask"; //HTML SIDEN MANGLER
+    return "/addTask"; //ER HTML SIDEN EDITSUBPROJECT???
   }
 
   @ExceptionHandler(ProjectException.class)
