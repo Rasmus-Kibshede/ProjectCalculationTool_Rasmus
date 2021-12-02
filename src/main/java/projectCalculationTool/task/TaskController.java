@@ -1,14 +1,17 @@
 package projectCalculationTool.task;
 
 import org.springframework.scheduling.support.SimpleTriggerContext;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.context.request.WebRequest;
 import projectCalculationTool.subproject.SubProject;
 
+//PUHA NEJ NEJ NEJ FJERN
 import java.sql.SQLException;
 
+@Controller
 public class TaskController {
   private TaskService TASK_SERVICE = new TaskService(new TaskRepository());
 
@@ -22,7 +25,7 @@ public class TaskController {
 
     TASK_SERVICE.createTask(taskName, taskTime, subProject);
 
-    return "/addTask"; //HTML SIDEN MAGLER
+    return "/addTask"; //HTML SIDEN MANGLER
   }
 
   @ExceptionHandler(SQLException.class)

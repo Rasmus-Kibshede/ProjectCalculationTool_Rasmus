@@ -24,6 +24,7 @@ public class SubProjectController {
         String taskname3 = webRequest.getParameter("taskname3");
         int tasktime3= Integer.parseInt(webRequest.getParameter("tasktime1"));
 
+        // vi bør have projektet her ikke id
         int projectID = Integer.parseInt(webRequest.getParameter("projectID"));
 
         SUB_PROJECT_SERVICE.createSubProject(subProjectName, projectID, taskname1, tasktime1, taskname2, tasktime2, taskname3, tasktime3);

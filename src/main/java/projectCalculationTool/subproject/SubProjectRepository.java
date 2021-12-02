@@ -70,7 +70,6 @@ public class SubProjectRepository implements SubProjectRepositoryInterface {
       subProjects.add(subProject);
     }
 
-
     return subProjects;
   }
 

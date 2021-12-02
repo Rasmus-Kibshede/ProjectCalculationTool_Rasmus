@@ -25,6 +25,7 @@ public class ProjectController {
         int projectID = Integer.parseInt(webRequest.getParameter("id"));
         Employee employee = (Employee) webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION);
 
+        // send hele projektet videre --> ikke hent id i næste controller (evt i webrequest eller session?)
         Project project = PROJECT_SERVICE.readProject(projectID);
 
         project.setEmployee(employee);
@@ -35,7 +36,7 @@ public class ProjectController {
     }
 
     @GetMapping("/profile")
-    public String profile(WebRequest webRequest, Model model) throws SQLException{
+    public String profile(WebRequest webRequest, Model model) throws SQLException {
 
         Employee employee = (Employee) webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION);
 
@@ -50,7 +51,7 @@ public class ProjectController {
     }
 
     @PostMapping("/addproject")
-    public String createProject(WebRequest webRequest) throws MissingFormatArgumentException, SQLException{
+    public String createProject(WebRequest webRequest) throws MissingFormatArgumentException, SQLException {
         String projectName = PROJECT_SERVICE.validateProjectName(webRequest.getParameter("projectname"));
 
         PROJECT_SERVICE.createProject(projectName,
