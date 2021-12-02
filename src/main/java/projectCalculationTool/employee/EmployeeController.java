@@ -16,7 +16,7 @@ public class EmployeeController {
         String email = webRequest.getParameter("email");
         String password = webRequest.getParameter("password");
         Employee employee = employeeService.readEmployee(email, password);
-//er det sikkert at sende password op i webrequest
+
         if (employee != null) {
             webRequest.setAttribute("employee", employee, WebRequest.SCOPE_SESSION);
             return "redirect:/profile";

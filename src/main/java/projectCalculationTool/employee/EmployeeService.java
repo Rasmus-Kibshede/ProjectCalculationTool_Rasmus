@@ -2,8 +2,6 @@ package projectCalculationTool.employee;
 
 import projectCalculationTool.util.exception.LoginException;
 
-import java.sql.SQLException;
-
 public class EmployeeService {
   private EmployeeRepositoryInterface employeeRepositoryInterface;
 
@@ -13,20 +11,26 @@ public class EmployeeService {
 
     public Employee readEmployee(String employeeEmail, String employeePassword) throws LoginException {
         return employeeRepositoryInterface.read
-            (validateEmailLength(employeeEmail), validatePasswordLength(employeePassword));
+            (validateEmail(employeeEmail), validatePasswordLength(employeePassword));
     }
 
-    //SKAL VEL FJERNES???
-    public Employee createEmployee(Employee employee) {
-        return null;
-    }
+    public String validateEmail(String email) throws LoginException{
+      email = validateEmailLength(email);
 
+      // regexApproved string Fra https://regexr.com/3e48o
+      String regexApproved = "^[\\w-.]+@([\\w-]+.)+[\\w-]{2,4}$";
+      if (email.matches(regexApproved)) {
+        return email;
+      } else {
+        throw new LoginException("This is not an email");
+      }
+    }
 
     public String validateEmailLength(String email) throws LoginException{
       if (email != null && !email.isEmpty() && email.length() <= 128) {
         return email;
       } else {
-        throw new LoginException("incorrect login information");
+        throw new LoginException("Incorrect login information");
       }
     }
 
@@ -34,9 +38,7 @@ public class EmployeeService {
       if (password != null && !password.isEmpty() && password.length() <= 128) {
         return password;
       } else {
-        throw new LoginException("incorrect login information");
+        throw new LoginException("Incorrect login information");
       }
     }
-
-
 }
