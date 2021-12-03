@@ -12,6 +12,10 @@ public class Project {
     private int projectID;
     private ArrayList<SubProject> subProjects = new ArrayList<>();
 
+    public Project() {
+        calculateDaysTotal();
+    }
+
     public ArrayList<SubProject> getSubProjects() {
         return subProjects;
     }
@@ -54,5 +58,14 @@ public class Project {
 
     public void setEmployee(Employee employee) {
         this.employee = employee;
+    }
+
+    public int calculateDaysTotal() {
+        int total = 0;
+
+        for (int i = 0; i < this.subProjects.size(); i++) {
+            total += this.subProjects.get(i).getDaysSubTotal();
+        }
+        return total;
     }
 }

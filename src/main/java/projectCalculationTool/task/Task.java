@@ -5,6 +5,11 @@ public class Task {
   private String name;
   private int taskID;
 
+  public Task(double time, String name) {
+    this.timeHours = time;
+    this.name = name;
+  }
+
   public double getTimeHours() {
     return timeHours;
   }
@@ -29,10 +34,9 @@ public class Task {
     this.taskID = taskID;
   }
 
-  public Task(double time, String name) {
-    this.timeHours = time;
-    this.name = name;
+  public int calculateTimeInDays(){
+    int time = (int) Math.ceil(timeHours);
+    int workDay = time /8;
+    return workDay;
   }
-
-  public void calculateTimeInDays(){}
 }

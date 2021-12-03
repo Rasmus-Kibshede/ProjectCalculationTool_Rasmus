@@ -16,23 +16,6 @@ public class ProjectController {
 
     private final ProjectService PROJECT_SERVICE = new ProjectService(new ProjectRepository());
 
-    @GetMapping("/project")
-    public String project(WebRequest webRequest, Model model) throws ProjectException {
-        int projectID = Integer.parseInt(webRequest.getParameter("id"));
-        Employee employee = (Employee) webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION);
-
-        // send hele projektet videre --> ikke hent id i næste controller (evt i webrequest eller session?)
-        Project project = PROJECT_SERVICE.readProject(projectID);
-
-        //sæt projekt i session
-        webRequest.setAttribute("project", project, WebRequest.SCOPE_SESSION);
-        project.setEmployee(employee);
-
-        model.addAttribute("project", project);
-
-        return "project";
-    }
-
     @GetMapping("/profile")
     // skal den throwe??
     public String profile(WebRequest webRequest, Model model) throws ProjectException {
@@ -58,6 +41,23 @@ public class ProjectController {
                 (Employee) webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION));
 
         return "redirect:/profile";
+    }
+
+    @GetMapping("/project")
+    public String project(WebRequest webRequest, Model model) throws ProjectException {
+        int projectID = Integer.parseInt(webRequest.getParameter("id"));
+        Employee employee = (Employee) webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION);
+
+        // send hele projektet videre --> ikke hent id i næste controller (evt i webrequest eller session?)
+        Project project = PROJECT_SERVICE.readProject(projectID);
+
+        //sæt projekt i session
+        webRequest.setAttribute("project", project, WebRequest.SCOPE_SESSION);
+        project.setEmployee(employee);
+
+        model.addAttribute("project", project);
+
+        return "project";
     }
 
     @GetMapping("/projectoverview")

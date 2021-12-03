@@ -11,11 +11,9 @@ public class SubProject {
   private int daysSubTotal;
   private ArrayList<Task> tasks = new ArrayList<>();
 
-  public SubProject() {
-  }
-
   public SubProject(String subProjectName) {
     this.name = subProjectName;
+    calculateDaySubTotal();
   }
 
   public int getSubProjectID() {
@@ -38,10 +36,6 @@ public class SubProject {
     return daysSubTotal;
   }
 
-  public void setDaysSubTotal(int daysSubTotal) {
-    this.daysSubTotal = daysSubTotal;
-  }
-
   public ArrayList<Task> getTasks() {
     return tasks;
   }
@@ -52,5 +46,15 @@ public class SubProject {
 
   public void addTask(Task task) {
     this.tasks.add(task);
+  }
+
+  public void calculateDaySubTotal() {
+    int daySubTotal = 0;
+
+    for (int i = 0; i < this.tasks.size(); i++) {
+      daySubTotal += this.tasks.get(i).calculateTimeInDays();
+    }
+
+    this.daysSubTotal = daySubTotal;
   }
 }
