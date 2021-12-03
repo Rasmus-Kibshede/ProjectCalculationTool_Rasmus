@@ -1,6 +1,5 @@
 .project-data table{
     width: 100%;
-    background: green;
 }
 
 .subproject-data {
@@ -14,6 +13,10 @@
     float: left;
 }
 
+.subproject-data a:link{
+    text-decoration: none;
+}
+
 .subproject-data form {
 
     padding: 10px;
@@ -21,7 +24,7 @@
 }
 
 .task-data {
-    background: red;
+    background: lightgray;
     padding: 10px;
 }
 

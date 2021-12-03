@@ -29,6 +29,7 @@
             <table th:each="sp: ${project.getSubProjects()}">
                 <tr>
                     <td class="subproject-data">
+                        <p th:value="${sp.getDaysSubTotal()}"></p>
                         <a th:href="'/subproject?id=' + ${sp.subProjectID}" th:text="${sp.name}"></a>
                         <form action="addTask" method="POST">
                             <input type="hidden" name="projectID" th:value="${project.projectID}">
