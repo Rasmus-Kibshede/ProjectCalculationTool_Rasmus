@@ -68,4 +68,14 @@ public class Project {
         }
         return total;
     }
+
+    public SubProject findSubProject(int subProjectID) {
+        for (SubProject subproject: this.subProjects) {
+            if (subproject.getSubProjectID() == subProjectID) {
+                return subproject;
+            }
+        }
+        // Returner exception - not found
+        return null;
+    }
 }

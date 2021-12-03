@@ -45,10 +45,9 @@ public class SubProjectRepository implements SubProjectRepositoryInterface {
       ResultSet resultSet = preparedStatement.executeQuery();
 
       while (resultSet.next()) {
-        SubProject subProject = new SubProject();
+        SubProject subProject = new SubProject(resultSet.getString("subproject_name"));
 
         subProject.setSubProjectID(resultSet.getInt("subproject_id"));
-        subProject.setName(resultSet.getString("subproject_name"));
 
         subProject = TASK_REPOSITORY.readTask(subProject);
 

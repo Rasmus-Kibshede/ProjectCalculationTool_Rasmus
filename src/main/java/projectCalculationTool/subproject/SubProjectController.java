@@ -31,7 +31,7 @@ public class SubProjectController {
 
     @ExceptionHandler(ProjectException.class)
     public String handlerSQLException(Model model, Exception exception) {
-        model.addAttribute("error", exception.getMessage());
+        model.addAttribute("message", exception.getMessage());
         return "/project";
     }
 

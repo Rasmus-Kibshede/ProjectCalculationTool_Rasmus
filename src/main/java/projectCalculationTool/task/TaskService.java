@@ -3,8 +3,6 @@ package projectCalculationTool.task;
 import projectCalculationTool.subproject.SubProject;
 import projectCalculationTool.util.exception.ProjectException;
 
-import java.sql.SQLException;
-
 public class TaskService {
   private TaskRepositoryInterface taskRepositoryInterface;
 
@@ -12,13 +10,10 @@ public class TaskService {
     this.taskRepositoryInterface = taskRepositoryInterface;
   }
 
-  public void createTask(String taskName, String taskTime, int subProjectID, SubProject subProject) throws SQLException, ProjectException {
-    //skal ikke laves new
-    subProject = new SubProject();
-    subProject.setSubProjectID(subProjectID);
-
+  public void createTask(String taskName, String taskTime, SubProject subProject) throws ProjectException {
     Task task = new Task(validateTaskTime(taskTime), validateTaskName(taskName));
     subProject.addTask(task);
+
     taskRepositoryInterface.createTask(subProject);
   }
 

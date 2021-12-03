@@ -11,7 +11,7 @@
     <th:block th:insert="fragments/general :: header"></th:block>
     <div id="content">
         <h2 th:text="${project.name}"></h2>
-
+        <h2 th:text="${project.getProjectDaysTotal()}"></h2>
 
         <h3>SubProjects</h3>
 
@@ -32,8 +32,7 @@
                         <p th:value="${sp.getDaysSubTotal()}"></p>
                         <a th:href="'/subproject?id=' + ${sp.subProjectID}" th:text="${sp.name}"></a>
                         <form action="addTask" method="POST">
-                            <input type="hidden" name="projectID" th:value="${project.projectID}">
-                            <input type="hidden" name="subproject" th:value="${sp.getSubProjectID()}">
+                            <input type="hidden" name="subprojectID" th:value="${sp.getSubProjectID()}">
                             <input type="text" name="taskname" placeholder="task name" required>
                             <input type="number" name="tasktime" placeholder="insert time">
                             <input type="submit" value="add task" class="submit">

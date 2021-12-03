@@ -13,28 +13,24 @@ import projectCalculationTool.project.Project;
 import projectCalculationTool.subproject.SubProject;
 import projectCalculationTool.util.exception.ProjectException;
 
-//PUHA NEJ NEJ NEJ FJERN
-import javax.servlet.http.HttpSession;
-import java.sql.SQLException;
-
 @Controller
 public class TaskController {
     private TaskService TASK_SERVICE = new TaskService(new TaskRepository());
 
     @PostMapping("addTask")
-    public String addTask(WebRequest webRequest) throws SQLException, ProjectException {
+    public String addTask(WebRequest webRequest) throws ProjectException {
+        int subProjectID = Integer.parseInt(webRequest.getParameter("subprojectID"));
 
-        SubProject subProject = (SubProject) webRequest.getAttribute("subproject", WebRequest.SCOPE_SESSION);
+        Project project = (Project) webRequest.getAttribute("project", WebRequest.SCOPE_SESSION);
+
+        SubProject subProject = project.findSubProject(subProjectID);
+
         String taskName = webRequest.getParameter("taskname");
-
-        int subprojectID = Integer.parseInt(webRequest.getParameter("subproject"));
         String taskTime = webRequest.getParameter("tasktime");
 
-        int projectID = Integer.parseInt(webRequest.getParameter("projectID"));
+        TASK_SERVICE.createTask(taskName, taskTime, subProject);
 
-        TASK_SERVICE.createTask(taskName, taskTime, subprojectID, subProject);
-
-        return "redirect:/project?id=" + projectID;
+        return "redirect:/project?id=" + project.getProjectID();
     }
 
     @GetMapping("/task")
@@ -64,9 +60,8 @@ public class TaskController {
 
     @ExceptionHandler(ProjectException.class)
     public String crateFailedHandler(Model model, Exception exception) {
-        model.addAttribute("Error", exception.getMessage());
+        model.addAttribute("message", exception.getMessage());
 
         return "/project";
     }
-
 }

@@ -4,7 +4,6 @@ import projectCalculationTool.employee.Employee;
 import projectCalculationTool.util.exception.ProjectException;
 
 import java.util.ArrayList;
-import java.util.MissingFormatArgumentException;
 
 public class ProjectService {
 
@@ -14,7 +13,7 @@ public class ProjectService {
     this.projectRepositoryInterface = projectRepositoryInterface;
   }
 
-  public void createProject(String projectName, Employee employee) throws MissingFormatArgumentException, ProjectException {
+  public void createProject(String projectName, Employee employee) throws ProjectException {
     Project project = new Project();
     project.setEmployee(employee);
     project.setName(projectName);

@@ -11,7 +11,6 @@ public class TaskRepository implements TaskRepositoryInterface {
 
   @Override
   public SubProject createTask(SubProject subProject) throws ProjectException {
-
     try {
       Task task = subProject.getTasks().get(subProject.getTasks().size() - 1);
 
@@ -38,9 +37,7 @@ public class TaskRepository implements TaskRepositoryInterface {
 
   @Override
   public SubProject readTask(SubProject subProject) {
-
     try {
-
       PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM tasks WHERE fk_subproject_id = ?;");
       preparedStatement.setInt(1, subProject.getSubProjectID());
 
@@ -58,7 +55,6 @@ public class TaskRepository implements TaskRepositoryInterface {
       e.printStackTrace();
     }
     return null;
-
   }
 
   @Override
