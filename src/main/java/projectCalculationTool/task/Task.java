@@ -1,11 +1,11 @@
 package projectCalculationTool.task;
 
 public class Task {
-  private double timeHours;
+  private int timeHours;
   private String name;
   private int taskID;
 
-  public Task(double time, String name) {
+  public Task(int time, String name) {
     this.timeHours = time;
     this.name = name;
   }
@@ -14,7 +14,7 @@ public class Task {
     return timeHours;
   }
 
-  public void setTimeHours(double timeHours) {
+  public void setTimeHours(int timeHours) {
     this.timeHours = timeHours;
   }
 
@@ -32,11 +32,5 @@ public class Task {
 
   public void setTaskID(int taskID) {
     this.taskID = taskID;
-  }
-
-  public int calculateTimeInDays(){
-    int time = (int) Math.ceil(timeHours);
-    int workDay = time /8;
-    return workDay;
   }
 }

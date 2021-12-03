@@ -48,7 +48,6 @@ public class ProjectRepository implements ProjectRepositoryInterface {
         project.setName(name);
         project.setProjectID(id);
 
-
         project = SUBPROJECT_REPOSITORY.readSubProject(project);
         return project;
       } else {

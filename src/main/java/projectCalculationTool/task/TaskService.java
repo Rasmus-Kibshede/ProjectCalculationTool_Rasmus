@@ -38,11 +38,11 @@ public class TaskService {
   }
 
   //ER DET DEN RIGTIGE EXCEPTION??
-  public double validateTaskTime(String taskTime) throws ProjectException{
-    double taskTimeNew;
+  public int validateTaskTime(String taskTime) throws ProjectException{
+    int taskTimeNew;
 
     if (taskTime != null && !taskTime.isEmpty()) {
-      taskTimeNew = Double.parseDouble(taskTime);
+      taskTimeNew = Integer.parseInt(taskTime);
       return taskTimeNew;
     } else {
       throw new ProjectException("Task time has to be a number."); //Tager ikke højde for komma/punktum

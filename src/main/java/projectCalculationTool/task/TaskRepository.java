@@ -44,7 +44,7 @@ public class TaskRepository implements TaskRepositoryInterface {
       ResultSet resultSet = preparedStatement.executeQuery();
 
       while (resultSet.next()) {
-        Task task = new Task(resultSet.getDouble("task_hours"), resultSet.getString("task_name"));
+        Task task = new Task(resultSet.getInt("task_hours"), resultSet.getString("task_name"));
         task.setTaskID(resultSet.getInt("task_id"));
         subProject.addTask(task);
       }

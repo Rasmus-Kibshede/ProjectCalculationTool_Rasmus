@@ -8,12 +8,11 @@ public class SubProject {
 
   private int subProjectID;
   private String name;
-  private int daysSubTotal;
+  private int workdays;
   private ArrayList<Task> tasks = new ArrayList<>();
 
   public SubProject(String subProjectName) {
     this.name = subProjectName;
-    calculateDaySubTotal();
   }
 
   public int getSubProjectID() {
@@ -32,8 +31,8 @@ public class SubProject {
     this.name = name;
   }
 
-  public int getDaysSubTotal() {
-    return daysSubTotal;
+  public int getWorkdays() {
+    return workdays;
   }
 
   public ArrayList<Task> getTasks() {
@@ -48,13 +47,17 @@ public class SubProject {
     this.tasks.add(task);
   }
 
-  public void calculateDaySubTotal() {
+  public void calculateDayTotal() {
     int daySubTotal = 0;
 
     for (int i = 0; i < this.tasks.size(); i++) {
-      daySubTotal += this.tasks.get(i).calculateTimeInDays();
+      daySubTotal += this.tasks.get(i).getTimeHours();
     }
+    calculateWorkdays(daySubTotal);
+  }
 
-    this.daysSubTotal = daySubTotal;
+  public void calculateWorkdays(int time) {
+    int workdays = time/8;
+    this.workdays = workdays;
   }
 }
