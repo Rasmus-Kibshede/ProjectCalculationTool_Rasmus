@@ -3,6 +3,7 @@
 <head>
     <th:block th:include="fragments/general :: headfiles"></th:block>
     <title>Project</title>
+    <link rel="stylesheet" href="/static/project.css">
 </head>
 <body>
 <div id="wrapper">
@@ -10,26 +11,35 @@
     <div id="content">
         <h2 th:text="${project.name}"></h2>
 
-        <a th:href="'/projectOverview?id=' + ${project.projectID}">Fulde Projekt Oversigt</a>
 
         <h3>SubProjects</h3>
-        <div id="subprojects" th:each="sp: ${project.getSubProjects()}">
-            <a th:href="'/subproject?id=' + ${sp.subProjectID}" th:text="${sp.name}"></a>
-        </div>
+
         <div id="add">
             <form action="addSubProject" method="POST">
                 <input type="hidden" name="projectID" th:value="${project.projectID}">
                 <input type="text" name="subprojectname" placeholder="Subproject Name" class="textfield" required>
-                <!--<input type="text" name="taskname1" placeholder="1st Task Name" class="textfield" required>
-                <input type="text" name="tasktime1" placeholder="1st Task Time in Hours" class="textfield" required>
-                <input type="text" name="taskname2" placeholder="2nd Task Name" class="textfield">
-                <input type="text" name="tasktime2" placeholder="2ndTask Time in Hours" class="textfield">
-                <input type="text" name="taskname3" placeholder=" 3rd Task Name" class="textfield">
-                <input type="text" name="tasktime3" placeholder="3rd Task Time in Hours" class="textfield">-->
                 <input type="submit" value="Save SubProject" class="submit">
             </form>
-            <p th:text="${message}" class="error"></p>
         </div>
+
+        <p th:text="${message}" class="error"></p>
+        <div class="subprojects">
+
+            <tr class="subprojects" th:each="sp: ${project.getSubProjects()}">
+                <form  action="addTask" method="POST">
+                    <input type="hidden" name="projectID" th:value="${project.projectID}">
+                    <input type="hidden" name="subproject" th:value="${sp.getSubProjectID()}">
+                    <input type="text" name="taskname" placeholder="task name" required>
+                    <input type="number" name="tasktime" placeholder="insert time">
+                    <input type="submit" value="add task" class="submit">
+                </form>
+                <td><a th:href="'/subproject?id=' + ${sp.subProjectID}" th:text="${sp.name}"></a></td>
+                <td class="task" th:each="task: ${sp.getTasks()}">
+                    <a th:href="'/task?id=' + ${task.getTaskID()}" th:text="${task.name}"></a></td>
+            </tr>
+
+        </div>
+
     </div>
     <th:block th:insert="fragments/general :: footer"></th:block>
 </div>

@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Task</title>
+    <th:block th:include="fragments/general :: headfiles"></th:block>
+    <title>Subproject</title>
 </head>
 <body>
 <div id="wrapper">
     <th:block th:insert="fragments/general :: header"></th:block>
     <div id="content">
+        <h2 th:text${subproject.name}></h2>
+
+        <div id="tasks" th:each="task: ${subproject.tasks}">
+            <h3 th:text="${task.name} + ' ' + ${task.time}"></h3>
+        </div>
+
 
     </div>
     <th:block th:insert="fragments/general :: footer"></th:block>

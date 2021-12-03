@@ -11,7 +11,11 @@ public class TaskService {
     this.taskRepositoryInterface = taskRepositoryInterface;
   }
 
-  public void createTask(String taskName, double taskTime, SubProject subProject) throws SQLException {
+  public void createTask(String taskName, double taskTime, int subProjectID, SubProject subProject) throws SQLException {
+    //skal ikke laves new
+    subProject = new SubProject();
+    subProject.setSubProjectID(subProjectID);
+
     Task task = new Task(taskTime, validateTaskName(taskName));
     subProject.addTask(task);
     taskRepositoryInterface.createTask(subProject);

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task</title>
+</head>
+<body>
+<div id="wrapper">
+    <th:block th:insert="fragments/general :: header"></th:block>
+    <div id="content">
+
+        <form action="" method="post">
+            <input type="text" name="taskname" placeholder="Task name">
+            <input type="text" name="task time" placeholder="Time estimate">
+
+        </form>
+
+    </div>
+    <th:block th:insert="fragments/general :: footer"></th:block>
+</div>
+</body>
+</html>

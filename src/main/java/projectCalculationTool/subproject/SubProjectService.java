@@ -12,14 +12,12 @@ public class SubProjectService {
     this.subProjectRepositoryInterface = subProjectRepositoryInterface;
   }
 
-  public void createSubProject(String subProjectName, int projectID) throws SQLException {
+  public void createSubProject(String subProjectName, int projectID, Project project) throws SQLException {
 
     //skal ikke laves nyt project, der skal sendes et project med
-    Project project = new Project();
-
+    project = new Project();
     project.setProjectID(projectID);
     SubProject subProject = new SubProject(validateSubProjectName(subProjectName));
-
     project.addSubproject(validateSubProjectIncludesTask(subProject));
 
     subProjectRepositoryInterface.createSubProject(project);

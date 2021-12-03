@@ -43,6 +43,7 @@ public class ProjectController {
         if (employee != null) {
             ArrayList<Project> projects = PROJECT_SERVICE.readProjects(employee);
             model.addAttribute("employee", employee);
+
             model.addAttribute("project", projects);
 
             return "profile";
