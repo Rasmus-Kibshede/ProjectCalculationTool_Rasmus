@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <th:block th:include="fragments/general :: headfiles"></th:block>
+    <title>Task</title>
+    <link rel="stylesheet" href="/static/task.css">
+</head>
+<body>
+<div id="wrapper">
+    <div id="content">
+        <h2>Update Task</h2>
+        <form action="/updateTask" method="Post">
+            <input type="text" name="taskname" placeholder="Task Name" class="textfield" required>
+            <input type="text" name="tasktime" placeholder="Task Time in Hours" class="textfield" required>
+            <input type="hidden" name="projectID" th:value="${project.projectID}">
+            <input type="submit" value="Update Task" class="submit">
+
+        </form>
+        <h4>Press update when finished</h4>
+
+    </div>
+    <th:block th:insert="fragments/general :: footer"></th:block>
+</div>
+</body>
+</html>

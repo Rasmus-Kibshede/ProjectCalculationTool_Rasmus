@@ -84,7 +84,7 @@ public class ProjectController {
     return "editProject";
   }
 
-  @GetMapping("saveProjectChanges")
+  @PostMapping("saveProjectChanges")
   public String saveProjectChanges(WebRequest webRequest) throws ProjectException{
 
     int projectID = Integer.parseInt(webRequest.getParameter("projectID"));
