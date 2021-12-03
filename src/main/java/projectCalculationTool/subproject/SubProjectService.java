@@ -2,6 +2,7 @@ package projectCalculationTool.subproject;
 
 import projectCalculationTool.project.Project;
 import projectCalculationTool.task.Task;
+import projectCalculationTool.util.exception.ProjectException;
 
 import java.sql.SQLException;
 
@@ -12,7 +13,7 @@ public class SubProjectService {
     this.subProjectRepositoryInterface = subProjectRepositoryInterface;
   }
 
-  public void createSubProject(String subProjectName, int projectID, Project project) throws SQLException {
+  public void createSubProject(String subProjectName, int projectID, Project project) throws SQLException, ProjectException {
 
     //skal ikke laves nyt project, der skal sendes et project med
     project = new Project();

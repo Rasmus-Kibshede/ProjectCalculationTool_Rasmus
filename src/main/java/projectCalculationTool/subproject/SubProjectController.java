@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.WebRequest;
 import projectCalculationTool.employee.Employee;
 import projectCalculationTool.project.Project;
+import projectCalculationTool.util.exception.ProjectException;
 
 import java.sql.SQLException;
 
@@ -16,7 +17,7 @@ public class SubProjectController {
     private SubProjectService SUB_PROJECT_SERVICE = new SubProjectService(new SubProjectRepository());
 
     @PostMapping("addSubProject")
-    public String addSubProject(WebRequest webRequest) throws SQLException {
+    public String addSubProject(WebRequest webRequest) throws SQLException, ProjectException {
 
         String subProjectName = webRequest.getParameter("subprojectname");
 

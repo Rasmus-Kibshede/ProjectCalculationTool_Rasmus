@@ -11,6 +11,7 @@ import org.springframework.web.context.request.WebRequest;
 import projectCalculationTool.employee.Employee;
 import projectCalculationTool.project.Project;
 import projectCalculationTool.subproject.SubProject;
+import projectCalculationTool.util.exception.ProjectException;
 
 //PUHA NEJ NEJ NEJ FJERN
 import javax.servlet.http.HttpSession;
@@ -21,7 +22,7 @@ public class TaskController {
     private TaskService TASK_SERVICE = new TaskService(new TaskRepository());
 
     @PostMapping("addTask")
-    public String addTask(WebRequest webRequest) throws SQLException {
+    public String addTask(WebRequest webRequest) throws SQLException, ProjectException {
         SubProject subProject = (SubProject) webRequest.getAttribute("subproject", WebRequest.SCOPE_SESSION);
         String taskName = webRequest.getParameter("taskname");
 
@@ -29,7 +30,7 @@ public class TaskController {
         double taskTime = TASK_SERVICE.validateTaskTime(webRequest.getParameter("tasktime"));
         int projectID = Integer.parseInt(webRequest.getParameter("projectID"));
         TASK_SERVICE.createTask(taskName, taskTime, subprojectID, subProject);
-        return "redirect:/project?=" + projectID;
+        return "redirect:/project?id=" + projectID;
     }
 
     @ExceptionHandler(SQLException.class)
