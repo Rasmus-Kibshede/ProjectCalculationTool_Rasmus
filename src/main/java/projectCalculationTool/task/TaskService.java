@@ -26,8 +26,9 @@ public class TaskService {
     return null;
   }
 
-  public Task updateTask(Task task){
-    return null;
+  public Task updateTask(double taskTime, String taskName){
+    Task task = new Task(taskTime, taskName);
+    return task;
   }
 
   public void deleteTask(int task){}

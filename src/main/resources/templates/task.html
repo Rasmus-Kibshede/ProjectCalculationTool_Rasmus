@@ -11,6 +11,7 @@
 
         <h2>Update Task</h2>
             <form action="/updateTask" method="post">
+                <input type="hidden" name="subprojectID" th:value="${SubProject.subProjectID}">
                 <input type="text" name="taskname" placeholder="Task Name" th:value="${task.name}"
                                class="textfield" required>
                 <input type="text" name="tasktime" placeholder="Task Time in Hours" th:value="${task.time}"

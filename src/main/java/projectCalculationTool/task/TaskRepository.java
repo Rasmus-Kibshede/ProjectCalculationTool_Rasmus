@@ -62,8 +62,22 @@ public class TaskRepository implements TaskRepositoryInterface {
   }
 
   @Override
-  public Task updateTask(Task task) {
-    return null;
+  public Task updateTask(Task task) throws SQLException {
+
+    try{
+      PreparedStatement preparedStatement = connection.prepareStatement("UPDATE tasks(task_name, task_hours) " +
+          "VALUE (?, ?) WHERE task_ID = ?;");
+
+      preparedStatement.setString(1, task.getName());
+      preparedStatement.setDouble(2, task.getTimeHours());
+
+      preparedStatement.executeQuery();
+
+      return task;
+
+    }catch (SQLException e){
+      throw new SQLException("Task wasn't updated");
+    }
   }
 
   @Override

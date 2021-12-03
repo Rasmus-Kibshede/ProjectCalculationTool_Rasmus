@@ -33,10 +33,45 @@ public class TaskController {
         return "redirect:/project?id=" + projectID;
     }
 
+    @GetMapping("task")
+    public String editTask(WebRequest webRequest, Model model){
+
+        SubProject subProject = (SubProject) webRequest.getAttribute("subproject", WebRequest.SCOPE_SESSION);
+        if(subProject != null){
+
+            int taskID = Integer.parseInt(webRequest.getParameter("taskID"));
+
+            Task task = TASK_SERVICE.readTask(taskID);
+
+            model.addAttribute("task", task);
+
+            return "task";
+
+        }
+
+        return "redirect:/project";
+    }
+
+    @PostMapping("/UpdateTask")
+    public String updateTask(WebRequest webRequest) throws SQLException{
+
+        String taskName = webRequest.getParameter("taskname");
+        double taskTime = TASK_SERVICE.validateTaskTime(webRequest.getParameter("tasktime"));
+        TASK_SERVICE.updateTask(taskTime, taskName);
+
+        int subProjectID = Integer.parseInt(webRequest.getParameter("subprojectID"));
+
+        return "redirect:/subproject?=" + subProjectID;
+
+    }
+
+
+
     @ExceptionHandler(SQLException.class)
     public String crateFailedHandler(Model model, Exception exception) {
         model.addAttribute("Error", exception.getMessage());
 
-        return "/addTask"; //HTML SIDEN MAGLER
+        return "/project";
     }
+
 }
