@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Project</title>
+</head>
+<body>
+
+<form action="saveProjectChanges" method="get">
+    <input type="text" name="projectName" th:value="${project.name}">
+    <input type="hidden" name="projectID" th:value="${project.projectID}">
+    <input type="submit" value="Edit project">
+</form>
+
+<a th:href="'/profile?id=' + ${project.projectID}">Back</a>
+
+</body>
+</html>
