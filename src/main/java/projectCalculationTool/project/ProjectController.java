@@ -24,6 +24,8 @@ public class ProjectController {
         // send hele projektet videre --> ikke hent id i næste controller (evt i webrequest eller session?)
         Project project = PROJECT_SERVICE.readProject(projectID);
 
+        //sæt projekt i session
+        webRequest.setAttribute("project", project, WebRequest.SCOPE_SESSION);
         project.setEmployee(employee);
 
         model.addAttribute("project", project);
@@ -60,12 +62,8 @@ public class ProjectController {
 
     @GetMapping("/projectoverview")
     public String showOverview(WebRequest webRequest, Model model) throws ProjectException {
-        int projectID = Integer.parseInt(webRequest.getParameter("id"));
-        Employee employee = (Employee) webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION);
-
-        Project project = PROJECT_SERVICE.readProject(projectID);
-
-        project.setEmployee(employee);
+        // henter projekt fra session
+        Project project = (Project) webRequest.getAttribute("project", WebRequest.SCOPE_SESSION);
 
         model.addAttribute("project", project);
 

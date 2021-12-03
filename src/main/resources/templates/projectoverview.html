@@ -9,12 +9,12 @@
 <div id="wrapper">
     <th:block th:insert="fragments/general :: header"></th:block>
     <div id="content">
-        <h2 th:text${project.name}></h2>
+        <h2 th:text="${project.name}"></h2>
 
-        <div id="overview" th:each="sp: ${project.subprojects}">
-            <h3 th:text="${sp.name} + ' ' + ${sp.time}"></h3>
-            <div id="tasks" th:text="task: ${sp.tasks}">
-                <h4 th:text="${task.name} + ' ' + ${task.time}"></h4>
+        <div id="overview" th:each="sp: ${project.getSubProjects()}">
+            <h3 th:text="${sp.name}"></h3> <!--+ ' ' + ${sp.time}-->
+            <div id="tasks" th:each="task: ${sp.getTasks}">
+                <h4 th:text="${task.name} + ' ' + ${task.getTimeHours()}"></h4>
             </div>
         </div>
 
