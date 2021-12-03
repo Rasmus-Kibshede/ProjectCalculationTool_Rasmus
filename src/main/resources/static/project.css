@@ -1,0 +1,40 @@
+.project-data table{
+    width: 100%;
+    background: green;
+}
+
+.subproject-data {
+    width: 100%;
+    height: 25px;
+    background: #59869d;
+}
+
+.subproject-data a {
+    padding: 10px;
+    float: left;
+}
+
+.subproject-data form {
+
+    padding: 10px;
+    float: right;
+}
+
+.task-data {
+    background: red;
+    padding: 10px;
+}
+
+.task-name {
+    width: 80%;
+    float: left;
+    padding: 10px;
+}
+
+.task-time{
+    padding: 10px;
+    float: left;
+}
+
+
+
