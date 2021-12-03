@@ -13,8 +13,6 @@
         <div id="tasks" th:each="task: ${subproject.tasks}">
             <h3 th:text="${task.name} + ' ' + ${task.time}"></h3>
         </div>
-
-
     </div>
     <th:block th:insert="fragments/general :: footer"></th:block>
 </div>
