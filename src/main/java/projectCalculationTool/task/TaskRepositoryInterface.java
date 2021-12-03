@@ -10,7 +10,7 @@ public interface TaskRepositoryInterface {
 
   SubProject readTask(SubProject subProject) throws ProjectException;
 
-  Task updateTask(Task task) throws SQLException;
+  Task updateTask(Task task) throws ProjectException;
 
   void deleteTask(int taskID);
 }

@@ -23,51 +23,46 @@ public class TaskController {
 
     @PostMapping("addTask")
     public String addTask(WebRequest webRequest) throws SQLException, ProjectException {
+
         SubProject subProject = (SubProject) webRequest.getAttribute("subproject", WebRequest.SCOPE_SESSION);
         String taskName = webRequest.getParameter("taskname");
 
         int subprojectID = Integer.parseInt(webRequest.getParameter("subproject"));
-        double taskTime = TASK_SERVICE.validateTaskTime(webRequest.getParameter("tasktime"));
+        String taskTime = webRequest.getParameter("tasktime");
+
         int projectID = Integer.parseInt(webRequest.getParameter("projectID"));
+
         TASK_SERVICE.createTask(taskName, taskTime, subprojectID, subProject);
+
         return "redirect:/project?id=" + projectID;
     }
 
-    @GetMapping("task")
+    @GetMapping("/task")
     public String editTask(WebRequest webRequest, Model model){
 
-        SubProject subProject = (SubProject) webRequest.getAttribute("subproject", WebRequest.SCOPE_SESSION);
-        if(subProject != null){
+        int taskID = Integer.parseInt(webRequest.getParameter("taskID"));
 
-            int taskID = Integer.parseInt(webRequest.getParameter("taskID"));
+        Task task = TASK_SERVICE.readTask(taskID);
 
-            Task task = TASK_SERVICE.readTask(taskID);
+        model.addAttribute("task", task);
 
-            model.addAttribute("task", task);
-
-            return "task";
-
-        }
-
-        return "redirect:/project";
+        return "/task";
     }
 
     @PostMapping("/UpdateTask")
-    public String updateTask(WebRequest webRequest) throws SQLException{
+    public String updateTask(WebRequest webRequest) throws ProjectException{
 
         String taskName = webRequest.getParameter("taskname");
-        double taskTime = TASK_SERVICE.validateTaskTime(webRequest.getParameter("tasktime"));
+        String taskTime = webRequest.getParameter("tasktime");
         TASK_SERVICE.updateTask(taskTime, taskName);
 
-        int subProjectID = Integer.parseInt(webRequest.getParameter("subprojectID"));
+        Project project = (Project) webRequest.getAttribute("project", WebRequest.SCOPE_SESSION);
 
-        return "redirect:/subproject?=" + subProjectID;
-
+        return "redirect:/project?=" + project.getProjectID();
     }
 
 
-
-    @ExceptionHandler(SQLException.class)
+    @ExceptionHandler(ProjectException.class)
     public String crateFailedHandler(Model model, Exception exception) {
         model.addAttribute("Error", exception.getMessage());
 

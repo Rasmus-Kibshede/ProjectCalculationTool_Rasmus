@@ -62,7 +62,7 @@ public class TaskRepository implements TaskRepositoryInterface {
   }
 
   @Override
-  public Task updateTask(Task task) throws SQLException {
+  public Task updateTask(Task task) throws ProjectException {
 
     try{
       PreparedStatement preparedStatement = connection.prepareStatement("UPDATE tasks(task_name, task_hours) " +
@@ -76,7 +76,7 @@ public class TaskRepository implements TaskRepositoryInterface {
       return task;
 
     }catch (SQLException e){
-      throw new SQLException("Task wasn't updated");
+      throw new ProjectException("Task wasn't updated");
     }
   }
 

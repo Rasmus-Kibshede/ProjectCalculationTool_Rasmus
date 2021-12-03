@@ -17,7 +17,7 @@ public class SubProjectController {
     private SubProjectService SUB_PROJECT_SERVICE = new SubProjectService(new SubProjectRepository());
 
     @PostMapping("addSubProject")
-    public String addSubProject(WebRequest webRequest) throws SQLException, ProjectException {
+    public String addSubProject(WebRequest webRequest) throws ProjectException {
 
         String subProjectName = webRequest.getParameter("subprojectname");
 
@@ -29,7 +29,7 @@ public class SubProjectController {
         return "redirect:/project?id=" + projectID;
     }
 
-    @ExceptionHandler(SQLException.class)
+    @ExceptionHandler(ProjectException.class)
     public String handlerSQLException(Model model, Exception exception) {
         model.addAttribute("error", exception.getMessage());
         return "/project";

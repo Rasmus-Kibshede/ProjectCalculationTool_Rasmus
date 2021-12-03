@@ -12,12 +12,12 @@ public class TaskService {
     this.taskRepositoryInterface = taskRepositoryInterface;
   }
 
-  public void createTask(String taskName, double taskTime, int subProjectID, SubProject subProject) throws SQLException, ProjectException {
+  public void createTask(String taskName, String taskTime, int subProjectID, SubProject subProject) throws SQLException, ProjectException {
     //skal ikke laves new
     subProject = new SubProject();
     subProject.setSubProjectID(subProjectID);
 
-    Task task = new Task(taskTime, validateTaskName(taskName));
+    Task task = new Task(validateTaskTime(taskTime), validateTaskName(taskName));
     subProject.addTask(task);
     taskRepositoryInterface.createTask(subProject);
   }
@@ -26,31 +26,31 @@ public class TaskService {
     return null;
   }
 
-  public Task updateTask(double taskTime, String taskName){
-    Task task = new Task(taskTime, taskName);
+  public Task updateTask(String taskTime, String taskName) throws ProjectException{
+    Task task = new Task(validateTaskTime(taskTime), validateTaskName(taskName));
     return task;
   }
 
   public void deleteTask(int task){}
 
   //ER DET DEN RIGTIGE EXCEPTION??
-  public String validateTaskName(String taskName)throws SQLException{
+  public String validateTaskName(String taskName)throws ProjectException{
     if (taskName != null && !taskName.isEmpty() && taskName.length() <= 45) {
       return taskName;
     } else {
-      throw new SQLException("Task name can't be null or longer then 45 characters.");
+      throw new ProjectException("Task name can't be null or longer then 45 characters.");
     }
   }
 
   //ER DET DEN RIGTIGE EXCEPTION??
-  public double validateTaskTime(String taskTime) throws SQLException{
+  public double validateTaskTime(String taskTime) throws ProjectException{
     double taskTimeNew;
 
     if (taskTime != null && !taskTime.isEmpty()) {
       taskTimeNew = Double.parseDouble(taskTime);
       return taskTimeNew;
     } else {
-      throw new SQLException("Task time has to be a number.");
+      throw new ProjectException("Task time has to be a number."); //Tager ikke højde for komma/punktum
     }
   }
 }
