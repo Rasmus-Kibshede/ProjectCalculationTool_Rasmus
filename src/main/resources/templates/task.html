@@ -9,11 +9,16 @@
     <th:block th:insert="fragments/general :: header"></th:block>
     <div id="content">
 
-        <form action="" method="post">
-            <input type="text" name="taskname" placeholder="Task name">
-            <input type="text" name="task time" placeholder="Time estimate">
-
-        </form>
+        <h2>Update Task</h2>
+            <form action="/updateTask" method="post">
+                <input type="text" name="taskname" placeholder="Task Name" th:value="${task.name}"
+                               class="textfield" required>
+                <input type="text" name="tasktime" placeholder="Task Time in Hours" th:value="${task.time}"
+                               class="textfield" required>
+                <input type="submit" value="Update Task" class="submit">
+                <input type="submit" value="Cancel" class="submit">
+            </form>
+        <h4>Press update when finished</h4>
 
     </div>
     <th:block th:insert="fragments/general :: footer"></th:block>

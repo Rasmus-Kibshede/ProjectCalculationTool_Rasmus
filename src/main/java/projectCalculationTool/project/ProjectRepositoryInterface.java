@@ -1,20 +1,19 @@
 package projectCalculationTool.project;
 
 import projectCalculationTool.employee.Employee;
+import projectCalculationTool.util.exception.ProjectException;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.MissingFormatArgumentException;
 
 public interface ProjectRepositoryInterface {
 
-  void createProject(Project project) throws MissingFormatArgumentException, SQLException;
+  void createProject(Project project) throws ProjectException;
 
-  ArrayList<Project> readProjects(Employee employee) throws SQLException;
+  ArrayList<Project> readProjects(Employee employee) throws ProjectException;
 
-  Project readProject(int projectID) throws SQLException;
+  Project readProject(int projectID) throws ProjectException;
 
-  Project updateProject(Project project) throws SQLException;
+  Project updateProject(Project project) throws ProjectException;
 
-  void deleteProject(int projectID) throws SQLException;
+  void deleteProject(int projectID) throws ProjectException;
 }

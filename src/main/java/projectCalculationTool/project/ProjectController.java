@@ -7,13 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.WebRequest;
 import projectCalculationTool.employee.Employee;
-import projectCalculationTool.employee.EmployeeRepository;
-import projectCalculationTool.employee.EmployeeService;
-import projectCalculationTool.util.exception.LoginException;
+import projectCalculationTool.util.exception.ProjectException;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.MissingFormatArgumentException;
 
 @Controller
 public class ProjectController {
@@ -21,7 +17,7 @@ public class ProjectController {
     private final ProjectService PROJECT_SERVICE = new ProjectService(new ProjectRepository());
 
     @GetMapping("/project")
-    public String project(WebRequest webRequest, Model model) throws SQLException {
+    public String project(WebRequest webRequest, Model model) throws ProjectException {
         int projectID = Integer.parseInt(webRequest.getParameter("id"));
         Employee employee = (Employee) webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION);
 
@@ -36,7 +32,8 @@ public class ProjectController {
     }
 
     @GetMapping("/profile")
-    public String profile(WebRequest webRequest, Model model) throws SQLException {
+    // skal den throwe??
+    public String profile(WebRequest webRequest, Model model) throws ProjectException {
 
         Employee employee = (Employee) webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION);
 
@@ -52,7 +49,7 @@ public class ProjectController {
     }
 
     @PostMapping("/addproject")
-    public String createProject(WebRequest webRequest) throws MissingFormatArgumentException, SQLException {
+    public String createProject(WebRequest webRequest) throws ProjectException {
         String projectName = PROJECT_SERVICE.validateProjectName(webRequest.getParameter("projectname"));
 
         PROJECT_SERVICE.createProject(projectName,
@@ -61,7 +58,21 @@ public class ProjectController {
         return "redirect:/profile";
     }
 
-    @ExceptionHandler({SQLException.class, MissingFormatArgumentException.class})
+    @GetMapping("/projectoverview")
+    public String showOverview(WebRequest webRequest, Model model) throws ProjectException {
+        int projectID = Integer.parseInt(webRequest.getParameter("id"));
+        Employee employee = (Employee) webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION);
+
+        Project project = PROJECT_SERVICE.readProject(projectID);
+
+        project.setEmployee(employee);
+
+        model.addAttribute("project", project);
+
+        return "projectoverview";
+    }
+
+    @ExceptionHandler({ProjectException.class})
     public String handleSQLException(Model model, Exception exception) {
         model.addAttribute("message", exception.getMessage());
 
