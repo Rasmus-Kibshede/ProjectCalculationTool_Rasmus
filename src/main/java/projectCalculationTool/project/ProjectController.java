@@ -71,7 +71,7 @@ public class ProjectController {
     }
 
   @GetMapping("editProject")
-  public String updateProject(WebRequest webRequest, Model model) throws ProjectException{
+  public String editProject(WebRequest webRequest, Model model) throws ProjectException{
 
     int projectID = Integer.parseInt(webRequest.getParameter("id"));
 
@@ -85,7 +85,7 @@ public class ProjectController {
   }
 
   @GetMapping("saveProjectChanges")
-  public String editProject(WebRequest webRequest) throws ProjectException{
+  public String saveProjectChanges(WebRequest webRequest) throws ProjectException{
 
     int projectID = Integer.parseInt(webRequest.getParameter("projectID"));
 
@@ -93,9 +93,8 @@ public class ProjectController {
     Project project = PROJECT_SERVICE.readProject(projectID);
 
     String projectName = webRequest.getParameter("projectName");
-    project.setName(projectName);
 
-    PROJECT_SERVICE.updateProject(project);
+    PROJECT_SERVICE.updateProject(project, projectName);
 
     return "redirect:profile?id=" + projectID;
   }
