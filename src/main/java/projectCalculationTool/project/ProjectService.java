@@ -37,4 +37,12 @@ public class ProjectService {
             throw new ProjectException("Project name can't be null or longer then 45 characters.");
         }
     }
+
+  public void deleteProject(int projectID) throws ProjectException{
+      projectRepositoryInterface.deleteProject(projectID);
+  }
+
+  public void updateProject(Project project) throws ProjectException{
+        projectRepositoryInterface.updateProject(project);
+  }
 }

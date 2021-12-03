@@ -70,10 +70,51 @@ public class ProjectController {
         return "projectoverview";
     }
 
-    @ExceptionHandler({ProjectException.class})
-    public String handleSQLException(Model model, Exception exception) {
-        model.addAttribute("message", exception.getMessage());
+  @GetMapping("editProject")
+  public String updateProject(WebRequest webRequest, Model model) throws ProjectException{
 
-        return "profile";
-    }
+    int projectID = Integer.parseInt(webRequest.getParameter("id"));
+
+    //skal laves om, så vi ikke skal kalde ned til database igen
+    Project project = PROJECT_SERVICE.readProject(projectID);
+
+    model.addAttribute("project", project);
+
+
+    return "editProject";
+  }
+
+  @GetMapping("saveProjectChanges")
+  public String editProject(WebRequest webRequest) throws ProjectException{
+
+    int projectID = Integer.parseInt(webRequest.getParameter("projectID"));
+
+    //skal laves om, så vi ikke skal kalde ned til database igen
+    Project project = PROJECT_SERVICE.readProject(projectID);
+
+    String projectName = webRequest.getParameter("projectName");
+    project.setName(projectName);
+
+    PROJECT_SERVICE.updateProject(project);
+
+    return "redirect:profile?id=" + projectID;
+  }
+
+  @GetMapping("deleteProject")
+  public String deleteProject(WebRequest webRequest) throws ProjectException{
+
+    int projectID = Integer.parseInt(webRequest.getParameter("id"));
+
+    PROJECT_SERVICE.deleteProject(projectID);
+
+    return "redirect:profile";
+  }
+
+
+  @ExceptionHandler({ProjectException.class})
+  public String handleSQLException(Model model, Exception exception) {
+    model.addAttribute("message", exception.getMessage());
+
+    return "profile";
+  }
 }
