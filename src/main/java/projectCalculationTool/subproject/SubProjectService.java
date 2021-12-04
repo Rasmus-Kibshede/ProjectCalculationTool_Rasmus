@@ -1,10 +1,7 @@
 package projectCalculationTool.subproject;
 
 import projectCalculationTool.project.Project;
-import projectCalculationTool.task.Task;
 import projectCalculationTool.util.exception.ProjectException;
-
-import java.sql.SQLException;
 
 public class SubProjectService {
   private SubProjectRepositoryInterface subProjectRepositoryInterface;
@@ -19,6 +16,8 @@ public class SubProjectService {
     project = new Project();
     project.setProjectID(projectID);
     SubProject subProject = new SubProject(validateSubProjectName(subProjectName));
+
+    // denne validering giver ikke længere mening vel?
     project.addSubproject(validateSubProjectIncludesTask(subProject));
 
     subProjectRepositoryInterface.createSubProject(project);
@@ -46,6 +45,7 @@ public class SubProjectService {
     }
   }
 
+  //bruger vi stadig denne??
   public SubProject validateSubProjectIncludesTask(SubProject subProject) throws ProjectException {
     if (subProject.getTasks() != null) {
       return subProject;

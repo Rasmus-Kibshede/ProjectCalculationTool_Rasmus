@@ -9,13 +9,15 @@ import org.springframework.web.context.request.WebRequest;
 import projectCalculationTool.project.Project;
 import projectCalculationTool.subproject.SubProject;
 import projectCalculationTool.util.exception.ProjectException;
+import projectCalculationTool.util.exception.TaskException;
+import projectCalculationTool.util.exception.ValidateException;
 
 @Controller
 public class TaskController {
     private TaskService TASK_SERVICE = new TaskService(new TaskRepository());
 
     @PostMapping("addTask")
-    public String addTask(WebRequest webRequest) throws ProjectException {
+    public String addTask(WebRequest webRequest) throws ValidateException, TaskException {
         int subProjectID = Integer.parseInt(webRequest.getParameter("subprojectID"));
 
         Project project = (Project) webRequest.getAttribute("project", WebRequest.SCOPE_SESSION);
@@ -43,7 +45,7 @@ public class TaskController {
     }
 
     @PostMapping("updateTask")
-    public String updateTask(WebRequest webRequest) throws ProjectException {
+    public String updateTask(WebRequest webRequest) throws ProjectException, ValidateException {
         int projectID = Integer.parseInt(webRequest.getParameter("projectID"));
         String taskName = webRequest.getParameter("taskName");
         String taskTime = webRequest.getParameter("taskTime");

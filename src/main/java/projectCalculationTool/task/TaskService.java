@@ -2,6 +2,8 @@ package projectCalculationTool.task;
 
 import projectCalculationTool.subproject.SubProject;
 import projectCalculationTool.util.exception.ProjectException;
+import projectCalculationTool.util.exception.TaskException;
+import projectCalculationTool.util.exception.ValidateException;
 
 public class TaskService {
     private TaskRepositoryInterface taskRepositoryInterface;
@@ -10,7 +12,7 @@ public class TaskService {
         this.taskRepositoryInterface = taskRepositoryInterface;
     }
 
-    public void createTask(String taskName, String taskTime, SubProject subProject) throws ProjectException {
+    public void createTask(String taskName, String taskTime, SubProject subProject) throws ValidateException, TaskException {
         Task task = new Task(validateTaskTime(taskTime), validateTaskName(taskName));
         subProject.addTask(task);
 
@@ -21,7 +23,7 @@ public class TaskService {
         return taskRepositoryInterface.readTask(taskID);
     }
 
-    public Task updateTask(String taskTime, String taskName) throws ProjectException{
+    public Task updateTask(String taskTime, String taskName) throws ProjectException, ValidateException {
         Task task = new Task(validateTaskTime(taskTime), validateTaskName(taskName));
         taskRepositoryInterface.updateTask(task);
         return task;
@@ -31,24 +33,26 @@ public class TaskService {
         taskRepositoryInterface.deleteTask(taskID);
     }
 
-    //ER DET DEN RIGTIGE EXCEPTION??
-    public String validateTaskName(String taskName)throws ProjectException{
+    public String validateTaskName(String taskName) throws ValidateException {
         if (taskName != null && !taskName.isEmpty() && taskName.length() <= 45) {
             return taskName;
         } else {
-            throw new ProjectException("Task name can't be null or longer then 45 characters.");
+            throw new ValidateException("Task name can't be null or longer than 45 characters.");
         }
     }
 
-    //ER DET DEN RIGTIGE EXCEPTION??
-    public int validateTaskTime(String taskTime) throws ProjectException{
-        int taskTimeNew;
+    public int validateTaskTime(String taskTime) throws ValidateException {
+        int time;
 
         if (taskTime != null && !taskTime.isEmpty()) {
-            taskTimeNew = Integer.parseInt(taskTime);
-            return taskTimeNew;
+            try {
+                time = Integer.parseInt(taskTime);
+                return time;
+            } catch (NumberFormatException err) {
+                throw new ValidateException("Task time has to be a number in hours.");
+            }
         } else {
-            throw new ProjectException("Task time has to be a number."); //Tager ikke højde for komma/punktum
+            throw new ValidateException("Task time cannot be empty.");
         }
     }
 }

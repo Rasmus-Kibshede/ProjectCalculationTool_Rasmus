@@ -2,9 +2,10 @@ package projectCalculationTool.task;
 
 import projectCalculationTool.subproject.SubProject;
 import projectCalculationTool.util.exception.ProjectException;
+import projectCalculationTool.util.exception.TaskException;
 
 public interface TaskRepositoryInterface {
-  SubProject createTask(SubProject subProject) throws ProjectException;
+  SubProject createTask(SubProject subProject) throws TaskException;
 
   SubProject readAllTasks(SubProject subProject) throws ProjectException;
 

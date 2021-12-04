@@ -3,14 +3,10 @@ package projectCalculationTool.subproject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.WebRequest;
-import projectCalculationTool.employee.Employee;
 import projectCalculationTool.project.Project;
 import projectCalculationTool.util.exception.ProjectException;
-
-import java.sql.SQLException;
 
 @Controller
 public class SubProjectController {
@@ -34,6 +30,4 @@ public class SubProjectController {
         model.addAttribute("message", exception.getMessage());
         return "/project";
     }
-
-
 }
