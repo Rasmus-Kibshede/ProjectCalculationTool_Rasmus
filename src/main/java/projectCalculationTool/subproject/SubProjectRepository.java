@@ -49,7 +49,7 @@ public class SubProjectRepository implements SubProjectRepositoryInterface {
 
         subProject.setSubProjectID(resultSet.getInt("subproject_id"));
 
-        subProject = TASK_REPOSITORY.readTask(subProject);
+        subProject = TASK_REPOSITORY.readAllTasks(subProject);
 
         project.addSubproject(subProject);
       }

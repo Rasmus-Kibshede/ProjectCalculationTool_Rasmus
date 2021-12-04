@@ -31,25 +31,35 @@ public class TaskController {
     }
 
     @GetMapping("/editTask")
-    public String editTask(WebRequest webRequest, Model model){
+    public String editTask(WebRequest webRequest, Model model) throws ProjectException {
         Project project = (Project) webRequest.getAttribute("project", WebRequest.SCOPE_SESSION);
-        int taskID = Integer.parseInt(webRequest.getParameter("taskid"));
+        int taskID = Integer.parseInt(webRequest.getParameter("id"));
 
         Task task = TASK_SERVICE.readTask(taskID);
 
         model.addAttribute("task", task);
         model.addAttribute("project", project);
-        return "/editTask";
+        return "editTask";
     }
 
-    @PostMapping("UpdateTask")
-    public String updateTask(WebRequest webRequest) throws ProjectException{
+    @PostMapping("updateTask")
+    public String updateTask(WebRequest webRequest) throws ProjectException {
         int projectID = Integer.parseInt(webRequest.getParameter("projectID"));
-        String taskName = webRequest.getParameter("taskname");
-        String taskTime = webRequest.getParameter("tasktime");
+        String taskName = webRequest.getParameter("taskName");
+        String taskTime = webRequest.getParameter("taskTime");
+
         TASK_SERVICE.updateTask(taskTime, taskName);
 
         return "redirect:/project?id=" + projectID;
+    }
+
+    @GetMapping("deleteTask")
+    public String deleteTask(WebRequest webRequest) throws ProjectException {
+        int taskID = Integer.parseInt(webRequest.getParameter("id"));
+        Project project = (Project) webRequest.getAttribute("project", WebRequest.SCOPE_SESSION);
+        TASK_SERVICE.deleteTask(taskID);
+
+        return "redirect:/project?id=" + project.getProjectID();
     }
 
 
