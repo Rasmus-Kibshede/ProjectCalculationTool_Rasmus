@@ -24,8 +24,8 @@ public class TaskController {
 
         SubProject subProject = project.findSubProject(subProjectID);
 
-        String taskName = webRequest.getParameter("taskname");
-        String taskTime = webRequest.getParameter("tasktime");
+        String taskName = webRequest.getParameter("taskName");
+        String taskTime = webRequest.getParameter("taskTime");
 
         TASK_SERVICE.createTask(taskName, taskTime, subProject);
 

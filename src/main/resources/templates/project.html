@@ -33,7 +33,7 @@
                         <form action="addTask" method="POST">
                             <input type="hidden" name="subprojectID" th:value="${sp.getSubProjectID()}">
                             <input type="text" name="taskName" placeholder="task name" required>
-                            <input type="number" name="taskTime" placeholder="insert time">
+                            <input type="number" name="taskTime" placeholder="insert time" required>
                             <input type="submit" value="add task" class="submit">
                         </form>
                     </td>
