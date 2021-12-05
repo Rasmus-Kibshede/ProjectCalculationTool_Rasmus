@@ -70,16 +70,20 @@
                     <td>
                         <a th:href="'/editTask?id=' + ${task.taskID}">
                             <!-- den poster ikke så længe det ikke lægges i en form ergo de hidden felter sendes ikke videre-->
-                            <input type="hidden" name="id" th:value="${task.getTaskID()}">
-                            <input type="hidden" name="subproject" th:value="${sp}">
-                            <input type="hidden" name="project" th:value="${project}">
-                            <input type="submit" value="Edit task">
+                            <form action="editTask.html" method="get">
+                                <input type="hidden" name="id" th:value="${task.getTaskID()}">
+                                <input type="hidden" name="subproject" th:value="${sp}">
+                                <input type="hidden" name="project" th:value="${project}">
+                                <input type="submit" value="Edit task">
+                            </form>
                         </a>
                     </td>
                     <td><a th:href="'/deleteTask?id=' + ${task.getTaskID()}">
-                        <!-- den poster ikke så længe det ikke lægges i en form-->
-                        <input type="hidden" name="project" th:value="${project}">
-                        <input type="submit" value="Delete">
+                        <form action="">
+                            <!-- den poster ikke så længe det ikke lægges i en form-->
+                            <input type="hidden" name="project" th:value="${project}">
+                            <input type="submit" value="Delete">
+                        </form>
                     </a>
                     </td>
 
