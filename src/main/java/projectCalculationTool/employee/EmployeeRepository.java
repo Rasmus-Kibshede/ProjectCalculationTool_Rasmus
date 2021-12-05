@@ -14,7 +14,7 @@ public class EmployeeRepository implements EmployeeRepositoryInterface {
     @Override
     public Employee read(String employeeEmail, String employeePassword) throws LoginException {
         try {
-            PreparedStatement ps = connection.prepareStatement("CALL read_employees(?,?) ");
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM employees WHERE employee_email = ? and employee_password = ?;");
             ps.setString(1, employeeEmail);
             ps.setString(2, employeePassword);
 

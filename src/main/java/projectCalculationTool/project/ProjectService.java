@@ -2,6 +2,7 @@ package projectCalculationTool.project;
 
 import projectCalculationTool.employee.Employee;
 import projectCalculationTool.util.exception.ProjectException;
+import projectCalculationTool.util.exception.ValidateException;
 
 import java.util.ArrayList;
 
@@ -34,17 +35,16 @@ public class ProjectService {
         projectRepositoryInterface.deleteProject(projectID);
     }
 
-    public void updateProject(Project project, String projectName) throws ProjectException {
+    public void updateProject(Project project, String projectName) throws ProjectException, ValidateException {
         project.setName(validateProjectName(projectName));
         projectRepositoryInterface.updateProject(project);
     }
 
-    //ER DET EN SQLEXCEPTION DER SKAL BRUGES HER???
-    public String validateProjectName(String projectName) throws ProjectException {
+    public String validateProjectName(String projectName) throws ValidateException {
         if (projectName != null && !projectName.isEmpty() && projectName.length() <= 45) {
             return projectName;
         } else {
-            throw new ProjectException("Project name can't be null or longer then 45 characters.");
+            throw new ValidateException("Project name can't be null or longer then 45 characters.");
         }
     }
 }

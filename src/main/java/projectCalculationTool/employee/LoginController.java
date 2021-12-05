@@ -6,13 +6,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.WebRequest;
 import projectCalculationTool.util.exception.LoginException;
+import projectCalculationTool.util.exception.ValidateException;
 
 @Controller
 public class LoginController {
     private EmployeeService employeeService = new EmployeeService(new EmployeeRepository());
 
     @PostMapping("/login")
-    public String login(WebRequest webRequest) throws LoginException {
+    public String login(WebRequest webRequest) throws LoginException, ValidateException {
         String email = webRequest.getParameter("email");
         String password = webRequest.getParameter("password");
         Employee employee = employeeService.readEmployee(email, password);
@@ -25,7 +26,7 @@ public class LoginController {
         return "redirect:/";
     }
 
-    @ExceptionHandler(LoginException.class)
+    @ExceptionHandler({LoginException.class, ValidateException.class})
     public String handleLoginException(Model model, Exception exception) {
         model.addAttribute("message", exception.getMessage());
         return "index";

@@ -3,7 +3,7 @@ package projectCalculationTool.subproject;
 import projectCalculationTool.project.Project;
 import projectCalculationTool.task.TaskRepository;
 import projectCalculationTool.util.DBManager;
-import projectCalculationTool.util.exception.ProjectException;
+import projectCalculationTool.util.exception.SubProjectException;
 
 import java.sql.*;
 
@@ -12,7 +12,7 @@ public class SubProjectRepository implements SubProjectRepositoryInterface {
   private final TaskRepository TASK_REPOSITORY = new TaskRepository();
 
   @Override
-  public void createSubProject(Project project) throws ProjectException {
+  public void createSubProject(Project project) throws SubProjectException {
 
     try {
       SubProject subProject = project.getSubProjects().get(project.getSubProjects().size() - 1);
@@ -30,12 +30,12 @@ public class SubProjectRepository implements SubProjectRepositoryInterface {
       }
 
     } catch (SQLException e) {
-      throw new ProjectException(e.getMessage());
+      throw new SubProjectException(e.getMessage());
     }
   }
 
   @Override
-  public Project readSubProject(Project project) throws ProjectException {
+  public Project readSubProject(Project project) throws SubProjectException {
 
     try {
       PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM subprojects WHERE fk_project_id = ?");
@@ -57,7 +57,7 @@ public class SubProjectRepository implements SubProjectRepositoryInterface {
       return project;
 
     } catch (SQLException e) {
-      throw new ProjectException(e.getMessage());
+      throw new SubProjectException(e.getMessage());
       //Ret til en passende exception
     }
   }

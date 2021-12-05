@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.WebRequest;
 import projectCalculationTool.employee.Employee;
 import projectCalculationTool.util.exception.ProjectException;
+import projectCalculationTool.util.exception.ValidateException;
 
 import java.util.ArrayList;
 
@@ -34,7 +35,7 @@ public class ProjectController {
     }
 
     @PostMapping("/addproject")
-    public String createProject(WebRequest webRequest) throws ProjectException {
+    public String createProject(WebRequest webRequest) throws ProjectException, ValidateException {
         String projectName = PROJECT_SERVICE.validateProjectName(webRequest.getParameter("projectname"));
 
         PROJECT_SERVICE.createProject(projectName,
@@ -85,7 +86,7 @@ public class ProjectController {
   }
 
   @PostMapping("saveProjectChanges")
-  public String saveProjectChanges(WebRequest webRequest) throws ProjectException{
+  public String saveProjectChanges(WebRequest webRequest) throws ProjectException, ValidateException {
 
     int projectID = Integer.parseInt(webRequest.getParameter("projectID"));
 
@@ -110,7 +111,7 @@ public class ProjectController {
   }
 
 
-  @ExceptionHandler({ProjectException.class})
+  @ExceptionHandler({ProjectException.class, ValidateException.class})
   public String handleSQLException(Model model, Exception exception) {
     model.addAttribute("message", exception.getMessage());
 

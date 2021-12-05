@@ -2,7 +2,6 @@ package projectCalculationTool.task;
 
 import projectCalculationTool.subproject.SubProject;
 import projectCalculationTool.util.DBManager;
-import projectCalculationTool.util.exception.ProjectException;
 import projectCalculationTool.util.exception.TaskException;
 
 import java.sql.*;
@@ -36,6 +35,7 @@ public class TaskRepository implements TaskRepositoryInterface {
         }
     }
 
+    /*
     @Override
     public SubProject readAllTasks(SubProject subProject) {
         try {
@@ -57,9 +57,10 @@ public class TaskRepository implements TaskRepositoryInterface {
         }
         return null;
     }
+     */
 
     @Override
-    public Task readTask(int taskID) throws ProjectException {
+    public Task readTask(int taskID) throws TaskException {
 
         try {
             PreparedStatement ps = connection.prepareStatement("SELECT * FROM tasks WHERE task_id = ?");
@@ -78,14 +79,14 @@ public class TaskRepository implements TaskRepositoryInterface {
             }
 
         } catch (SQLException err) {
-            throw new ProjectException("could not read task");
+            throw new TaskException("could not read task");
         }
         return null;
     }
 
 
     @Override
-    public Task updateTask(Task task) throws ProjectException {
+    public Task updateTask(Task task) throws TaskException {
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE tasks(task_name, task_hours) " +
@@ -99,25 +100,24 @@ public class TaskRepository implements TaskRepositoryInterface {
             return task;
 
         } catch (SQLException e) {
-            throw new ProjectException("Task wasn't updated");
+            throw new TaskException("Task wasn't updated");
         }
     }
 
     @Override
-    public void deleteTask(int taskID) throws ProjectException {
+    public void deleteTask(int taskID) throws TaskException {
         try {
-
             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM tasks WHERE task_id = ?;");
             preparedStatement.setInt(1, taskID);
 
             int i = preparedStatement.executeUpdate();
 
             if (i == 0) {
-                throw new ProjectException("Could not delete Task");
+                throw new TaskException("Could not delete Task");
             }
-
-        } catch (SQLException | ProjectException e) {
-            throw new ProjectException(e.getMessage());
+// er det sådan man smider til en anden type??????
+        } catch (SQLException | TaskException e) {
+            throw new TaskException(e.getMessage());
         }
     }
 }

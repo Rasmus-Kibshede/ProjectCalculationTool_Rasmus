@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.WebRequest;
 import projectCalculationTool.project.Project;
 import projectCalculationTool.subproject.SubProject;
-import projectCalculationTool.util.exception.ProjectException;
 import projectCalculationTool.util.exception.TaskException;
 import projectCalculationTool.util.exception.ValidateException;
 
@@ -33,7 +32,7 @@ public class TaskController {
     }
 
     @GetMapping("/editTask")
-    public String editTask(WebRequest webRequest, Model model) throws ProjectException {
+    public String editTask(WebRequest webRequest, Model model) throws TaskException {
         Project project = (Project) webRequest.getAttribute("project", WebRequest.SCOPE_SESSION);
         int taskID = Integer.parseInt(webRequest.getParameter("id"));
 
@@ -45,7 +44,7 @@ public class TaskController {
     }
 
     @PostMapping("updateTask")
-    public String updateTask(WebRequest webRequest) throws ProjectException, ValidateException {
+    public String updateTask(WebRequest webRequest) throws TaskException, ValidateException {
         int projectID = Integer.parseInt(webRequest.getParameter("projectID"));
         String taskName = webRequest.getParameter("taskName");
         String taskTime = webRequest.getParameter("taskTime");
@@ -56,7 +55,7 @@ public class TaskController {
     }
 
     @GetMapping("deleteTask")
-    public String deleteTask(WebRequest webRequest) throws ProjectException {
+    public String deleteTask(WebRequest webRequest) throws TaskException {
         int taskID = Integer.parseInt(webRequest.getParameter("id"));
         Project project = (Project) webRequest.getAttribute("project", WebRequest.SCOPE_SESSION);
         TASK_SERVICE.deleteTask(taskID);
@@ -65,7 +64,7 @@ public class TaskController {
     }
 
 
-    @ExceptionHandler(ProjectException.class)
+    @ExceptionHandler({TaskException.class, ValidateException.class})
     public String crateFailedHandler(Model model, Exception exception) {
         model.addAttribute("message", exception.getMessage());
 

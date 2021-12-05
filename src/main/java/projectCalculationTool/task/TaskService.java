@@ -1,7 +1,6 @@
 package projectCalculationTool.task;
 
 import projectCalculationTool.subproject.SubProject;
-import projectCalculationTool.util.exception.ProjectException;
 import projectCalculationTool.util.exception.TaskException;
 import projectCalculationTool.util.exception.ValidateException;
 
@@ -19,17 +18,17 @@ public class TaskService {
         taskRepositoryInterface.createTask(subProject);
     }
 
-    public Task readTask(int taskID) throws ProjectException {
+    public Task readTask(int taskID) throws TaskException {
         return taskRepositoryInterface.readTask(taskID);
     }
 
-    public Task updateTask(String taskTime, String taskName) throws ProjectException, ValidateException {
+    public Task updateTask(String taskTime, String taskName) throws TaskException, ValidateException {
         Task task = new Task(validateTaskTime(taskTime), validateTaskName(taskName));
         taskRepositoryInterface.updateTask(task);
         return task;
     }
 
-    public void deleteTask(int taskID) throws ProjectException {
+    public void deleteTask(int taskID) throws TaskException {
         taskRepositoryInterface.deleteTask(taskID);
     }
 
