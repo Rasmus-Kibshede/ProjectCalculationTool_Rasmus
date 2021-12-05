@@ -28,9 +28,11 @@ public class ProjectController {
             model.addAttribute("employee", employee);
 
             model.addAttribute("project", projects);
+            model.addAttribute("message", webRequest.getParameter("message"));
 
             return "profile";
         }
+
         return "redirect:/";
     }
 
@@ -57,6 +59,7 @@ public class ProjectController {
         project.setEmployee(employee);
 
         model.addAttribute("project", project);
+        model.addAttribute("message", webRequest.getParameter("message"));
 
         return "project";
     }
@@ -71,50 +74,50 @@ public class ProjectController {
         return "projectoverview";
     }
 
-  @GetMapping("editProject")
-  public String editProject(WebRequest webRequest, Model model) throws ProjectException{
+    @GetMapping("editProject")
+    public String editProject(WebRequest webRequest, Model model) throws ProjectException {
 
-    int projectID = Integer.parseInt(webRequest.getParameter("id"));
+        int projectID = Integer.parseInt(webRequest.getParameter("id"));
 
-    //skal laves om, så vi ikke skal kalde ned til database igen
-    Project project = PROJECT_SERVICE.readProject(projectID);
+        //skal laves om, så vi ikke skal kalde ned til database igen
+        Project project = PROJECT_SERVICE.readProject(projectID);
 
-    model.addAttribute("project", project);
-
-
-    return "editProject";
-  }
-
-  @PostMapping("saveProjectChanges")
-  public String saveProjectChanges(WebRequest webRequest) throws ProjectException, ValidateException {
-
-    int projectID = Integer.parseInt(webRequest.getParameter("projectID"));
-
-    //skal laves om, så vi ikke skal kalde ned til database igen
-    Project project = PROJECT_SERVICE.readProject(projectID);
-
-    String projectName = webRequest.getParameter("projectName");
-
-    PROJECT_SERVICE.updateProject(project, projectName);
-
-    return "redirect:profile?id=" + projectID;
-  }
-
-  @GetMapping("deleteProject")
-  public String deleteProject(WebRequest webRequest) throws ProjectException{
-
-    int projectID = Integer.parseInt(webRequest.getParameter("id"));
-
-    PROJECT_SERVICE.deleteProject(projectID);
-
-    return "redirect:profile";
-  }
+        model.addAttribute("project", project);
 
 
-  @ExceptionHandler({ProjectException.class, ValidateException.class})
-  public String handleSQLException(Model model, Exception exception) {
-    model.addAttribute("message", exception.getMessage());
+        return "editProject";
+    }
 
-    return "profile";
-  }
+    @PostMapping("saveProjectChanges")
+    public String saveProjectChanges(WebRequest webRequest) throws ProjectException, ValidateException {
+
+        int projectID = Integer.parseInt(webRequest.getParameter("projectID"));
+
+        //skal laves om, så vi ikke skal kalde ned til database igen
+        Project project = PROJECT_SERVICE.readProject(projectID);
+
+        String projectName = webRequest.getParameter("projectName");
+
+        PROJECT_SERVICE.updateProject(project, projectName);
+
+        return "redirect:profile?id=" + projectID;
+    }
+
+    @GetMapping("deleteProject")
+    public String deleteProject(WebRequest webRequest) throws ProjectException {
+
+        int projectID = Integer.parseInt(webRequest.getParameter("id"));
+
+        PROJECT_SERVICE.deleteProject(projectID);
+
+        return "redirect:profile";
+    }
+
+
+    @ExceptionHandler({ProjectException.class, ValidateException.class})
+    public String handleSQLException(Model model, Exception exception, WebRequest webRequest) {
+        String referer = webRequest.getHeader("Referer");
+        model.addAttribute("message", exception.getMessage());
+        return "redirect:" + referer;
+    }
 }

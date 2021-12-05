@@ -38,6 +38,7 @@ public class TaskController {
 
         Task task = TASK_SERVICE.readTask(taskID);
 
+        model.addAttribute("message", webRequest.getParameter("message"));
         model.addAttribute("task", task);
         model.addAttribute("project", project);
         return "editTask";
@@ -65,9 +66,10 @@ public class TaskController {
 
 
     @ExceptionHandler({TaskException.class, ValidateException.class})
-    public String crateFailedHandler(Model model, Exception exception) {
+    public String crateFailedHandler(Model model, Exception exception, WebRequest webRequest) {
+        String referer = webRequest.getHeader("Referer");
         model.addAttribute("message", exception.getMessage());
 
-        return "/project";
+        return "redirect:" + referer;
     }
 }
