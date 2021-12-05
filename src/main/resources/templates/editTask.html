@@ -25,8 +25,8 @@
         <h2>Update Task</h2>
 
         <form action="/updateTask" method="post">
-            <input type="text" name="taskname" class="textfield" required>
-            <input type="text" name="tasktime" class="textfield" required>
+            <input type="text" name="taskName" class="textfield" required>
+            <input type="text" name="taskTime" class="textfield" required>
             <input type="hidden" name="id" th:value="${task.getTaskID()}">
             <input type="hidden" name="projectID" th:value="${project.projectID}">
             <input type="submit" value="Update Task" class="submit">

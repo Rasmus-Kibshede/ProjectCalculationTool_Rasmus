@@ -1,6 +1,31 @@
-.project-data table{
-    width: 100%;
+.projecthead {
+    list-style-type: none;
+    text-align: center;
+    margin: 0;
+    padding: 0;
 }
+
+.projecthead li{
+    display: inline-block;
+    font-size: 20px;
+    padding: 20px;
+    width: 24%;
+}
+
+.subprojectheader{
+    list-style-type: none;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.subprojectheader p{
+    display: inline-block;
+    font-size: 20px;
+    padding: 7px;
+    width: 24%;
+}
+
 
 .subproject-data {
     width: 100%;
@@ -31,7 +56,6 @@
 }
 
 .task-name {
-    width: 80%;
     float: left;
     padding: 10px;
 }

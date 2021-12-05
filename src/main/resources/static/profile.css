@@ -1,17 +1,84 @@
-.projectmenu{
-    width: 100%;
+.projectmenu {
+    width: 76.6%;
+    height: 50px;
     background: #59869d;
+    display: inline-block;
+}
+
+.projectmenu h2 {
+    color: white;
+    float: left;
+    padding: 12px;
+}
+
+.addproject {
+    float: right;
+    padding: 12px;
+}
+
+.submit {
+    background-color: limegreen;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border: none;
+    cursor: pointer;
 }
 
 
-.projectbox{
+.projectbox {
     width: 310px;
-    background: lightgray;
+    background: #dedede;
     display: inline-block;
     margin: 10px;
-    height: 150px;
+    height: 155px;
 }
 
-.projectbox :hover{
-    background: gray;
+
+.projectbox a:link:first-child, a:visited:first-child {
+    background-color: #59869d;
+    width: 100%;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
 }
+
+.projectbox .editbtn {
+    background-color: #59869d;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.projectbox .editbtn {
+    background-color: #59869d;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.projectbox .deletebtn {
+    background-color: #D11A2A;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.projectbox .deletebtn {
+    background-color: darkred;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+
+.projectbox:hover {
+    background: lightgray;
+}
+
