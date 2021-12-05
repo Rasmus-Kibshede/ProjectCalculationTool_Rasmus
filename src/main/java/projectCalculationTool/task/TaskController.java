@@ -64,7 +64,7 @@ public class TaskController {
         return "redirect:/project?id=" + project.getProjectID();
     }
 
-
+    //Referance https://stackoverflow.com/questions/804581/spring-mvc-controller-redirect-to-previous-page
     @ExceptionHandler({TaskException.class, ValidateException.class})
     public String crateFailedHandler(Model model, Exception exception, WebRequest webRequest) {
         String referer = webRequest.getHeader("Referer");

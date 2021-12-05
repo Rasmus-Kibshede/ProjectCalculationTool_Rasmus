@@ -58,6 +58,7 @@ public class SubProjectController {
         return "redirect:/project?id=" + projectID;
     }
 
+    //Referance https://stackoverflow.com/questions/804581/spring-mvc-controller-redirect-to-previous-page
     @ExceptionHandler({SubProjectException.class, ValidateException.class})
     public String handlerSQLException(Model model, Exception exception, WebRequest webRequest) {
         String referer = webRequest.getHeader("Referer");

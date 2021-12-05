@@ -33,6 +33,7 @@ public class LoginController {
         return "redirect:/";
     }
 
+    //Referance https://stackoverflow.com/questions/804581/spring-mvc-controller-redirect-to-previous-page
     @ExceptionHandler({LoginException.class, ValidateException.class})
     public String handleLoginException(Model model, Exception exception, WebRequest webRequest) {
         String referer = webRequest.getHeader("Referer");

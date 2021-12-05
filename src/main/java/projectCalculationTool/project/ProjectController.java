@@ -113,7 +113,7 @@ public class ProjectController {
         return "redirect:profile";
     }
 
-
+    //Referance https://stackoverflow.com/questions/804581/spring-mvc-controller-redirect-to-previous-page
     @ExceptionHandler({ProjectException.class, ValidateException.class})
     public String handleSQLException(Model model, Exception exception, WebRequest webRequest) {
         String referer = webRequest.getHeader("Referer");
