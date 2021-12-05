@@ -4,6 +4,7 @@ import projectCalculationTool.project.Project;
 import projectCalculationTool.task.TaskRepository;
 import projectCalculationTool.util.DBManager;
 import projectCalculationTool.util.exception.SubProjectException;
+import projectCalculationTool.util.exception.TaskException;
 
 import java.sql.*;
 
@@ -30,12 +31,36 @@ public class SubProjectRepository implements SubProjectRepositoryInterface {
       }
 
     } catch (SQLException e) {
-      throw new SubProjectException(e.getMessage());
+      throw new SubProjectException("Failed creating subproject", e);
+    }
+  }
+  @Override
+  public SubProject readSubProject(int subprojectID) throws SubProjectException {
+    try {
+      PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM subprojects WHERE subproject_id = ?");
+      preparedStatement.setInt(1, subprojectID);
+
+      ResultSet resultSet = preparedStatement.executeQuery();
+      SubProject subProject = null;
+
+      while (resultSet.next()) {
+        subProject = new SubProject(resultSet.getString("subproject_name"));
+
+        subProject.setSubProjectID(resultSet.getInt("subproject_id"));
+
+        subProject = TASK_REPOSITORY.readAllTasks(subProject);
+      }
+      return subProject;
+
+    }catch (SQLException err) {
+      throw new SubProjectException("Kunne ikke læse subprojekt.", err);
+    }catch (TaskException err) {
+      throw new SubProjectException("Kunne ikke læse tasks", err);
     }
   }
 
   @Override
-  public Project readSubProject(Project project) throws SubProjectException {
+  public Project readSubProjects(Project project) throws SubProjectException {
 
     try {
       PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM subprojects WHERE fk_project_id = ?");
@@ -57,17 +82,37 @@ public class SubProjectRepository implements SubProjectRepositoryInterface {
       return project;
 
     } catch (SQLException e) {
-      throw new SubProjectException(e.getMessage());
-      //Ret til en passende exception
+      throw new SubProjectException("Read subproject failed", e);
+
+    }catch (TaskException err) {
+      throw new SubProjectException("Read tasks failed", err);
     }
   }
 
   @Override
-  public SubProject updateSubProject(SubProject subProject) {
-    return null;
+  public void updateSubProject(int id, String name) throws SubProjectException {
+    try {
+      PreparedStatement preparedStatement = connection.prepareStatement("UPDATE subprojects SET subproject_name = ? WHERE subproject_id = ?");
+      preparedStatement.setString(1, name);
+      preparedStatement.setInt(2, id);
+
+      preparedStatement.executeUpdate();
+
+    }catch (SQLException err) {
+      throw new SubProjectException("Kunne ikke opdatere subprojekt.", err);
+    }
   }
 
   @Override
-  public void deleteSubProject(int subProjectID) {
+  public void deleteSubProject(int subProjectID) throws SubProjectException {
+    try {
+      PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM subprojects WHERE subproject_id = ?;");
+      preparedStatement.setInt(1, subProjectID);
+
+      preparedStatement.executeUpdate();
+
+    }catch (SQLException err) {
+      throw new SubProjectException("Kunne ikke slette subprojekt", err);
+    }
   }
 }

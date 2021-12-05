@@ -4,6 +4,7 @@ import projectCalculationTool.employee.Employee;
 import projectCalculationTool.subproject.SubProjectRepository;
 import projectCalculationTool.util.DBManager;
 import projectCalculationTool.util.exception.ProjectException;
+import projectCalculationTool.util.exception.SubProjectException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class ProjectRepository implements ProjectRepositoryInterface {
       }
 
     } catch (SQLException e) {
-      throw new ProjectException(e.getMessage());
+      throw new ProjectException("Creating project failed", e);
     }
   }
 
@@ -48,21 +49,23 @@ public class ProjectRepository implements ProjectRepositoryInterface {
         project.setName(name);
         project.setProjectID(id);
 
-        project = SUBPROJECT_REPOSITORY.readSubProject(project);
+        project = SUBPROJECT_REPOSITORY.readSubProjects(project);
         return project;
       } else {
         throw new ProjectException("Invalid Project");
       }
 
     } catch (SQLException err) {
-      throw new ProjectException(err.getMessage());
+      throw new ProjectException("Read project failed", err);
+    } catch (SubProjectException err) {
+      throw new ProjectException("Failed read subproject", err);
     }
   }
 
   public ArrayList<Project> readProjects(Employee employee) throws ProjectException {
 
     try {
-      PreparedStatement preparedStatement = connection.prepareStatement("CALL read_projects(?)");
+      PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM projects WHERE fk_employee_id = ?;");
       preparedStatement.setInt(1, employee.getEmployeeID());
       ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -81,7 +84,7 @@ public class ProjectRepository implements ProjectRepositoryInterface {
 
       return projects;
     } catch (SQLException e) {
-      throw new ProjectException(e.getMessage());
+      throw new ProjectException("Reading projects failed.", e);
     }
   }
 
@@ -94,9 +97,8 @@ public class ProjectRepository implements ProjectRepositoryInterface {
 
       preparedStatement.executeUpdate();
 
-
     } catch (SQLException e) {
-      throw new ProjectException(e.getMessage());
+      throw new ProjectException("Updating project failed.", e);
     }
   }
 
@@ -114,7 +116,7 @@ public class ProjectRepository implements ProjectRepositoryInterface {
       }
 
     } catch (SQLException e) {
-      throw new ProjectException(e.getMessage());
+      throw new ProjectException("Deleting project failed", e);
     }
   }
 }

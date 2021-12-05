@@ -6,13 +6,28 @@
 </head>
 <body>
 <div id="wrapper">
-    <th:block th:insert="fragments/general :: header"></th:block>
+    <!--Referance fra Alpha solutions https://www.alpha-solutions.com/da-->
+    <header>
+        <div id="navbar">
+            <div class="header">
+                <div id="logo">
+                    <a href="/">
+                        <img src="https://media.alpha-solutions.com/da/-/media/alphawebsite2019/defaults/logo.ashx?iar=0&amp;hash=47313F5015E221C5AA54A61AFA0E9CA6"
+                             alt="Alpha Solutions Logo"/>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!--Slut referance fra Alpha Solution-->
     <div id="content">
         <h2 th:text${subproject.name}></h2>
 
-        <div id="tasks" th:each="task: ${subproject.tasks}">
-            <h3 th:text="${task.name} + ' ' + ${task.time}"></h3>
-        </div>
+        <form th:action="'/projects/'+ ${projectID} + '/subprojekt/' + ${subproject.subProjectID}" method="post">
+            <input type="text" name="name" th:value="${subproject.name}" class="textfield" required>
+            <input type="submit" class="submit" value="Gem">
+        </form>
+        <p th:text="${message}"></p>
     </div>
     <th:block th:insert="fragments/general :: footer"></th:block>
 </div>

@@ -3,6 +3,8 @@ package projectCalculationTool.subproject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.WebRequest;
 import projectCalculationTool.project.Project;
@@ -26,9 +28,40 @@ public class SubProjectController {
         return "redirect:/project?id=" + projectID;
     }
 
+    @GetMapping("/projects/{projectID}/subprojekt/{subprojectID}")
+    public String subproject(@PathVariable int subprojectID, @PathVariable int projectID, Model model, WebRequest webRequest) throws SubProjectException {
+        SubProject subProject = SUB_PROJECT_SERVICE.readSubProject(subprojectID);
+
+        model.addAttribute("subproject", subProject);
+        model.addAttribute("projectID", projectID);
+        model.addAttribute("message", webRequest.getParameter("message"));
+
+        return "subproject";
+    }
+
+    @PostMapping("projects/{projectID}/subprojekt/{subprojectID}")
+    public String updatSubproject(
+            @PathVariable int subprojectID,
+            @PathVariable int projectID,
+            WebRequest webRequest
+    ) throws ValidateException, SubProjectException {
+        String name = webRequest.getParameter("name");
+        SUB_PROJECT_SERVICE.updateSubProject(subprojectID, name);
+
+        return "redirect:/project?id=" + projectID;
+    }
+
+    @PostMapping("projects/{projectID}/subprojekt/{subprojectID}/slet")
+    public String deleteSubproject(@PathVariable int subprojectID, @PathVariable int projectID) throws SubProjectException {
+        SUB_PROJECT_SERVICE.deleteSubProject(subprojectID);
+
+        return "redirect:/project?id=" + projectID;
+    }
+
     @ExceptionHandler({SubProjectException.class, ValidateException.class})
-    public String handlerSQLException(Model model, Exception exception) {
+    public String handlerSQLException(Model model, Exception exception, WebRequest webRequest) {
+        String referer = webRequest.getHeader("Referer");
         model.addAttribute("message", exception.getMessage());
-        return "/project";
+        return "redirect:" + referer;
     }
 }

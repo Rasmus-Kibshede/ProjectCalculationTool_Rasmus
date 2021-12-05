@@ -30,14 +30,13 @@ public class TaskRepository implements TaskRepositoryInterface {
 
             return subProject;
 
-        } catch (SQLException e) {
-            throw new TaskException("Creating Task failed");
+        } catch (SQLException err) {
+            throw new TaskException("Creating Task failed", err);
         }
     }
 
-    /*
     @Override
-    public SubProject readAllTasks(SubProject subProject) {
+    public SubProject readAllTasks(SubProject subProject) throws TaskException {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM tasks WHERE fk_subproject_id = ?;");
             preparedStatement.setInt(1, subProject.getSubProjectID());
@@ -52,12 +51,10 @@ public class TaskRepository implements TaskRepositoryInterface {
 
             return subProject;
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException err) {
+            throw new TaskException("Failed reading Tasks", err);
         }
-        return null;
     }
-     */
 
     @Override
     public Task readTask(int taskID) throws TaskException {
@@ -79,7 +76,7 @@ public class TaskRepository implements TaskRepositoryInterface {
             }
 
         } catch (SQLException err) {
-            throw new TaskException("could not read task");
+            throw new TaskException("could not read task", err);
         }
         return null;
     }
@@ -99,8 +96,8 @@ public class TaskRepository implements TaskRepositoryInterface {
 
             return task;
 
-        } catch (SQLException e) {
-            throw new TaskException("Task wasn't updated");
+        } catch (SQLException err) {
+            throw new TaskException("Task wasn't updated", err);
         }
     }
 
@@ -116,8 +113,8 @@ public class TaskRepository implements TaskRepositoryInterface {
                 throw new TaskException("Could not delete Task");
             }
 // er det sådan man smider til en anden type??????
-        } catch (SQLException | TaskException e) {
-            throw new TaskException(e.getMessage());
+        } catch (SQLException err) {
+            throw new TaskException("Failed deleting Task", err);
         }
     }
 }

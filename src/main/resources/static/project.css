@@ -7,7 +7,9 @@
     height: 25px;
     background: #59869d;
 }
-
+/*
+Ændring - a tag til p tag
+ */
 .subproject-data a {
     padding: 10px;
     float: left;
