@@ -4,51 +4,22 @@
     <th:block th:include="fragments/general :: headfiles"></th:block>
     <title>Project</title>
     <link rel="stylesheet" href="/project.css">
-    <link rel="stylesheet" href="../static/main.css">
 
 </head>
 <body>
 <div id="wrapper">
-    <header>
-        <div id="navbar">
-            <div class="header">
-                <div id="logo">
-                    <a href="/">
-                        <img src="https://media.alpha-solutions.com/da/-/media/alphawebsite2019/defaults/logo.ashx?iar=0&amp;hash=47313F5015E221C5AA54A61AFA0E9CA6"
-                             alt="Alpha Solutions Logo"/>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </header>
+    <th:block th:insert="fragments/general :: header"></th:block>
+
     <div id="content">
-        <div class="projecthead">
-            <li><h2 th:text="${project.name}"></h2></li>
-            <li><h3>SubProjects</h3></li>
-            <li><h2 th:text="'Arbejdsdage: ' + ${project.getProjectDaysTotal()}"></h2></li>
-
-
-        </div>
-
-        <div id="add">
-            <form action="addSubProject" method="POST">
-                <input type="hidden" name="projectID" th:value="${project.projectID}">
-                <input type="text" name="subprojectname" placeholder="Subproject Name" class="textfield" required>
-                <input type="submit" value="Save SubProject" class="submit">
-            </form>
-        </div>
-
-        <p th:text="${message}" class="error"></p>
-
         <div class="project-data">
             <table th:each="sp: ${project.getSubProjects()}">
                 <tr>
                     <td class="subproject-data">
-                        <div class="subprojectheader">
+                        <div class="subprojectheader clearfix">
                             <p th:text="${sp.name}"></p>
-                            <p th:text="'Arbejdsdage: ' + ${sp.getWorkdays()}"></p>
+                            <p th:text="'Workdays: ' + ${sp.getWorkdays()}"></p>
 
-                            <!-- Tilføjet update af subproject og knap til delete subproject-->
+                            <!--                            &lt;!&ndash; Tilføjet update af subproject og knap til delete subproject&ndash;&gt;-->
                             <a th:href="'/projects/'+ ${project.projectID} + '/subprojekt/' + ${sp.getSubProjectID()}">Opdater</a>
 
                             <form th:action="'/projects/'+ ${project.projectID} + '/subprojekt/' + ${sp.getSubProjectID()} + '/slet'"
@@ -67,6 +38,7 @@
                     </td>
                 <tr class="task-data" th:each="task: ${sp.getTasks()}">
                     <td class="task-name" th:text="'Taskname: '+ ${task.name} ">task name</td>
+                    <td class="task-time" th:text="' Hours: ' + ${task.getTimeHours()}"></td>
                     <td>
                         <a th:href="'/editTask?id=' + ${task.taskID}">
                             <form action="/editTask" method="get">
@@ -80,13 +52,12 @@
                     <td>
                         <a th:href="'/deleteTask?id=' + ${task.getTaskID()}">
                             <form action="">
-                                <!-- den poster ikke så længe det ikke lægges i en form-->
+                                <!--                                &lt;!&ndash; den poster ikke så længe det ikke lægges i en form&ndash;&gt;-->
                                 <input type="hidden" name="project" th:value="${project}">
                                 <input type="submit" value="Delete">
                             </form>
                         </a>
                     </td>
-                    <td class="task-time" th:text="' Hours: ' + ${task.getTimeHours()}"></td>
                 </tr>
 
 
