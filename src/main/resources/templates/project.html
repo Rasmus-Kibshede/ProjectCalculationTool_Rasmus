@@ -77,17 +77,19 @@
                             </form>
                         </a>
                     </td>
-                    <td><a th:href="'/deleteTask?id=' + ${task.getTaskID()}">
-                        <form action="">
-                            <!-- den poster ikke så længe det ikke lægges i en form-->
-                            <input type="hidden" name="project" th:value="${project}">
-                            <input type="submit" value="Delete">
-                        </form>
-                    </a>
+                    <td>
+                        <a th:href="'/deleteTask?id=' + ${task.getTaskID()}">
+                            <form action="">
+                                <!-- den poster ikke så længe det ikke lægges i en form-->
+                                <input type="hidden" name="project" th:value="${project}">
+                                <input type="submit" value="Delete">
+                            </form>
+                        </a>
                     </td>
-
                     <td class="task-time" th:text="' Hours: ' + ${task.getTimeHours()}"></td>
                 </tr>
+
+
             </table>
         </div>
     </div>
