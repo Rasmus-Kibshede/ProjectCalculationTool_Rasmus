@@ -56,10 +56,11 @@ public class TaskController {
         return "redirect:/project?id=" + projectID;
     }
 
-    @GetMapping("deleteTask")
+    @PostMapping("deleteTask")
     public String deleteTask(WebRequest webRequest) throws TaskException {
         int taskID = Integer.parseInt(webRequest.getParameter("id"));
         Project project = (Project) webRequest.getAttribute("project", WebRequest.SCOPE_SESSION);
+        //int projectID = Integer.parseInt(webRequest.getParameter("projectID"));
         TASK_SERVICE.deleteTask(taskID);
 
         return "redirect:/project?id=" + project.getProjectID();

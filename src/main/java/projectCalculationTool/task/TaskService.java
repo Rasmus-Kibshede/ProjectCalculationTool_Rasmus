@@ -12,7 +12,10 @@ public class TaskService {
     }
 
     public void createTask(String taskName, String taskTime, SubProject subProject) throws ValidateException, TaskException {
-        Task task = new Task(validateTaskTime(taskTime), validateTaskName(taskName));
+        String newTaskName = validateTaskName(taskName);
+        int newTaskTime = validateTaskTime(taskTime);
+
+        Task task = new Task(newTaskTime, newTaskName);
         subProject.addTask(task);
 
         taskRepositoryInterface.createTask(subProject);
@@ -23,7 +26,10 @@ public class TaskService {
     }
 
     public void updateTask(String taskTime, String taskName, int taskID) throws TaskException, ValidateException {
-        Task task = new Task(validateTaskTime(taskTime), validateTaskName(taskName));
+        String newTaskName = validateTaskName(taskName);
+        int newTaskTime = validateTaskTime(taskTime);
+
+        Task task = new Task(newTaskTime, newTaskName);
         task.setTaskID(taskID);
         taskRepositoryInterface.updateTask(task);
     }
@@ -51,7 +57,7 @@ public class TaskService {
                 throw new ValidateException("Task time has to be a number in hours.");
             }
         } else {
-            throw new ValidateException("Task time cannot be empty.");
+            throw new ValidateException("Task time cannot be empty and has to be a number in hours.");
         }
     }
 }

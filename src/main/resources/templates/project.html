@@ -49,18 +49,18 @@
                             <p th:text="'Arbejdsdage: ' + ${sp.getWorkdays()}"></p>
 
                             <!-- Tilføjet update af subproject og knap til delete subproject-->
-                            <a th:href="'/projects/'+ ${project.projectID} + '/subprojekt/' + ${sp.getSubProjectID()}">Opdater</a>
+                            <a th:href="'/projects/'+ ${project.projectID} + '/subprojekt/' + ${sp.getSubProjectID()}">Edit</a>
 
                             <form th:action="'/projects/'+ ${project.projectID} + '/subprojekt/' + ${sp.getSubProjectID()} + '/slet'"
                                   method="post">
-                                <input type="submit" value="Slet" class="submit">
+                                <input type="submit" value="Delete" class="submit">
                             </form>
 
 
                             <form action="addTask" method="POST">
                                 <input type="hidden" name="subprojectID" th:value="${sp.getSubProjectID()}">
                                 <input type="text" name="taskName" placeholder="task name" required>
-                                <input type="number" name="taskTime" placeholder="insert time" required>
+                                <input type="text" name="taskTime" placeholder="insert time" required>
                                 <input type="submit" value="add task" class="submit">
                             </form>
                         </div>
@@ -79,8 +79,9 @@
                     </td>
                     <td>
                         <a th:href="'/deleteTask?id=' + ${task.getTaskID()}">
-                            <form action="">
+                            <form action="/deleteTask" method="post">
                                 <!-- den poster ikke så længe det ikke lægges i en form-->
+                                <input type="hidden" name="id" th:value="${task.getTaskID()}">
                                 <input type="hidden" name="project" th:value="${project}">
                                 <input type="submit" value="Delete">
                             </form>
