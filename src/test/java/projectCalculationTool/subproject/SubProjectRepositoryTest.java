@@ -17,7 +17,7 @@ class SubProjectRepositoryTest {
     @Test
     void createSubProject() throws ProjectException {
 
-        projectRepository.readProject(1);
+        Project project =  projectRepository.readProject(1);
         SubProject subProject = null;
         subProject.setName("name");
         subProject.setSubProjectID(1);
