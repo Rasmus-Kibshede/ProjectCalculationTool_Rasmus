@@ -34,6 +34,7 @@ public class SubProjectRepository implements SubProjectRepositoryInterface {
       throw new SubProjectException("Failed creating subproject", e);
     }
   }
+
   @Override
   public SubProject readSubProject(int subprojectID) throws SubProjectException {
     try {
@@ -53,9 +54,9 @@ public class SubProjectRepository implements SubProjectRepositoryInterface {
       return subProject;
 
     }catch (SQLException err) {
-      throw new SubProjectException("Kunne ikke læse subprojekt.", err);
+      throw new SubProjectException("Could not read subproject", err);
     }catch (TaskException err) {
-      throw new SubProjectException("Kunne ikke læse tasks", err);
+      throw new SubProjectException("Could not read tasks", err);
     }
   }
 
@@ -99,7 +100,7 @@ public class SubProjectRepository implements SubProjectRepositoryInterface {
       preparedStatement.executeUpdate();
 
     }catch (SQLException err) {
-      throw new SubProjectException("Kunne ikke opdatere subprojekt.", err);
+      throw new SubProjectException("Could not update subproject.", err);
     }
   }
 
@@ -112,7 +113,7 @@ public class SubProjectRepository implements SubProjectRepositoryInterface {
       preparedStatement.executeUpdate();
 
     }catch (SQLException err) {
-      throw new SubProjectException("Kunne ikke slette subprojekt", err);
+      throw new SubProjectException("Could not delete subproject", err);
     }
   }
 }
