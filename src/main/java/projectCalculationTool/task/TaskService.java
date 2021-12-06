@@ -22,10 +22,10 @@ public class TaskService {
         return taskRepositoryInterface.readTask(taskID);
     }
 
-    public Task updateTask(String taskTime, String taskName) throws TaskException, ValidateException {
+    public void updateTask(String taskTime, String taskName, int taskID) throws TaskException, ValidateException {
         Task task = new Task(validateTaskTime(taskTime), validateTaskName(taskName));
+        task.setTaskID(taskID);
         taskRepositoryInterface.updateTask(task);
-        return task;
     }
 
     public void deleteTask(int taskID) throws TaskException {

@@ -1,10 +1,13 @@
 .projecthead {
+    width: 100%;
     list-style-type: none;
     text-align: center;
     margin: 0;
     padding: 0;
 }
-
+.project-data table{
+    width: 100%;
+}
 .projecthead li{
     display: inline-block;
     font-size: 20px;
@@ -13,6 +16,15 @@
 }
 
 .subprojectheader{
+    width: 100%;
+    list-style-type: none;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.subprojectheader td {
+    width: 100%;
     list-style-type: none;
     text-align: center;
     margin: 0;
@@ -26,15 +38,12 @@
     width: 24%;
 }
 
-
 .subproject-data {
     width: 100%;
     height: 25px;
     background: #59869d;
 }
-/*
-Ændring - a tag til p tag
- */
+
 .subproject-data a {
     padding: 10px;
     float: left;
@@ -45,7 +54,6 @@
 }
 
 .subproject-data form {
-
     padding: 10px;
     float: right;
 }

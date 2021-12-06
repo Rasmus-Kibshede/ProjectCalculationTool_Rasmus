@@ -86,13 +86,13 @@ public class TaskRepository implements TaskRepositoryInterface {
     public Task updateTask(Task task) throws TaskException {
 
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE tasks(task_name, task_hours) " +
-                    "VALUE (?, ?) WHERE task_ID = ?;");
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE tasks SET task_name = ?, task_hours = ? WHERE task_id = ?");
 
             preparedStatement.setString(1, task.getName());
             preparedStatement.setDouble(2, task.getTimeHours());
+            preparedStatement.setInt(3,task.getTaskID());
 
-            preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
 
             return task;
 

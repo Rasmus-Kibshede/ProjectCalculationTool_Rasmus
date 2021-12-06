@@ -47,10 +47,11 @@ public class TaskController {
     @PostMapping("updateTask")
     public String updateTask(WebRequest webRequest) throws TaskException, ValidateException {
         int projectID = Integer.parseInt(webRequest.getParameter("projectID"));
+        int taskID = Integer.parseInt(webRequest.getParameter("id"));
         String taskName = webRequest.getParameter("taskName");
         String taskTime = webRequest.getParameter("taskTime");
 
-        TASK_SERVICE.updateTask(taskTime, taskName);
+        TASK_SERVICE.updateTask(taskTime, taskName, taskID);
 
         return "redirect:/project?id=" + projectID;
     }
