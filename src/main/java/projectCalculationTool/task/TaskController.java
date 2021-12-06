@@ -33,6 +33,10 @@ public class TaskController {
 
     @GetMapping("/editTask")
     public String editTask(WebRequest webRequest, Model model) throws TaskException {
+        if(webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION) == null){
+            return "redirect:index";
+        }
+
         Project project = (Project) webRequest.getAttribute("project", WebRequest.SCOPE_SESSION);
         int taskID = Integer.parseInt(webRequest.getParameter("id"));
 
