@@ -57,7 +57,8 @@ public class SubProject {
   }
 
   public void calculateWorkdays(int time) {
-    int workdays = time/8;
+    double calcWorkdays = (double)time/8;
+    int workdays = (int) Math.ceil(calcWorkdays);
     this.workdays = workdays;
   }
 }

@@ -29,7 +29,13 @@ public class SubProjectController {
     }
 
     @GetMapping("/projects/{projectID}/subprojekt/{subprojectID}")
-    public String subproject(@PathVariable int subprojectID, @PathVariable int projectID, Model model, WebRequest webRequest) throws SubProjectException {
+    public String subproject(@PathVariable int subprojectID, @PathVariable int projectID, Model model,
+                             WebRequest webRequest) throws SubProjectException {
+
+        if(webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION) == null){
+            return "redirect:index";
+        }
+
         SubProject subProject = SUB_PROJECT_SERVICE.readSubProject(subprojectID);
 
         model.addAttribute("subproject", subProject);
@@ -45,6 +51,7 @@ public class SubProjectController {
             @PathVariable int projectID,
             WebRequest webRequest
     ) throws ValidateException, SubProjectException {
+
         String name = webRequest.getParameter("name");
         SUB_PROJECT_SERVICE.updateSubProject(subprojectID, name);
 

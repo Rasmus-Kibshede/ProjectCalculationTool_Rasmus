@@ -33,7 +33,7 @@ public class ProjectController {
             return "profile";
         }
 
-        return "redirect:/";
+        return "redirect:index";
     }
 
     @PostMapping("/addproject")
@@ -48,6 +48,10 @@ public class ProjectController {
 
     @GetMapping("/project")
     public String project(WebRequest webRequest, Model model) throws ProjectException {
+        if(webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION) == null){
+            return "redirect:index";
+        }
+
         int projectID = Integer.parseInt(webRequest.getParameter("id"));
         Employee employee = (Employee) webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION);
 
@@ -66,6 +70,10 @@ public class ProjectController {
 
     @GetMapping("/projectoverview")
     public String showOverview(WebRequest webRequest, Model model) throws ProjectException {
+        if(webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION) == null){
+            return "redirect:index";
+        }
+
         // henter projekt fra session
         Project project = (Project) webRequest.getAttribute("project", WebRequest.SCOPE_SESSION);
 
@@ -76,6 +84,9 @@ public class ProjectController {
 
     @GetMapping("editProject")
     public String editProject(WebRequest webRequest, Model model) throws ProjectException {
+        if(webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION) == null){
+            return "redirect:index";
+        }
 
         int projectID = Integer.parseInt(webRequest.getParameter("id"));
 
