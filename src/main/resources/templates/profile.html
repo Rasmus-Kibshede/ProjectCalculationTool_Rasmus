@@ -3,13 +3,12 @@
 <head>
     <title>Profile</title>
     <th:block th:include="fragments/general :: headfiles"></th:block>
-    <link rel="stylesheet" href="/main.css">
     <link rel="stylesheet" href="/profile.css">
 </head>
 <body>
 <div id="wrapper">
     <!--Referance fra Alpha solutions https://www.alpha-solutions.com/da-->
-    <header>
+    <!--<header>
         <div id="navbar">
             <div class="header">
                 <div id="logo">
@@ -20,24 +19,27 @@
                 </div>
             </div>
         </div>
-    </header>
+    </header>-->
+    <th:block th:insert="fragments/general :: header"></th:block>
     <!--Slut referance fra Alpha Solution-->
+
     <div id="content">
 
         <!-- Project menu -->
-        <div class="projectmenu">
+        <div class="projectmenu clearfix">
 
-             <h2 th:text="${session.employee.email} + 's Projects'"></h2>  <!-- DENNE FORHINDRE VALIDERING AF PROJECTNAME -->
+            <h2 th:text="${session.employee.email} + 's Projects'"></h2>
+            <!-- DENNE FORHINDRE VALIDERING AF PROJECTNAME -->
 
-             <form class="addproject" action="/addproject" method="POST">
-                 <input type="text" placeholder="Project Name" name="projectname" class="textfield" required>
-                 <input type="submit" value="Save Project" class="submit">
-             </form>
+            <form class="addproject" action="/addproject" method="POST">
+                <input type="text" placeholder="Project Name" name="projectname" class="textfield" required>
+                <input type="submit" value="Save Project" class="submit">
+            </form>
 
-             <p th:text="${message}" class="error"></p>
+            <p th:text="${message}" class="error"></p>
 
-         </div>
-         <!-- project menu-->
+        </div>
+        <!-- project menu-->
         <!-- project box-->
 
         <div class="projectbox" th:each="project: ${project}">

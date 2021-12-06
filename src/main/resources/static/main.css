@@ -8,6 +8,12 @@
     /*Slut Alpha Solution*/
 }
 
+.clearfix {
+    content: "";
+    display: table;
+    clear: both;
+}
+
 #wrapper {
     /*Fra Alpha Solution*/
     max-width: 1330px;

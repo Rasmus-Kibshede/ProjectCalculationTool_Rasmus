@@ -9,35 +9,43 @@ import org.springframework.web.context.request.WebRequest;
 import projectCalculationTool.util.exception.LoginException;
 import projectCalculationTool.util.exception.ValidateException;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class LoginController {
-    private EmployeeService employeeService = new EmployeeService(new EmployeeRepository());
+  private EmployeeService employeeService = new EmployeeService(new EmployeeRepository());
 
-    @GetMapping("/")
-    public String index(Model model, WebRequest webRequest){
-        model.addAttribute("message", webRequest.getParameter("message"));
-        return "index";
+  @GetMapping("/")
+  public String index(Model model, WebRequest webRequest) {
+    model.addAttribute("message", webRequest.getParameter("message"));
+    return "index";
+  }
+
+  @PostMapping("/login")
+  public String login(WebRequest webRequest) throws LoginException, ValidateException {
+    String email = webRequest.getParameter("email");
+    String password = webRequest.getParameter("password");
+    Employee employee = employeeService.readEmployee(email, password);
+
+    if (employee != null) {
+      webRequest.setAttribute("employee", employee, WebRequest.SCOPE_SESSION);
+      return "redirect:/profile";
     }
+    //Set session with user obj
+    return "redirect:/";
+  }
 
-    @PostMapping("/login")
-    public String login(WebRequest webRequest) throws LoginException, ValidateException {
-        String email = webRequest.getParameter("email");
-        String password = webRequest.getParameter("password");
-        Employee employee = employeeService.readEmployee(email, password);
+  @GetMapping("logout")
+  public String logout(HttpSession session) {
+    session.invalidate();
+    return "index";
+  }
 
-        if (employee != null) {
-            webRequest.setAttribute("employee", employee, WebRequest.SCOPE_SESSION);
-            return "redirect:/profile";
-        }
-        //Set session with user obj
-        return "redirect:/";
-    }
-
-    //Referance https://stackoverflow.com/questions/804581/spring-mvc-controller-redirect-to-previous-page
-    @ExceptionHandler({LoginException.class, ValidateException.class})
-    public String handleLoginException(Model model, Exception exception, WebRequest webRequest) {
-        String referer = webRequest.getHeader("Referer");
-        model.addAttribute("message", exception.getMessage());
-        return "redirect:" + referer;
-    }
+  //Referance https://stackoverflow.com/questions/804581/spring-mvc-controller-redirect-to-previous-page
+  @ExceptionHandler({LoginException.class, ValidateException.class})
+  public String handleLoginException(Model model, Exception exception, WebRequest webRequest) {
+    String referer = webRequest.getHeader("Referer");
+    model.addAttribute("message", exception.getMessage());
+    return "redirect:" + referer;
+  }
 }

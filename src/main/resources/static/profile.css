@@ -32,50 +32,35 @@
     background: #dedede;
     display: inline-block;
     margin: 10px;
-    height: 155px;
 }
 
 
-.projectbox a:link:first-child, a:visited:first-child {
+.projectbox a:first-of-type{
     background-color: #59869d;
+    margin: 0;
     width: 100%;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
 }
 
 .projectbox .editbtn {
     background-color: #59869d;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-}
-
-.projectbox .editbtn {
-    background-color: #59869d;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-}
-
-.projectbox .deletebtn {
-    background-color: #D11A2A;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
 }
 
 .projectbox .deletebtn {
     background-color: darkred;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
 }
+
+.projectbox a{
+    text-decoration: none;
+    text-align: center;
+    color: white;
+    padding: 5px 0;
+    display: block;
+}
+
+.projectbox a, p{
+    margin-top: 5px;
+}
+
 
 
 .projectbox:hover {
