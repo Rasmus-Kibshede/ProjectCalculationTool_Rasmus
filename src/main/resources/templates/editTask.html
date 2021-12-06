@@ -31,11 +31,11 @@
             <input type="hidden" name="projectID" th:value="${project.projectID}">
             <input type="submit" value="Update Task" class="submit">
         </form>
+        <p th:text="${message}" class="error"></p>
 
         <h4>Press update when finished</h4>
-        <form>
-            <input type="button" value="Cancel" onclick="history.back()" class="cancel">
-        </form>
+
+        <a th:href="'/project?id=' + ${project.projectID}"><input type="button" value="Cancel" class="cancel"></a>
 
     </div>
     <th:block th:insert="fragments/general :: footer"></th:block>

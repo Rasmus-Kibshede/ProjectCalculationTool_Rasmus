@@ -4,6 +4,7 @@
     <th:block th:include="fragments/general :: headfiles"></th:block>
     <title>Project</title>
     <link rel="stylesheet" href="/project.css">
+    <link rel="stylesheet" href="../static/main.css">
 
 </head>
 <body>
@@ -11,6 +12,24 @@
     <th:block th:insert="fragments/general :: header"></th:block>
 
     <div id="content">
+        <div class="projecthead">
+            <li><h2 th:text="${project.name}"></h2></li>
+            <li><h3>SubProjects</h3></li>
+            <li><h2 th:text="'Arbejdsdage: ' + ${project.getProjectDaysTotal()}"></h2></li>
+
+
+        </div>
+
+        <div id="add">
+            <form action="addSubProject" method="POST">
+                <input type="hidden" name="projectID" th:value="${project.projectID}">
+                <input type="text" name="subprojectname" placeholder="Subproject Name" class="textfield" required>
+                <input type="submit" value="Save SubProject" class="submit">
+            </form>
+        </div>
+
+        <p th:text="${message}" class="error"></p>
+
         <div class="project-data">
             <table th:each="sp: ${project.getSubProjects()}">
                 <tr>
@@ -19,26 +38,25 @@
                             <p th:text="${sp.name}"></p>
                             <p th:text="'Workdays: ' + ${sp.getWorkdays()}"></p>
 
-                            <!--                            &lt;!&ndash; Tilføjet update af subproject og knap til delete subproject&ndash;&gt;-->
-                            <a th:href="'/projects/'+ ${project.projectID} + '/subprojekt/' + ${sp.getSubProjectID()}">Opdater</a>
+                            <!-- Tilføjet update af subproject og knap til delete subproject-->
+                            <a th:href="'/projects/'+ ${project.projectID} + '/subprojekt/' + ${sp.getSubProjectID()}">Edit</a>
 
                             <form th:action="'/projects/'+ ${project.projectID} + '/subprojekt/' + ${sp.getSubProjectID()} + '/slet'"
                                   method="post">
-                                <input type="submit" value="Slet" class="submit">
+                                <input type="submit" value="Delete" class="submit">
                             </form>
 
 
                             <form action="addTask" method="POST">
                                 <input type="hidden" name="subprojectID" th:value="${sp.getSubProjectID()}">
                                 <input type="text" name="taskName" placeholder="task name" required>
-                                <input type="number" name="taskTime" placeholder="insert time" required>
+                                <input type="text" name="taskTime" placeholder="insert time" required>
                                 <input type="submit" value="add task" class="submit">
                             </form>
                         </div>
                     </td>
                 <tr class="task-data" th:each="task: ${sp.getTasks()}">
                     <td class="task-name" th:text="'Taskname: '+ ${task.name} ">task name</td>
-                    <td class="task-time" th:text="' Hours: ' + ${task.getTimeHours()}"></td>
                     <td>
                         <a th:href="'/editTask?id=' + ${task.taskID}">
                             <form action="/editTask" method="get">
@@ -51,13 +69,15 @@
                     </td>
                     <td>
                         <a th:href="'/deleteTask?id=' + ${task.getTaskID()}">
-                            <form action="">
-                                <!--                                &lt;!&ndash; den poster ikke så længe det ikke lægges i en form&ndash;&gt;-->
+                            <form action="/deleteTask" method="post">
+                                <!-- den poster ikke så længe det ikke lægges i en form-->
+                                <input type="hidden" name="id" th:value="${task.getTaskID()}">
                                 <input type="hidden" name="project" th:value="${project}">
                                 <input type="submit" value="Delete">
                             </form>
                         </a>
                     </td>
+                    <td class="task-time" th:text="' Hours: ' + ${task.getTimeHours()}"></td>
                 </tr>
 
 

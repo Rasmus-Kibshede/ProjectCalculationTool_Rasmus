@@ -10,7 +10,7 @@ public class Task {
     this.name = name;
   }
 
-  public double getTimeHours() {
+  public int getTimeHours() {
     return timeHours;
   }
 
