@@ -42,7 +42,7 @@ public class SubProjectController {
         model.addAttribute("projectID", projectID);
         model.addAttribute("message", webRequest.getParameter("message"));
 
-        return "subproject";
+        return "editSubproject";
     }
 
     @PostMapping("projects/{projectID}/subproject/{subprojectID}")

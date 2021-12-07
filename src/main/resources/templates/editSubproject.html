@@ -3,6 +3,7 @@
 <head>
     <th:block th:include="fragments/general :: headfiles"></th:block>
     <title>Subproject</title>
+    <link rel="stylesheet" href="/task.css">
 </head>
 <body>
 <div id="wrapper">
@@ -21,17 +22,21 @@
     </header>
     <!--Slut referance fra Alpha Solution-->
     <div id="content">
-        <h2 th:text${subproject.name}></h2>
 
-        <form th:action="'/projects/'+ ${projectID} + '/subproject/' + ${subproject.subProjectID}" method="post">
-            <input type="text" name="name" th:value="${subproject.name}" class="textfield" required>
-            <input type="submit" class="submit" value="Save">
-
-        </form>
-
-        <!--Brug button tag i stedet-->
-        <a th:href="'/project?id=' + ${projectID}"><input type="button" value="Cancel" class="cancel"></a>
+        <h2>Edit Subproject</h2>
         <p th:text="${message}" class="error"></p>
+
+        <div>
+            <form th:action="'/projects/'+ ${projectID} + '/subproject/' + ${subproject.subProjectID}" method="post">
+                <input type="text" name="name" th:value="${subproject.name}" class="textfield" required>
+                <input type="submit" class="submit" value="Save">
+            </form>
+
+            <h4>Press save when finished</h4>
+        </div>
+
+        <a th:href="'/project?id=' + ${projectID}">Cancel</a>
+
     </div>
     <th:block th:insert="fragments/general :: footer"></th:block>
 </div>
