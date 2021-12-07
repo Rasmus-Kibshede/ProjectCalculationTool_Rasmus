@@ -1,4 +1,27 @@
-#content{
-    text-align: center;
-    margin: 10%;
+#content h2{
+    margin-top: 30px;
+    font-size: 35px;
+}
+
+#content div {
+    border-top: 2px solid black;
+    padding-top: 100px;
+}
+
+#content h4 {
+    font-size: 20px;
+    margin-top: 25px;
+    margin-bottom: 70px;
+}
+
+#content .textfield {
+width: auto;
+}
+
+#time{
+width: 45px;
+}
+
+#content a {
+    margin-top: 10px;
 }

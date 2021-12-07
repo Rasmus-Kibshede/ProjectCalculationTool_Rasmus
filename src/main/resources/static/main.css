@@ -39,11 +39,17 @@
 }
 
 .submit {
-
+    font-size: 18px;
+    width: 52px;
 }
 
 .textfield {
+    font-size: 18px;
+}
 
+.cancel {
+    width: 70px;
+    font-size: 18px;
 }
 
 /* Header */

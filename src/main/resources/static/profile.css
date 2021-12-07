@@ -34,7 +34,6 @@
     margin: 10px;
 }
 
-
 .projectbox a:first-of-type{
     background-color: #59869d;
     margin: 0;
@@ -60,8 +59,6 @@
 .projectbox a, p{
     margin-top: 5px;
 }
-
-
 
 .projectbox:hover {
     background: lightgray;

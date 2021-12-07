@@ -3,7 +3,7 @@
 <head>
     <th:block th:include="fragments/general :: headfiles"></th:block>
     <title>Task</title>
-    <link rel="stylesheet" href="/static/task.css">
+    <link rel="stylesheet" href="/task.css">
 </head>
 <body>
 <div id="wrapper">
@@ -22,19 +22,21 @@
     </header>
     <!--Slut referance fra Alpha Solution-->
     <div id="content">
+
         <h2>Update Task</h2>
-
-        <form action="/updateTask" method="post">
-            <input type="text" name="taskName" th:value="${task.getName()}" class="textfield" required>
-            <input type="text" name="taskTime" th:value="${task.getTimeHours()}" class="textfield" required>
-            <input type="hidden" name="id" th:value="${task.getTaskID()}">
-            <input type="hidden" name="projectID" th:value="${project.projectID}">
-            <input type="submit" value="Update Task" class="submit">
-        </form>
         <p th:text="${message}" class="error"></p>
+        <div>
+            <form action="/updateTask" method="post">
+                <input type="text" name="taskName" th:value="${task.getName()}" class="textfield" required>
+                <input type="text" name="taskTime" th:value="${task.getTimeHours()}" class="textfield" id="time" required>
+                <input type="hidden" name="id" th:value="${task.getTaskID()}">
+                <input type="hidden" name="projectID" th:value="${project.projectID}">
+                <input type="submit" value="Save" class="submit">
+            </form>
 
-        <h4>Press update when finished</h4>
-        <!--Er der et button tag-->
+            <h4>Press save when finished</h4>
+        </div>
+        <!--Er der et button tag: brug class="cancel"-->
         <a th:href="'/project?id=' + ${project.projectID}"><input type="button" value="Cancel" class="cancel"></a>
 
     </div>
