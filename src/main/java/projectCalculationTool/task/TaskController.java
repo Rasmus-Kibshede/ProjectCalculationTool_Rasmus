@@ -33,10 +33,6 @@ public class TaskController {
 
     @GetMapping("/editTask")
     public String editTask(WebRequest webRequest, Model model) throws TaskException {
-        if(webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION) == null){
-            return "redirect:index";
-        }
-
         Project project = (Project) webRequest.getAttribute("project", WebRequest.SCOPE_SESSION);
         int taskID = Integer.parseInt(webRequest.getParameter("id"));
 
@@ -60,11 +56,10 @@ public class TaskController {
         return "redirect:/project?id=" + projectID;
     }
 
-    @PostMapping("deleteTask")
+    @GetMapping("deleteTask")
     public String deleteTask(WebRequest webRequest) throws TaskException {
         int taskID = Integer.parseInt(webRequest.getParameter("id"));
         Project project = (Project) webRequest.getAttribute("project", WebRequest.SCOPE_SESSION);
-        //int projectID = Integer.parseInt(webRequest.getParameter("projectID"));
         TASK_SERVICE.deleteTask(taskID);
 
         return "redirect:/project?id=" + project.getProjectID();
