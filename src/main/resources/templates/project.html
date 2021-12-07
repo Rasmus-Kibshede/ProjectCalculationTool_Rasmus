@@ -4,8 +4,6 @@
     <th:block th:include="fragments/general :: headfiles"></th:block>
     <title>Project</title>
     <link rel="stylesheet" href="/project.css">
-    <link rel="stylesheet" href="../static/main.css">
-
 </head>
 <body>
 <div id="wrapper">
@@ -15,9 +13,7 @@
         <div class="projecthead">
             <li><h2 th:text="${project.name}"></h2></li>
             <li><h3>SubProjects</h3></li>
-            <li><h2 th:text="'Arbejdsdage: ' + ${project.getProjectDaysTotal()}"></h2></li>
-
-
+            <li><h2 th:text="'Workdays: ' + ${project.getProjectDaysTotal()}"></h2></li>
         </div>
 
         <div id="add">
