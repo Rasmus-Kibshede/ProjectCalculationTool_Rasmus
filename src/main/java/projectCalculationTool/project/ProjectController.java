@@ -92,6 +92,7 @@ public class ProjectController {
         //skal laves om, så vi ikke skal kalde ned til database igen
         Project project = PROJECT_SERVICE.readProject(projectID);
 
+        model.addAttribute("message", webRequest.getParameter("message"));
         model.addAttribute("project", project);
 
 
