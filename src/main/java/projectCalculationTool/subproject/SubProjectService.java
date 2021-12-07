@@ -42,7 +42,7 @@ public class SubProjectService {
         if (subprojectName != null && !subprojectName.isEmpty() && subprojectName.length() <= 45) {
             return subprojectName;
         } else {
-            throw new ValidateException("Task name can't be null or longer than 45 characters.");
+            throw new ValidateException("Task name cannot be null or longer than 45 characters.");
         }
     }
 

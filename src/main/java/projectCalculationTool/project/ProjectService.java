@@ -44,7 +44,7 @@ public class ProjectService {
         if (projectName != null && !projectName.isEmpty() && projectName.length() <= 45) {
             return projectName;
         } else {
-            throw new ValidateException("Project name can't be null or longer then 45 characters.");
+            throw new ValidateException("Project name cannot be null or longer than 45 characters.");
         }
     }
 }

@@ -38,7 +38,7 @@ public class LoginController {
   @GetMapping("logout")
   public String logout(HttpSession session) {
     session.invalidate();
-    return "index";
+    return "redirect:/";
   }
 
   //Referance https://stackoverflow.com/questions/804581/spring-mvc-controller-redirect-to-previous-page

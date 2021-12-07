@@ -23,7 +23,7 @@
     <!--Slut referance fra Alpha Solution-->
     <div id="content">
 
-        <h2>Update Task</h2>
+        <h2>Edit Task</h2>
         <p th:text="${message}" class="error"></p>
         <div>
             <form action="/updateTask" method="post">
@@ -37,7 +37,7 @@
             <h4>Press save when finished</h4>
         </div>
         <!--Er der et button tag: brug class="cancel"-->
-        <a th:href="'/project?id=' + ${project.projectID}"><input type="button" value="Cancel" class="cancel"></a>
+        <a th:href="'/project?id=' + ${project.projectID}">Cancel</a>
 
     </div>
     <th:block th:insert="fragments/general :: footer"></th:block>

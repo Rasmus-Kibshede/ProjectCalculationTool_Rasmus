@@ -1,19 +1,45 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <th:block th:include="fragments/general :: headfiles"></th:block>
     <title>Edit Project</title>
+    <link rel="stylesheet" href="/task.css">
 </head>
 <body>
+<div id="wrapper">
+    <!--Referance fra Alpha solutions https://www.alpha-solutions.com/da-->
+    <header>
+        <div id="navbar">
+            <div class="header">
+                <div id="logo">
+                    <a href="/">
+                        <img src="https://media.alpha-solutions.com/da/-/media/alphawebsite2019/defaults/logo.ashx?iar=0&amp;hash=47313F5015E221C5AA54A61AFA0E9CA6"
+                             alt="Alpha Solutions Logo"/>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!--Slut referance fra Alpha Solution-->
+    <div id="content">
 
-<form action="saveProjectChanges" method="post">
-    <input type="text" name="projectName" th:value="${project.name}">
-    <input type="hidden" name="projectID" th:value="${project.projectID}">
-    <input type="submit" value="Edit project">
-</form>
+        <h2>Edit Project</h2>
+        <p th:text="${message}" class="error"></p>
 
-<a th:href="'/profile?id=' + ${project.projectID}"><input type="button" value="Cancel" class="cancel"></a>
+        <div>
+            <form action="saveProjectChanges" method="post">
+                <input type="text" name="projectName" th:value="${project.name}">
+                <input type="hidden" name="projectID" th:value="${project.projectID}">
+                <input type="submit" value="Save" class="submit">
+            </form>
 
+            <h4>Press save when finished</h4>
+        </div>
 
+        <a th:href="'/profile?id=' + ${project.projectID}" class="cancel">Cancel</a>
+
+    </div>
+    <th:block th:insert="fragments/general :: footer"></th:block>
+</div>
 </body>
 </html>
