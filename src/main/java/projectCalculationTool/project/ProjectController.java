@@ -23,10 +23,12 @@ public class ProjectController {
         Employee employee = (Employee) webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION);
 
         if (employee != null) {
+            // Her læser vi employee ens projekter men der hentes ikke alt under projekter
+            // //hvorfor dage ikke kan udhentes
             ArrayList<Project> projects = PROJECT_SERVICE.readProjects(employee);
-            model.addAttribute("employee", employee);
 
-            model.addAttribute("project", projects);
+            model.addAttribute("employee", employee);
+            model.addAttribute("projects", projects);
             model.addAttribute("message", webRequest.getParameter("message"));
 
             return "profile";

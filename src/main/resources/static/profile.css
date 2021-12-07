@@ -1,66 +1,63 @@
-.projectmenu {
+/*.projectmenu {
     width: 76.6%;
     height: 50px;
-    background: #59869d;
     display: inline-block;
 }
+ */
 
-.projectmenu h2 {
+#head {
+    background-color: #59869d;
+    margin-bottom: 70px;
+    padding: 40px 0 40px 0;
+}
+
+#content h2 {
+    font-size: 40px;
+    font-weight: 900;
+    letter-spacing: 2px;
     color: white;
-    float: left;
+    border-bottom: solid white 2px;
+}
+
+#addproject {
     padding: 12px;
+    margin-bottom: 20px;
 }
-
-.addproject {
-    float: right;
-    padding: 12px;
-}
-
-.submit {
-    background-color: limegreen;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    border: none;
-    cursor: pointer;
-}
-
 
 .projectbox {
     width: 310px;
-    background: #dedede;
+    background: lightgray;
     display: inline-block;
     margin: 10px;
+    padding: 10px;
 }
 
-.projectbox a:first-of-type{
-    background-color: #59869d;
-    margin: 0;
+.projectName {
+    font-weight: bold;
+    color: black;
+    font-size: 25px;
+}
+
+.buttons {
     width: 100%;
 }
 
-.projectbox .editbtn {
-    background-color: #59869d;
+.editbtn {
+    background-color: #e7eef1;
+    width: 50px;
+    margin: 5px auto;
 }
 
-.projectbox .deletebtn {
-    background-color: darkred;
+.editbtn a {
+    color: black;
 }
 
-.projectbox a{
-    text-decoration: none;
-    text-align: center;
-    color: white;
-    padding: 5px 0;
-    display: block;
+.deletebtn {
+    width: 50px;
+    background-color: #FF325A;
+    margin: 0 auto;
 }
 
-.projectbox a, p{
-    margin-top: 5px;
+.deletebtn a {
+    color: black;
 }
-
-.projectbox:hover {
-    background: lightgray;
-}
-

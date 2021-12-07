@@ -24,29 +24,37 @@
     <!--Slut referance fra Alpha Solution-->
 
     <div id="content">
-
-        <!-- Project menu -->
-        <div class="projectmenu clearfix">
-
-            <h2 th:text="${session.employee.email} + 's Projects'"></h2>
-            <!-- DENNE FORHINDRE VALIDERING AF PROJECTNAME -->
-
-            <form class="addproject" action="/addproject" method="POST">
-                <input type="text" placeholder="Project Name" name="projectname" class="textfield" required>
-                <input type="submit" value="Save Project" class="submit">
-            </form>
+        <div id="head">
+            <h2 th:text="${session.employee.email} + '\'s Projects'"></h2>
         </div>
+        <!-- DENNE FORHINDRE VALIDERING AF PROJECTNAME -->
 
         <p th:text="${message}" class="error"></p>
-        <!-- project menu-->
-        <!-- project box-->
 
-        <div class="projectbox" th:each="project: ${project}">
-            <a th:href="'/project?id=' + ${project.projectID}" th:text="${project.name}"></a>
-            <p th:text="'Days:'"></p>
-            <p>Time:</p>
-            <a class="editbtn" th:href="'/editProject?id=' + ${project.projectID}">Edit</a>
-            <a class="deletebtn" th:href="'/deleteProject?id=' + ${project.projectID}">Delete</a>
+        <form id="addproject" action="/addproject" method="POST">
+            <input type="text" placeholder="Project Name" name="projectname" class="textfield" required>
+            <input type="submit" value="Save" class="submit">
+        </form>
+
+        <!-- project box-->
+        <div class="projectbox" th:each="project: ${projects}">
+            <a th:href="'/project?id=' + ${project.projectID}" th:text="${project.name}" class="projectName"></a>
+            <p th:text="'Workdays:' + ${project.getProjectDaysTotal()}"></p>
+
+            <div class="buttons">
+                <div class="editbtn">
+                    <a th:href="'/editProject?id=' + ${project.projectID}">
+                        <img></img>
+                        <p>Edit</p>
+                    </a>
+                </div>
+                <div class="deletebtn">
+                    <a th:href="'/deleteProject?id=' + ${project.projectID}">
+                        <img></img>
+                        <p>Delete</p>
+                    </a>
+                </div>
+            </div>
         </div>
         <!-- project box-->
 
