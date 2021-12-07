@@ -20,7 +20,7 @@
             <form action="addSubProject" method="POST">
                 <input type="hidden" name="projectID" th:value="${project.projectID}">
                 <input type="text" name="subprojectname" placeholder="Subproject Name" class="textfield" required>
-                <input type="submit" value="Save SubProject" class="submit">
+                <input type="submit" value="Save" class="submit">
             </form>
         </div>
 
@@ -35,10 +35,10 @@
                             <p th:text="'Workdays: ' + ${sp.getWorkdays()}"></p>
 
                             <!-- Tilføjet update af subproject og knap til delete subproject-->
-                            <a th:href="'/projects/'+ ${project.projectID} + '/subproject/' + ${sp.getSubProjectID()}">Edit</a>
+                            <a th:href="'editSubproject?subprojectID=' + ${sp.getSubProjectID()} + '&projectID=' + ${project.projectID}">Edit</a>
 
 
-                            <a th:href="'/projects/'+ ${project.projectID} + '/subproject/' + ${sp.getSubProjectID()} + '/delete'">Delete</a>
+                            <a th:href="'deleteSubproject?subprojectID=' + ${sp.getSubProjectID()} + '&projectID=' + ${project.projectID}">Delete</a>
 
                             <form action="addTask" method="POST">
                                 <input type="hidden" name="subprojectID" th:value="${sp.getSubProjectID()}">

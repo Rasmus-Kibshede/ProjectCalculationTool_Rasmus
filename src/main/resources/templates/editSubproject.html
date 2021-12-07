@@ -3,7 +3,6 @@
 <head>
     <th:block th:include="fragments/general :: headfiles"></th:block>
     <title>Subproject</title>
-    <link rel="stylesheet" href="/task.css">
 </head>
 <body>
 <div id="wrapper">
@@ -22,15 +21,16 @@
     </header>
     <!--Slut referance fra Alpha Solution-->
     <div id="content">
-
         <h2>Edit Subproject</h2>
         <p th:text="${message}" class="error"></p>
 
         <div>
-            <form th:action="'/projects/'+ ${projectID} + '/subproject/' + ${subproject.subProjectID}" method="post">
-                <input type="text" name="name" th:value="${subproject.name}" class="textfield" required>
-                <input type="submit" class="submit" value="Save">
-            </form>
+        <form action="editSubproject" method="post">
+            <input type="hidden" name="projectID" th:value="${projectID}">
+            <input type="hidden" name="subprojectID" th:value="${subproject.subProjectID}">
+            <input type="text" name="name" th:value="${subproject.name}" class="textfield" required>
+            <input type="submit" class="submit" value="Save">
+        </form>
 
             <h4>Press save when finished</h4>
         </div>
