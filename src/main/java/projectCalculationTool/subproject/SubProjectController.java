@@ -13,70 +13,72 @@ import projectCalculationTool.util.exception.ValidateException;
 
 @Controller
 public class SubProjectController {
-    private SubProjectService SUB_PROJECT_SERVICE = new SubProjectService(new SubProjectRepository());
+  private SubProjectService SUB_PROJECT_SERVICE = new SubProjectService(new SubProjectRepository());
 
-    @PostMapping("addSubProject")
-    public String addSubProject(WebRequest webRequest) throws SubProjectException, ValidateException {
+  @PostMapping("addSubProject")
+  public String addSubProject(WebRequest webRequest) throws SubProjectException, ValidateException {
 
-        String subProjectName = webRequest.getParameter("subprojectname");
+    String subProjectName = webRequest.getParameter("subprojectname");
 
-        int projectID = Integer.parseInt(webRequest.getParameter("projectID"));
+    int projectID = Integer.parseInt(webRequest.getParameter("projectID"));
 
-        SUB_PROJECT_SERVICE.createSubProject(subProjectName, projectID,
-                (Project) webRequest.getAttribute("Project", WebRequest.SCOPE_SESSION));
+    SUB_PROJECT_SERVICE.createSubProject(subProjectName, projectID,
+        (Project) webRequest.getAttribute("Project", WebRequest.SCOPE_SESSION));
 
-        return "redirect:/project?id=" + projectID;
+    return "redirect:/project?id=" + projectID;
+  }
+
+  @GetMapping("editSubproject")
+  public String subproject(WebRequest webRequest, Model model) throws SubProjectException {
+
+    if (webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION) == null) {
+      return "redirect:index";
     }
 
-    @GetMapping("/projects/{projectID}/subproject/{subprojectID}")
-    public String subproject(@PathVariable int subprojectID, @PathVariable int projectID, Model model,
-                             WebRequest webRequest) throws SubProjectException {
+    int subprojectID = Integer.parseInt(webRequest.getParameter("subprojectID"));
+    int projectID = Integer.parseInt(webRequest.getParameter("projectID"));
 
-        if(webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION) == null){
-            return "redirect:index";
-        }
+    SubProject subProject = SUB_PROJECT_SERVICE.readSubProject(subprojectID);
 
-        SubProject subProject = SUB_PROJECT_SERVICE.readSubProject(subprojectID);
+    model.addAttribute("subproject", subProject);
+    model.addAttribute("projectID", projectID);
+    model.addAttribute("message", webRequest.getParameter("message"));
 
-        model.addAttribute("subproject", subProject);
-        model.addAttribute("projectID", projectID);
-        model.addAttribute("message", webRequest.getParameter("message"));
+    return "editSubproject";
+  }
 
-        return "subproject";
-    }
+  @PostMapping("editSubproject")
+  public String editSubproject(WebRequest webRequest, Model model) throws ValidateException, SubProjectException {
 
-    @PostMapping("projects/{projectID}/subproject/{subprojectID}")
-    public String updateSubproject(WebRequest webRequest, Model model) throws ValidateException, SubProjectException {
-
-        int subprojectID = Integer.parseInt(webRequest.getParameter("subprojectID"));
-        int projectID = Integer.parseInt(webRequest.getParameter("projectID"));
+    int subprojectID = Integer.parseInt(webRequest.getParameter("subprojectID"));
+    int projectID = Integer.parseInt(webRequest.getParameter("projectID"));
 
 
-        Project project = (Project) webRequest.getAttribute("project", WebRequest.SCOPE_SESSION);
+    Project project = (Project) webRequest.getAttribute("project", WebRequest.SCOPE_SESSION);
 
-        model.addAttribute("projectID", project);
-        String name = webRequest.getParameter("name");
-        SUB_PROJECT_SERVICE.updateSubProject(subprojectID, name);
+    model.addAttribute("projectID", project);
+    String name = webRequest.getParameter("name");
+    SUB_PROJECT_SERVICE.updateSubProject(subprojectID, name);
 
-        return "redirect:/project?id=" + projectID;
-    }
+    return "redirect:/project?id=" + projectID;
+  }
 
-    @GetMapping("deleteSubproject")
-    public String deleteSubproject(WebRequest webRequest) throws SubProjectException {
+  @GetMapping("deleteSubproject")
+  public String deleteSubproject(WebRequest webRequest) throws SubProjectException {
 
-        int subprojectID = Integer.parseInt(webRequest.getParameter("subprojectID"));
-        int projectID = Integer.parseInt(webRequest.getParameter("projectID"));
+    int subprojectID = Integer.parseInt(webRequest.getParameter("subprojectID"));
+    int projectID = Integer.parseInt(webRequest.getParameter("projectID"));
 
-        SUB_PROJECT_SERVICE.deleteSubProject(subprojectID);
+    SUB_PROJECT_SERVICE.deleteSubProject(subprojectID);
 
-        return "redirect:/project?id=" + projectID;
-    }
+    return "redirect:/project?id=" + projectID;
+  }
 
-    //Referance https://stackoverflow.com/questions/804581/spring-mvc-controller-redirect-to-previous-page
-    @ExceptionHandler({SubProjectException.class, ValidateException.class})
-    public String handlerSQLException(Model model, Exception exception, WebRequest webRequest) {
-        String referer = webRequest.getHeader("Referer");
-        model.addAttribute("message", exception.getMessage());
-        return "redirect:" + referer;
-    }
+  //Referance https://stackoverflow.com/questions/804581/spring-mvc-controller-redirect-to-previous-page
+  @ExceptionHandler({SubProjectException.class, ValidateException.class})
+  public String handlerSQLException(Model model, Exception exception, WebRequest webRequest) {
+    String referer = webRequest.getHeader("Referer");
+    model.addAttribute("message", exception.getMessage());
+    return "redirect:" + referer;
+  }
 }

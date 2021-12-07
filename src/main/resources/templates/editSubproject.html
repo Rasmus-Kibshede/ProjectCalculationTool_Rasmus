@@ -23,7 +23,9 @@
     <div id="content">
         <h2 th:text${subproject.name}></h2>
 
-        <form th:action="'/projects/'+ ${projectID} + '/subproject/' + ${subproject.subProjectID}" method="post">
+        <form action="editSubproject" method="post">
+            <input type="hidden" name="projectID" th:value="${projectID}">
+            <input type="hidden" name="subprojectID" th:value="${subproject.subProjectID}">
             <input type="text" name="name" th:value="${subproject.name}" class="textfield" required>
             <input type="submit" class="submit" value="Save">
         </form>
@@ -32,6 +34,7 @@
         <a th:href="'/project?id=' + ${projectID}"><input type="button" value="Cancel" class="cancel"></a>
         <p th:text="${message}" class="error"></p>
     </div>
+
     <th:block th:insert="fragments/general :: footer"></th:block>
 </div>
 </body>
