@@ -12,8 +12,8 @@
     <div id="content">
         <div class="projecthead">
             <li><h2 th:text="${project.name}"></h2></li>
-            <li><h3>SubProjects</h3></li>
             <li><h2 th:text="'Workdays: ' + ${project.getProjectDaysTotal()}"></h2></li>
+            <li><h3>SubProjects</h3></li>
         </div>
 
         <div id="add">
@@ -42,7 +42,7 @@
                             <input type="hidden" name="subprojectID" th:value="${sp.getSubProjectID()}"><input
                                 type="text" name="taskName" placeholder="task name" required>
                             <input type="text" name="taskTime" placeholder="insert time" required>
-                            <input type="submit" value="add task" class="submit">
+                            <input type="submit" value="Add" class="submit">
                         </form>
                     </li>
                 </ul>
