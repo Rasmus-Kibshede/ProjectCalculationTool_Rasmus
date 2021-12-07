@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<form action="saveProjectChanges" method="get">
+<form action="saveProjectChanges" method="post">
     <input type="text" name="projectName" th:value="${project.name}">
     <input type="hidden" name="projectID" th:value="${project.projectID}">
     <input type="submit" value="Edit project">
