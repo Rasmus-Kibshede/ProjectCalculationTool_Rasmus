@@ -26,44 +26,41 @@
 
         <p th:text="${message}" class="error"></p>
 
-        <div class="project-data">
-            <table th:each="sp: ${project.getSubProjects()}">
-                <tr>
-                    <td class="subproject-data">
-                        <div class="subprojectheader clearfix">
-                            <p th:text="${sp.name}"></p>
-                            <p th:text="'Workdays: ' + ${sp.getWorkdays()}"></p>
+        <div class="project-data" th:each="sp: ${project.getSubProjects()}">
+            <div class="subproject-data clearfix">
+                <ul>
+                    <li th:text="${sp.name}"></li>
+                    <li th:text="'Workdays: ' + ${sp.getWorkdays()}"></li>
+                    <li>
+                        <a th:href="'editSubproject?subprojectID=' + ${sp.getSubProjectID()} + '&projectID=' + ${project.projectID}">Edit</a>
+                    </li>
+                    <li>
+                        <a th:href="'deleteSubproject?subprojectID=' + ${sp.getSubProjectID()} + '&projectID=' + ${project.projectID}">Delete</a>
+                    </li>
+                    <li>
+                        <form action="addTask" method="POST">
+                            <input type="hidden" name="subprojectID" th:value="${sp.getSubProjectID()}"><input
+                                type="text" name="taskName" placeholder="task name" required>
+                            <input type="text" name="taskTime" placeholder="insert time" required>
+                            <input type="submit" value="add task" class="submit">
+                        </form>
+                    </li>
+                </ul>
+            </div>
 
-                            <!-- Tilføjet update af subproject og knap til delete subproject-->
-                            <a th:href="'editSubproject?subprojectID=' + ${sp.getSubProjectID()} + '&projectID=' + ${project.projectID}">Edit</a>
+            <div class="task-data" th:each="task: ${sp.getTasks()}">
+                <ul>
+                    <li class="task-name" th:text="${task.name} "></li>
+                    <li class="task-time" th:text="' Hours: ' + ${task.getTimeHours()}"></li>
+                    <li><a th:href="'/editTask?id=' + ${task.taskID}">Edit Task</a></li>
+                    <li><a th:href="'/deleteTask?id=' + ${task.getTaskID()}">Delete Task</a></li>
 
-
-                            <a th:href="'deleteSubproject?subprojectID=' + ${sp.getSubProjectID()} + '&projectID=' + ${project.projectID}">Delete</a>
-
-                            <form action="addTask" method="POST">
-                                <input type="hidden" name="subprojectID" th:value="${sp.getSubProjectID()}">
-                                <input type="text" name="taskName" placeholder="task name" required>
-                                <input type="text" name="taskTime" placeholder="insert time" required>
-                                <input type="submit" value="add task" class="submit">
-                            </form>
-                        </div>
-                    </td>
-                <tr class="task-data" th:each="task: ${sp.getTasks()}">
-                    <td class="task-name" th:text="'Taskname: '+ ${task.name} ">task name</td>
-                    <td>
-                        <a th:href="'/editTask?id=' + ${task.taskID}">Edit</a>
-                    </td>
-                    <td>
-                        <a th:href="'/deleteTask?id=' + ${task.getTaskID()}">Delete</a>
-                    </td>
-                    <td class="task-time" th:text="' Hours: ' + ${task.getTimeHours()}"></td>
-                </tr>
-
-
-            </table>
+                </ul>
+            </div>
         </div>
     </div>
-    <th:block th:insert="fragments/general :: footer"></th:block>
+</div>
+<th:block th:insert="fragments/general :: footer"></th:block>
 </div>
 
 </body>

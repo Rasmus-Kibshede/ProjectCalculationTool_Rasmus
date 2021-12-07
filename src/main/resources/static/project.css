@@ -2,69 +2,57 @@
     list-style-type: none;
     text-align: center;
     margin: 0;
-    padding: 0;
+    padding-bottom: 10px;
+
 }
 
-.projecthead li{
-    display: inline-block;
-    font-size: 20px;
-    padding: 20px;
-    width: 24%;
+.project-data {
+    margin-bottom: 10px;
 }
-
-.subprojectheader{
-    width: 100%;
-    list-style-type: none;
-    text-align: center;
-    margin: 0;
-    padding: 0;
-}
-
-.subprojectheader p{
-    display: inline-block;
-    font-size: 20px;
-    padding: 7px;
-    width: 24%;
-}
-
 
 .subproject-data {
     width: 100%;
-    height: 25px;
     background: #59869d;
 }
 
-.project-data table{
+.subproject-data ul {
     width: 100%;
 }
 
-.subproject-data a {
-    padding: 10px;
-    float: left;
+.subproject-data form input {
+    width: 30%;
 }
 
-.subproject-data a:link{
+.subproject-data li {
+    padding: 10px;
+    width: 15%;
+    max-width: 18%;
+    list-style-type: none;
+    display: inline-block;
+    font-size: 20px;
+}
+
+
+.subproject-data a:link {
     text-decoration: none;
-}
-
-.subproject-data form {
-
-    padding: 10px;
-    float: right;
 }
 
 .task-data {
     background: lightgray;
-    padding: 10px;
-    display: block;
+    width: 100%;
 }
 
-.task-name {
-    float: left;
-    padding: 10px;
+.task-data ul {
+    width: 100%;
+    border-bottom: solid gray;
 }
 
-.task-time{
+.task-data li {
     padding: 10px;
-    float: left;
+    width: 19.5%;
+    max-width: 20%;
+    list-style-type: none;
+    display: inline-block;
+
+    font-size: 20px;
 }
