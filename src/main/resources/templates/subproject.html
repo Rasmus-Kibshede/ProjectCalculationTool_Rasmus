@@ -26,7 +26,6 @@
         <form th:action="'/projects/'+ ${projectID} + '/subproject/' + ${subproject.subProjectID}" method="post">
             <input type="text" name="name" th:value="${subproject.name}" class="textfield" required>
             <input type="submit" class="submit" value="Save">
-
         </form>
 
         <!--Brug button tag i stedet-->

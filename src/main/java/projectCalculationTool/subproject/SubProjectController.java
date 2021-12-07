@@ -46,12 +46,11 @@ public class SubProjectController {
     }
 
     @PostMapping("projects/{projectID}/subproject/{subprojectID}")
-    public String updateSubproject(
-            @PathVariable int subprojectID,
-            @PathVariable int projectID,
-            WebRequest webRequest,
-            Model model
-    ) throws ValidateException, SubProjectException {
+    public String updateSubproject(WebRequest webRequest, Model model) throws ValidateException, SubProjectException {
+
+        int subprojectID = Integer.parseInt(webRequest.getParameter("subprojectID"));
+        int projectID = Integer.parseInt(webRequest.getParameter("projectID"));
+
 
         Project project = (Project) webRequest.getAttribute("project", WebRequest.SCOPE_SESSION);
 
@@ -62,8 +61,12 @@ public class SubProjectController {
         return "redirect:/project?id=" + projectID;
     }
 
-    @GetMapping("projects/{projectID}/subproject/{subprojectID}/delete")
-    public String deleteSubproject(@PathVariable int subprojectID, @PathVariable int projectID) throws SubProjectException {
+    @GetMapping("deleteSubproject")
+    public String deleteSubproject(WebRequest webRequest) throws SubProjectException {
+
+        int subprojectID = Integer.parseInt(webRequest.getParameter("subprojectID"));
+        int projectID = Integer.parseInt(webRequest.getParameter("projectID"));
+
         SUB_PROJECT_SERVICE.deleteSubProject(subprojectID);
 
         return "redirect:/project?id=" + projectID;
