@@ -20,7 +20,6 @@ public class ProjectController {
     @GetMapping("/profile")
     // skal den throwe??
     public String profile(WebRequest webRequest, Model model) throws ProjectException {
-
         Employee employee = (Employee) webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION);
 
         if (employee != null) {

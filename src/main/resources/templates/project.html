@@ -59,7 +59,7 @@
                     <td class="task-name" th:text="'Taskname: '+ ${task.name} ">task name</td>
                     <td>
                         <a th:href="'/editTask?id=' + ${task.taskID}">
-                            <form action="/editTask" method="get">
+                            <form action="/editTask" method="post">
                                 <input type="hidden" name="id" th:value="${task.getTaskID()}">
                                 <input type="hidden" name="task" th:value="${task}">
                                 <input type="hidden" name="project" th:value="${project}">
@@ -69,7 +69,7 @@
                     </td>
                     <td>
                         <a th:href="'/deleteTask?id=' + ${task.getTaskID()}">
-                            <form action="/deleteTask" method="post">
+                            <form action="/deleteTask" method="get">
                                 <!-- den poster ikke så længe det ikke lægges i en form-->
                                 <input type="hidden" name="id" th:value="${task.getTaskID()}">
                                 <input type="hidden" name="project" th:value="${project}">
