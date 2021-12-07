@@ -33,7 +33,17 @@
 }
 
 #content .error {
+    margin-top: 20px;
     color: #FF325A;
+    font-size: 30px;
+}
+
+.submit {
+
+}
+
+.textfield {
+
 }
 
 /* Header */

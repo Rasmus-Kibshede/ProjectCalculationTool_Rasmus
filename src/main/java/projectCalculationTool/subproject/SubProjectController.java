@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.WebRequest;
 import projectCalculationTool.project.Project;
-import projectCalculationTool.task.Task;
 import projectCalculationTool.util.exception.SubProjectException;
 import projectCalculationTool.util.exception.ValidateException;
 
@@ -29,7 +28,7 @@ public class SubProjectController {
         return "redirect:/project?id=" + projectID;
     }
 
-    @GetMapping("/projects/{projectID}/subprojekt/{subprojectID}")
+    @GetMapping("/projects/{projectID}/subproject/{subprojectID}")
     public String subproject(@PathVariable int subprojectID, @PathVariable int projectID, Model model,
                              WebRequest webRequest) throws SubProjectException {
 
@@ -63,7 +62,7 @@ public class SubProjectController {
         return "redirect:/project?id=" + projectID;
     }
 
-    @PostMapping("projects/{projectID}/subproject/{subprojectID}/slet")
+    @GetMapping("projects/{projectID}/subproject/{subprojectID}/delete")
     public String deleteSubproject(@PathVariable int subprojectID, @PathVariable int projectID) throws SubProjectException {
         SUB_PROJECT_SERVICE.deleteSubProject(subprojectID);
 
