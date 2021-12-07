@@ -33,23 +33,31 @@
 }
 
 #content .error {
-    margin-top: 20px;
     color: #FF325A;
-    font-size: 30px;
+    font-size: 25px;
 }
 
 .submit {
     font-size: 18px;
     width: 52px;
+    background-color: #e6eef1;
+    border-color: #e6eef1;
 }
 
 .textfield {
     font-size: 18px;
+    border: 0;
+    border-bottom: 2px solid black;
+    outline: 0;
 }
 
 .cancel {
     width: 70px;
     font-size: 18px;
+    background-color: #EFEFEF;
+    border: solid 1px;
+    padding: 4px 8px 4px 8px;
+    border-radius: 4px;
 }
 
 /* Header */

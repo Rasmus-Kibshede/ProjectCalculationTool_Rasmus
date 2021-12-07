@@ -1,3 +1,4 @@
+/* Fra Alpha Solutions header*/
 #navbar {
     background-color: #FFFFFF;
     position: fixed;
@@ -28,4 +29,31 @@
     display: inline-block;
     background-size: contain;
     width: 186px;
+}
+/* Fra Alpha Solutions header slut*/
+
+/* Content*/
+#content h1 {
+    border-bottom: solid black 2px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+#login {
+    background-color: #eeeeee;
+    width: 270px;
+    margin-top: 70px;
+    display: inline-block;
+    padding-top: 20px;
+}
+
+#login p {
+    margin-top: 10px;
+    font-weight: bold;
+    margin-bottom: 45px;
+    font-size: 20px;
+}
+
+#content form input {
+    margin-bottom: 40px;
 }

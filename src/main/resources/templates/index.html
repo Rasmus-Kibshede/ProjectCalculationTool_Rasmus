@@ -3,9 +3,9 @@
 <head>
     <title>Home</title>
     <th:block th:include="fragments/general :: headfiles"></th:block>
-    <link rel="stylesheet" href="/main.css">
-
+    <link rel="stylesheet" href="/index.css">
 </head>
+
 <body>
 <div id="wrapper">
     <!--Referance fra Alpha solutions https://www.alpha-solutions.com/da-->
@@ -25,15 +25,17 @@
 
     <div id="content">
         <h1>Project Calculation Tool</h1>
+        <p th:text="${message}" class="error"></p>
 
         <div id="login">
+            <p>To view projects - log in</p>
             <form action="login" method="post">
-                <input type="email" placeholder="example@mail.com" name="email" required>
-                <input type="password" name="password" placeholder="Enter password" required>
-                <input type="submit" value="Login">
+                <input type="email" placeholder="example@mail.com" name="email" class="textfield" required>
+                <input type="password" name="password" placeholder="Enter password" class="textfield" required>
+                <input type="submit" value="Login" class="submit">
             </form>
-            <p th:text="${message}" class="error"></p>
         </div>
+
     </div>
 
     <th:block th:insert="fragments/general :: footer"></th:block>
