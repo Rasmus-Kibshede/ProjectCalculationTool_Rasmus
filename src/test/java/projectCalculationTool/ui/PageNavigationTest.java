@@ -64,6 +64,19 @@ public class PageNavigationTest {
   }
 
   @Test
+  public void testNavigationDeleteProject(){
+    selenium.navigate().to("http://localhost:8080/profile");
+    WebElement deleteProject = selenium.findElement(By.name("deleteProject"));
+    deleteProject.click();
+    deleteProject = selenium.findElement(By.name("projectname")); //Tror ikke det her vil virke da vi sletter på id, men ved ikke hvordan vi får fat i id
+    deleteProject.sendKeys("SeleniumProjectTest");
+
+    deleteProject.submit();
+
+    assertEquals("Profile", selenium.getTitle());
+  }
+
+  @Test
   public void testNavigationValidtSubProject(){
     selenium.navigate().to("http://localhost:8080/project?id=46");
     WebElement subprojectName = selenium.findElement(By.name("subprojectname"));
@@ -83,6 +96,19 @@ public class PageNavigationTest {
     subProjectName.sendKeys(inputSubprojectName);
 
     subProjectName.submit();
+
+    assertEquals("Project", selenium.getTitle());
+  }
+
+  @Test
+  public void testNavigationDeleteSubproject(){
+    selenium.navigate().to("http://localhost:8080/project?id=46");
+    WebElement deleteSubproject = selenium.findElement(By.name("deleteSubproject"));
+    deleteSubproject.click();
+    deleteSubproject = selenium.findElement(By.name("subprojectname")); //Tror ikke det her vil virke da vi sletter på id, men ved ikke hvordan vi får fat i id
+    deleteSubproject.sendKeys("SeleniumSubprojectTest");
+
+    deleteSubproject.submit();
 
     assertEquals("Project", selenium.getTitle());
   }
@@ -112,6 +138,19 @@ public class PageNavigationTest {
     taskTime.sendKeys(inputTaskTime);
 
     taskTime.submit();
+
+    assertEquals("Project", selenium.getTitle());
+  }
+
+  @Test
+  public void testNavigationDeleteTask(){
+    selenium.navigate().to("http://localhost:8080/project?id=46");
+    WebElement deleteTask = selenium.findElement(By.name("deleteTask"));
+    deleteTask.click();
+    deleteTask = selenium.findElement(By.name("taskName"));
+    deleteTask.sendKeys("SeleniumTaskTest");
+
+    deleteTask.submit();
 
     assertEquals("Project", selenium.getTitle());
   }
