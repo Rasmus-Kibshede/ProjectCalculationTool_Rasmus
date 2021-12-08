@@ -27,7 +27,7 @@ public class PageNavigationTest {
     // Load selenium driver
     // download chromeDriver.exe fra http://chromedriver.storage.googleapis.com/index.html?path=96.0.4664.45/
 
-    System.setProperty("webdriver.chrome.driver", "C:\\webdriver\\chromedriver_1.exe");
+    System.setProperty("webdriver.chrome.driver", "src/test/java/webDriver/chromedriver.exe");
     selenium = new ChromeDriver();
 
     selenium.navigate().to("http://localhost:8080");
