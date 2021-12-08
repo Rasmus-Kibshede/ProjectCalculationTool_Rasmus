@@ -9,11 +9,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.springframework.web.context.request.WebRequest;
+import projectCalculationTool.employee.Employee;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 // Referance til https://github.com/Tine-m/2.semUITestAutomation/blob/main/SystemTestAutomation/src/test/java/GoogleDemoTest.java
-class CreateProjectTest {
+public class CreateProjectTest {
 
   private static WebDriver selenium;
 
@@ -25,64 +27,69 @@ class CreateProjectTest {
     // Load selenium driver
     // download chromeDriver.exe fra http://chromedriver.storage.googleapis.com/index.html?path=96.0.4664.45/
 
-    System.setProperty("webdriver.chrome.driver", "/Users/kamillenikolajsen/Desktop/Chromedriver");
+    System.setProperty("webdriver.chrome.driver", "C:\\webdriver\\chromedriver_1.exe");
     selenium = new ChromeDriver();
+
+    selenium.navigate().to("http://localhost:8080");
+    WebElement email = selenium.findElement(By.name("email"));
+    email.sendKeys("test@yes.com");
+    WebElement password = selenium.findElement(By.name("password"));
+    password.sendKeys("123");
+    // når du submitter et element i en form submittes det hele (ergo nednestående trykkes enter)
+    password.submit();
   }
-
-
 
   @Test
   public void canCreateProject(){
-
-    selenium.navigate().to("http://localhost:8080");
-    WebElement projectName = selenium.findElement(By.name("projectName"));
+    selenium.navigate().to("http://localhost:8080/profile");
+    WebElement projectName = selenium.findElement(By.name("projectname"));
     projectName.sendKeys("SeleniumProjectTest");
 
     projectName.submit();
 
-    assertEquals("profile", selenium.getTitle());
+    assertEquals("Profile", selenium.getTitle());
   }
 
   @ParameterizedTest
-  @CsvSource(value = {"", "Project name cannot be longer then 45 characters this is the test"})
+  @CsvSource(value = {"Project name cannot be longer then 45 characters this is the test"})
   public void cannotCreateProject(String inputProjectName){
 
-    selenium.navigate().to("http://localhost:8080");
-    WebElement projectName = selenium.findElement(By.name("projectName"));
+    selenium.navigate().to("http://localhost:8080/profile");
+    WebElement projectName = selenium.findElement(By.name("projectname"));
     projectName.sendKeys(inputProjectName);
 
     projectName.submit();
 
-    assertNotEquals("profile", selenium.getTitle());
+    assertEquals("Profile", selenium.getTitle());
   }
 
   @Test
   public void canCreateSubProject(){
-    selenium.navigate().to("http://localhost:8080");
-    WebElement subprojectName = selenium.findElement(By.name("subprojectName"));
+    selenium.navigate().to("http://localhost:8080/project?id=46");
+    WebElement subprojectName = selenium.findElement(By.name("subprojectname"));
     subprojectName.sendKeys("SeleniumSubprojectTest");
 
     subprojectName.submit();
 
-    assertEquals("project?id=", selenium.getTitle());
+    assertEquals("Project", selenium.getTitle());
   }
 
   @ParameterizedTest
-  @CsvSource(value = {"", "Subproject name cannot be longer then 45 characters this is the test"})
+  @CsvSource(value = {"Subproject name cannot be longer then 45 characters this is the test"})
   public void cannotCreateSubproject(String inputSubprojectName){
 
-    selenium.navigate().to("http://localhost:8080");
-    WebElement subProjectName = selenium.findElement(By.name("SubprojectName"));
+    selenium.navigate().to("http://localhost:8080/project?id=46");
+    WebElement subProjectName = selenium.findElement(By.name("subprojectname"));
     subProjectName.sendKeys(inputSubprojectName);
 
     subProjectName.submit();
 
-    assertNotEquals("project?id=", selenium.getTitle());
+    assertEquals("Project", selenium.getTitle());
   }
 
   @Test
   public void canCreateTask(){
-    selenium.navigate().to("http://localhost:8080");
+    selenium.navigate().to("http://localhost:8080/project?id=46");
     WebElement taskName = selenium.findElement(By.name("taskName"));
     taskName.sendKeys("SeleniumTaskTest");
     WebElement taskTime = selenium.findElement(By.name("taskTime"));
@@ -90,23 +97,23 @@ class CreateProjectTest {
 
     taskTime.submit();
 
-    assertEquals("project?id=", selenium.getTitle());
+    assertEquals("Project", selenium.getTitle());
   }
 
   @ParameterizedTest
   @CsvSource(value = {"Task name cannot be longer then 45 characters this is the test:1",
-      "Test Task:Have to be a number", ":2", "TaskName:", ":"}, delimiter = ':')
+      "Test Task:Have to be a number"}, delimiter = ':')
   public void cannotCreateTask(String inputTaskName, String inputTaskTime){
 
-    selenium.navigate().to("http://localhost:8080");
-    WebElement taskName = selenium.findElement(By.name("TaskName"));
+    selenium.navigate().to("http://localhost:8080/project?id=46");
+    WebElement taskName = selenium.findElement(By.name("taskName"));
     taskName.sendKeys(inputTaskName);
-    WebElement taskTime = selenium.findElement(By.name("TaskTime"));
+    WebElement taskTime = selenium.findElement(By.name("taskTime"));
     taskTime.sendKeys(inputTaskTime);
 
     taskTime.submit();
 
-    assertNotEquals("project?id=", selenium.getTitle());
+    assertEquals("Project", selenium.getTitle());
   }
 
   @AfterAll
