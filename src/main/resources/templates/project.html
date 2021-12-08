@@ -39,8 +39,8 @@
                     </li>
                     <li>
                         <form action="addTask" method="POST">
-                            <input type="hidden" name="subprojectID" th:value="${sp.getSubProjectID()}"><input
-                                type="text" name="taskName" placeholder="task name" required>
+                            <input type="hidden" name="subprojectID" th:value="${sp.getSubProjectID()}">
+                            <input type="text" name="taskName" placeholder="task name" required>
                             <input type="text" name="taskTime" placeholder="insert time" required>
                             <input type="submit" value="Add" class="submit">
                         </form>
@@ -59,8 +59,8 @@
             </div>
         </div>
     </div>
+    <th:block th:insert="fragments/general :: footer"></th:block>
 </div>
-<th:block th:insert="fragments/general :: footer"></th:block>
 </div>
 
 </body>
