@@ -32,11 +32,12 @@ public class ProjectController {
       return "profile";
     }
 
-    return "redirect:index";
+    return "redirect:/";
   }
 
   @PostMapping("/addproject")
   public String createProject(WebRequest webRequest) throws ProjectException, ValidateException {
+
     String projectName = webRequest.getParameter("projectname");
 
     Employee employee =  (Employee) webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION);
@@ -50,7 +51,7 @@ public class ProjectController {
   public String project(WebRequest webRequest, Model model) throws ProjectException {
     Employee employee =  (Employee) webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION);
     if (employee == null) {
-      return "redirect:index";
+      return "redirect:/";
     }
 
     int projectID = Integer.parseInt(webRequest.getParameter("id"));
