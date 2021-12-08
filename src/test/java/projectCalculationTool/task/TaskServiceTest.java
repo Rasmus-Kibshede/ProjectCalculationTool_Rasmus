@@ -2,6 +2,7 @@ package projectCalculationTool.task;
 
 import net.bytebuddy.implementation.bytecode.Throw;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.shadow.com.univocity.parsers.annotations.Validate;
 import projectCalculationTool.util.exception.ValidateException;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,11 +20,31 @@ class TaskServiceTest {
     }
 
     @Test
-    void invalidInput()  {
+    void exceptionforNullTime(){
+        String tasktime = null;
+
+        Throwable exception = assertThrows(ValidateException.class, () -> taskService.validateTaskTime(tasktime));
+
+        assertEquals("Task time cannot be empty and has to be a number in hours.",exception.getMessage());
+    }
+
+
+    @Test
+    void invalidInputNotNumber()  {
         String tasktime = "test";
 
         Throwable exception = assertThrows(ValidateException.class, () -> taskService.validateTaskTime(tasktime));
 
         assertEquals("Task time has to be a number in hours.", exception.getMessage());
     }
+
+    @Test
+    void nullName()  {
+        String name = null;
+
+        Throwable exception = assertThrows(ValidateException.class,()-> taskService.validateTaskName(name));
+
+        assertEquals("Task name cannot be null or longer than 45 characters.",exception.getMessage());
+    }
+
 }
