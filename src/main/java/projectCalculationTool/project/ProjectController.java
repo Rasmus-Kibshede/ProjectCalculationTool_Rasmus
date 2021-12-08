@@ -15,122 +15,124 @@ import java.util.ArrayList;
 @Controller
 public class ProjectController {
 
-    private final ProjectService PROJECT_SERVICE = new ProjectService(new ProjectRepository());
+  private final ProjectService PROJECT_SERVICE = new ProjectService(new ProjectRepository());
 
-    @GetMapping("/profile")
-    // skal den throwe??
-    public String profile(WebRequest webRequest, Model model) throws ProjectException {
-        Employee employee = (Employee) webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION);
+  @GetMapping("/profile")
+  // skal den throwe??
+  public String profile(WebRequest webRequest, Model model) throws ProjectException {
+    Employee employee = (Employee) webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION);
 
-        if (employee != null) {
-            // Her læser vi employee ens projekter men der hentes ikke alt under projekter
-            // //hvorfor dage ikke kan udhentes
-            ArrayList<Project> projects = PROJECT_SERVICE.readProjects(employee);
+    if (employee != null) {
+      ArrayList<Project> projects = PROJECT_SERVICE.readProjects(employee);
 
-            model.addAttribute("employee", employee);
-            model.addAttribute("projects", projects);
-            model.addAttribute("message", webRequest.getParameter("message"));
+      model.addAttribute("employee", employee);
+      model.addAttribute("projects", projects);
+      model.addAttribute("message", webRequest.getParameter("message"));
 
-            return "profile";
-        }
-
-        return "redirect:index";
+      return "profile";
     }
 
-    @PostMapping("/addproject")
-    public String createProject(WebRequest webRequest) throws ProjectException, ValidateException {
-        String projectName = PROJECT_SERVICE.validateProjectName(webRequest.getParameter("projectname"));
+    return "redirect:index";
+  }
 
-        PROJECT_SERVICE.createProject(projectName,
-                (Employee) webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION));
+  @PostMapping("/addproject")
+  public String createProject(WebRequest webRequest) throws ProjectException, ValidateException {
+    String projectName = webRequest.getParameter("projectname");
 
-        return "redirect:/profile";
+    Employee employee =  (Employee) webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION);
+
+    PROJECT_SERVICE.createProject(projectName, employee);
+
+    return "redirect:/profile";
+  }
+
+  @GetMapping("/project")
+  public String project(WebRequest webRequest, Model model) throws ProjectException {
+    Employee employee =  (Employee) webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION);
+    if (employee == null) {
+      return "redirect:index";
     }
 
-    @GetMapping("/project")
-    public String project(WebRequest webRequest, Model model) throws ProjectException {
-        if(webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION) == null){
-            return "redirect:index";
-        }
+    int projectID = Integer.parseInt(webRequest.getParameter("id"));
 
-        int projectID = Integer.parseInt(webRequest.getParameter("id"));
-        Employee employee = (Employee) webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION);
+    // send hele projektet videre --> ikke hent id i næste controller (evt i webrequest eller session?)
+    Project project = PROJECT_SERVICE.readProject(projectID);
 
-        // send hele projektet videre --> ikke hent id i næste controller (evt i webrequest eller session?)
-        Project project = PROJECT_SERVICE.readProject(projectID);
+    //sæt projekt i session
+    webRequest.setAttribute("project", project, WebRequest.SCOPE_SESSION);
+    project.setEmployee(employee);
 
-        //sæt projekt i session
-        webRequest.setAttribute("project", project, WebRequest.SCOPE_SESSION);
-        project.setEmployee(employee);
+    model.addAttribute("project", project);
+    model.addAttribute("message", webRequest.getParameter("message"));
 
-        model.addAttribute("project", project);
-        model.addAttribute("message", webRequest.getParameter("message"));
+    return "project";
+  }
 
-        return "project";
+  //Bruges ikke lige nu
+  @GetMapping("/projectoverview")
+  public String showOverview(WebRequest webRequest, Model model) throws ProjectException {
+    if (webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION) == null) {
+      return "redirect:index";
     }
 
-    @GetMapping("/projectoverview")
-    public String showOverview(WebRequest webRequest, Model model) throws ProjectException {
-        if(webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION) == null){
-            return "redirect:index";
-        }
+    // henter projekt fra session
+    Project project = (Project) webRequest.getAttribute("project", WebRequest.SCOPE_SESSION);
 
-        // henter projekt fra session
-        Project project = (Project) webRequest.getAttribute("project", WebRequest.SCOPE_SESSION);
+    model.addAttribute("project", project);
 
-        model.addAttribute("project", project);
+    return "projectoverview";
+  }
 
-        return "projectoverview";
+  @GetMapping("editProject")
+  public String editProject(WebRequest webRequest, Model model) throws ProjectException {
+    if (webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION) == null) {
+      return "redirect:index";
     }
 
-    @GetMapping("editProject")
-    public String editProject(WebRequest webRequest, Model model) throws ProjectException {
-        if(webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION) == null){
-            return "redirect:index";
-        }
+    int projectID = Integer.parseInt(webRequest.getParameter("id"));
 
-        int projectID = Integer.parseInt(webRequest.getParameter("id"));
+    //skal laves om, så vi ikke skal kalde ned til database igen
+    Project project = PROJECT_SERVICE.readProject(projectID);
 
-        //skal laves om, så vi ikke skal kalde ned til database igen
-        Project project = PROJECT_SERVICE.readProject(projectID);
-
-        model.addAttribute("message", webRequest.getParameter("message"));
-        model.addAttribute("project", project);
+    model.addAttribute("message", webRequest.getParameter("message"));
+    model.addAttribute("project", project);
 
 
-        return "editProject";
-    }
+    return "editProject";
+  }
 
-    @PostMapping("saveProjectChanges")
-    public String saveProjectChanges(WebRequest webRequest) throws ProjectException, ValidateException {
+  @PostMapping("saveProjectChanges")
+  public String saveProjectChanges(WebRequest webRequest) throws ProjectException, ValidateException {
 
-        int projectID = Integer.parseInt(webRequest.getParameter("projectID"));
+    int projectID = Integer.parseInt(webRequest.getParameter("projectID"));
 
-        //skal laves om, så vi ikke skal kalde ned til database igen
-        Project project = PROJECT_SERVICE.readProject(projectID);
+    //skal laves om, så vi ikke skal kalde ned til database igen
+    Project project = PROJECT_SERVICE.readProject(projectID);
 
-        String projectName = webRequest.getParameter("projectName");
+    String projectName = webRequest.getParameter("projectName");
 
-        PROJECT_SERVICE.updateProject(project, projectName);
+    PROJECT_SERVICE.updateProject(project, projectName);
 
-        return "redirect:profile?id=" + projectID;
-    }
+    return "redirect:profile?id=" + projectID;
+  }
 
-    @GetMapping("deleteProject")
-    public String deleteProject(WebRequest webRequest) throws ProjectException {
+  @GetMapping("deleteProject")
+  public String deleteProject(WebRequest webRequest) throws ProjectException {
 
-        int projectID = Integer.parseInt(webRequest.getParameter("id"));
+    int projectID = Integer.parseInt(webRequest.getParameter("id"));
 
-        PROJECT_SERVICE.deleteProject(projectID);
+    PROJECT_SERVICE.deleteProject(projectID);
 
-        return "redirect:profile";
-    }
+    return "redirect:profile";
+  }
 
-    //Referance https://stackoverflow.com/questions/804581/spring-mvc-controller-redirect-to-previous-page
-    @ExceptionHandler({ProjectException.class, ValidateException.class})
-    public String handleSQLException(Model model, Exception exception, WebRequest webRequest) {
-        String referer = webRequest.getHeader("Referer");
-        model.addAttribute("message", exception.getMessage());
-        return "redirect:" + referer;
-    }
+  //Referance https://stackoverflow.com/questions/804581/spring-mvc-controller-redirect-to-previous-page
+  @ExceptionHandler({ProjectException.class, ValidateException.class})
+  public String handleSQLException(Model model, Exception exception, WebRequest webRequest) {
+    String referer = webRequest.getHeader("Referer");
+
+    model.addAttribute("message", exception.getMessage());
+
+    return "redirect:" + referer;
+  }
 }

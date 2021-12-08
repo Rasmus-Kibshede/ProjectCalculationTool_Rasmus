@@ -14,10 +14,10 @@ public class ProjectService {
         this.projectRepositoryInterface = projectRepositoryInterface;
     }
 
-    public void createProject(String projectName, Employee employee) throws ProjectException {
+    public void createProject(String projectName, Employee employee) throws ProjectException, ValidateException {
         Project project = new Project();
         project.setEmployee(employee);
-        project.setName(projectName);
+        project.setName(validateProjectName(projectName));
         projectRepositoryInterface.createProject(project);
     }
 
@@ -27,7 +27,6 @@ public class ProjectService {
 
     public Project readProject(int projectID) throws ProjectException {
         Project project = projectRepositoryInterface.readProject(projectID);
-        project.calculateWorkdaysDaysTotal();
         return project;
     }
 

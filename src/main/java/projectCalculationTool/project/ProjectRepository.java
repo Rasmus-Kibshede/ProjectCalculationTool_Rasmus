@@ -50,6 +50,7 @@ public class ProjectRepository implements ProjectRepositoryInterface {
         project.setProjectID(id);
 
         project = SUBPROJECT_REPOSITORY.readSubProjects(project);
+        project.calculateWorkdaysDaysTotal();
         return project;
       } else {
         throw new ProjectException("Invalid Project");
@@ -80,11 +81,15 @@ public class ProjectRepository implements ProjectRepositoryInterface {
         project.setName(name);
         project.setProjectID(id);
         projects.add(project);
+        project.setSubProjects(SUBPROJECT_REPOSITORY.readSubProjects(project).getSubProjects());
+        project.calculateWorkdaysDaysTotal();
       }
 
       return projects;
     } catch (SQLException e) {
       throw new ProjectException("Reading projects failed.", e);
+    } catch (SubProjectException err) {
+      throw new ProjectException("Failed read subproject", err);
     }
   }
 
