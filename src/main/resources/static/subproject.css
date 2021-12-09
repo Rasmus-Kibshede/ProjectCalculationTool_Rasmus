@@ -16,29 +16,16 @@
 
 #content .textfield {
     width: auto;
-    margin-left: 30px;
-}
-
-#time{
-    width: 45px;
-    margin: 0px 10px 0px 10px;
 }
 
 #content a {
-    margin-top: 10px;
-    margin-left: 600px;
+    margin: 30px 0px 0px 600px;
 }
 
-#taskname{
+#subprojectname{
     width: 12%;
     display: inline-block;
     margin-bottom: 21px;
     font-size: 18px;
-}
-
-#tasktime{
-    width: 22%;
-    display: inline-block;
-    margin-bottom: 21px;
-    font-size: 18px;
+    margin-right: 90px;
 }

@@ -3,6 +3,7 @@
 <head>
     <th:block th:include="fragments/general :: headfiles"></th:block>
     <title>Subproject</title>
+    <link rel="stylesheet" href="/subproject.css">
 </head>
 <body>
 <div id="wrapper">
@@ -25,6 +26,7 @@
         <p th:text="${message}" class="error"></p>
 
         <div>
+            <h5 id="subprojectname">Subproject Name</h5>
         <form action="editSubproject" method="post">
             <input type="hidden" name="projectID" th:value="${projectID}">
             <input type="hidden" name="subprojectID" th:value="${subproject.subProjectID}">

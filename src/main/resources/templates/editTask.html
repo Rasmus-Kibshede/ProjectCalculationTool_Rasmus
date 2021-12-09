@@ -25,7 +25,10 @@
 
         <h2>Edit Task</h2>
         <p th:text="${message}" class="error"></p>
+
         <div>
+            <h5 id="taskname">Task Name</h5>
+            <h5 id="tasktime">Task Time</h5>
             <form action="/updateTask" method="post">
                 <input type="text" name="taskName" th:value="${task.getName()}" class="textfield" required>
                 <input type="text" name="taskTime" th:value="${task.getTimeHours()}" class="textfield" id="time" required>
