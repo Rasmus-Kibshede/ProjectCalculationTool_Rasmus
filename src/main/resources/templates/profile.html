@@ -4,22 +4,11 @@
     <title>Profile</title>
     <th:block th:include="fragments/general :: headfiles"></th:block>
     <link rel="stylesheet" href="/profile.css">
+    <script src="https://kit.fontawesome.com/1a9ff76d50.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <div id="wrapper">
     <!--Referance fra Alpha solutions https://www.alpha-solutions.com/da-->
-    <!--<header>
-        <div id="navbar">
-            <div class="header">
-                <div id="logo">
-                    <a href="/">
-                        <img src="https://media.alpha-solutions.com/da/-/media/alphawebsite2019/defaults/logo.ashx?iar=0&amp;hash=47313F5015E221C5AA54A61AFA0E9CA6"
-                             alt="Alpha Solutions Logo"/>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </header>-->
     <th:block th:insert="fragments/general :: header"></th:block>
     <!--Slut referance fra Alpha Solution-->
 
@@ -38,23 +27,22 @@
 
         <!-- project box-->
         <div class="projectbox" th:each="project: ${projects}">
-            <a th:href="'/project?id=' + ${project.projectID}" th:text="${project.name}" class="projectName"></a>
-            <p th:text="'Workdays:' + ${project.getProjectDaysTotal()}"></p>
+            <ul>
+                <li><a th:href="'/project?id=' + ${project.projectID}" th:text="${project.name}"
+                       class="projectName"></a>
+                    <button value="Project overview"></button>
+                    <a class="editbtn" th:href="'/editProject?id=' + ${project.projectID}">
+                        <span class="far fa-edit fa-2x"></span>
+                    </a>
+                </li>
+                <li><p th:text="'Workdays: ' + ${project.getProjectDaysTotal()}"></p></li>
+                <li><p th:text="'Subprojects: ' + ${project.getSubProjects().size()}"></p></li>
 
-            <div class="buttons">
-                <div class="editbtn">
-                    <a th:href="'/editProject?id=' + ${project.projectID}">
-                        <img></img>
-                        <p>Edit</p>
+                    <li class="deletebtn"><a onclick="" th:href="'/deleteProject?id=' + ${project.projectID}">
+                        <span class="far fa-trash-alt fa-2x"></span>
                     </a>
-                </div>
-                <div class="deletebtn">
-                    <a th:href="'/deleteProject?id=' + ${project.projectID}">
-                        <img></img>
-                        <p>Delete</p>
-                    </a>
-                </div>
-            </div>
+                    </li>
+            </ul>
         </div>
         <!-- project box-->
 
