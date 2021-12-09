@@ -1,6 +1,7 @@
 package projectCalculationTool.ui;
 
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -9,155 +10,130 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.springframework.web.context.request.WebRequest;
-import projectCalculationTool.employee.Employee;
+import projectCalculationTool.project.ProjectRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 // Referance til https://github.com/Tine-m/2.semUITestAutomation/blob/main/SystemTestAutomation/src/test/java/GoogleDemoTest.java
 public class PageNavigationTest {
 
-  private static WebDriver selenium;
+    private static WebDriver selenium;
 
-  //Det viker ikke med min path...
-  // Så måske vi lige skal afprøve det med en anden ellers er det måske bare helt forkert...
+    //Det viker ikke med min path...
+    // Så måske vi lige skal afprøve det med en anden ellers er det måske bare helt forkert...
 
-  @BeforeAll
-  public static void setUp(){
-    // Load selenium driver
-    // download chromeDriver.exe fra http://chromedriver.storage.googleapis.com/index.html?path=96.0.4664.45/
+    @BeforeAll
+    public static void setUp() {
+        // Load selenium driver
+        // download chromeDriver.exe fra http://chromedriver.storage.googleapis.com/index.html?path=96.0.4664.45/
 
-    System.setProperty("webdriver.chrome.driver", "src/test/java/webDriver/chromedriver.exe");
-    selenium = new ChromeDriver();
+        System.setProperty("webdriver.chrome.driver", "src/test/java/webDriver/chromedriver.exe");
+        selenium = new ChromeDriver();
 
-    selenium.navigate().to("http://localhost:8080");
-    WebElement email = selenium.findElement(By.name("email"));
-    email.sendKeys("test@yes.com");
-    WebElement password = selenium.findElement(By.name("password"));
-    password.sendKeys("123");
-    // når du submitter et element i en form submittes det hele (ergo nednestående trykkes enter)
-    password.submit();
-  }
+        selenium.navigate().to("http://localhost:8080");
+        WebElement email = selenium.findElement(By.name("email"));
+        email.sendKeys("test@yes.com");
+        WebElement password = selenium.findElement(By.name("password"));
+        password.sendKeys("123");
+        // når du submitter et element i en form submittes det hele (ergo nednestående trykkes enter)
+        password.submit();
+    }
 
-  @Test
-  public void testNavigationValidtProject(){
-    selenium.navigate().to("http://localhost:8080/profile");
-    WebElement projectName = selenium.findElement(By.name("projectname"));
-    projectName.sendKeys("SeleniumProjectTest");
+    @Test
+    public void testNavigationValidtProject() {
+        selenium.navigate().to("http://localhost:8080/profile");
+        WebElement projectName = selenium.findElement(By.name("projectname"));
+        projectName.sendKeys("SeleniumProjectTest");
+        // Få fat i id på projekt
+        projectName.submit();
 
-    projectName.submit();
+        assertEquals("Profile", selenium.getTitle());
+    }
 
-    assertEquals("Profile", selenium.getTitle());
-  }
+    @ParameterizedTest
+    @CsvSource(value = {"Project name cannot be longer then 45 characters this is the test"})
+    public void testNavigationInvalidtProject(String inputProjectName) {
 
-  @ParameterizedTest
-  @CsvSource(value = {"Project name cannot be longer then 45 characters this is the test"})
-  public void testNavigationInvalidtProject(String inputProjectName){
+        selenium.navigate().to("http://localhost:8080/profile");
+        WebElement projectName = selenium.findElement(By.name("projectname"));
+        projectName.sendKeys(inputProjectName);
 
-    selenium.navigate().to("http://localhost:8080/profile");
-    WebElement projectName = selenium.findElement(By.name("projectname"));
-    projectName.sendKeys(inputProjectName);
+        projectName.submit();
 
-    projectName.submit();
+        assertEquals("Profile", selenium.getTitle());
+    }
+/*
+    @Test
+    public void testNavigationValidtSubProject() {
+        // Sætte id dynamisk ind nedenfor
+        selenium.navigate().to("http://localhost:8080/project?id=");
+        WebElement subprojectName = selenium.findElement(By.name("subprojectname"));
+        subprojectName.sendKeys("SeleniumSubprojectTest");
 
-    assertEquals("Profile", selenium.getTitle());
-  }
+        subprojectName.submit();
 
-  @Test
-  public void testNavigationDeleteProject(){
-    selenium.navigate().to("http://localhost:8080/profile");
-    WebElement deleteProject = selenium.findElement(By.name("deleteProject"));
-    deleteProject.click();
-    deleteProject = selenium.findElement(By.name("projectname")); //Tror ikke det her vil virke da vi sletter på id, men ved ikke hvordan vi får fat i id
-    deleteProject.sendKeys("SeleniumProjectTest");
+        assertEquals("Project", selenium.getTitle());
+    }
 
-    deleteProject.submit();
+    @ParameterizedTest
+    @CsvSource(value = {"Subproject name cannot be longer then 45 characters this is the test"})
+    public void testNavigationInvalidtSubproject(String inputSubprojectName) {
 
-    assertEquals("Profile", selenium.getTitle());
-  }
+        selenium.navigate().to("http://localhost:8080/project?id=46");
+        WebElement subProjectName = selenium.findElement(By.name("subprojectname"));
+        subProjectName.sendKeys(inputSubprojectName);
 
-  @Test
-  public void testNavigationValidtSubProject(){
-    selenium.navigate().to("http://localhost:8080/project?id=46");
-    WebElement subprojectName = selenium.findElement(By.name("subprojectname"));
-    subprojectName.sendKeys("SeleniumSubprojectTest");
+        subProjectName.submit();
 
-    subprojectName.submit();
+        assertEquals("Project", selenium.getTitle());
+    }
 
-    assertEquals("Project", selenium.getTitle());
-  }
+    @Test
+    public void testNavigationValidtTask() {
+        selenium.navigate().to("http://localhost:8080/project?id=46");
+        WebElement taskName = selenium.findElement(By.name("taskName"));
+        taskName.sendKeys("SeleniumTaskTest");
+        WebElement taskTime = selenium.findElement(By.name("taskTime"));
+        taskTime.sendKeys("2");
 
-  @ParameterizedTest
-  @CsvSource(value = {"Subproject name cannot be longer then 45 characters this is the test"})
-  public void testNavigationInvalidtSubproject(String inputSubprojectName){
+        taskTime.submit();
 
-    selenium.navigate().to("http://localhost:8080/project?id=46");
-    WebElement subProjectName = selenium.findElement(By.name("subprojectname"));
-    subProjectName.sendKeys(inputSubprojectName);
+        assertEquals("Project", selenium.getTitle());
+    }
 
-    subProjectName.submit();
+    @ParameterizedTest
+    @CsvSource(value = {"Task name cannot be longer then 45 characters this is the test:1",
+            "Test Task:Have to be a number"}, delimiter = ':')
+    public void testNavigationInvalidtTask(String inputTaskName, String inputTaskTime) {
 
-    assertEquals("Project", selenium.getTitle());
-  }
+        selenium.navigate().to("http://localhost:8080/project?id=46");
+        WebElement taskName = selenium.findElement(By.name("taskName"));
+        taskName.sendKeys(inputTaskName);
+        WebElement taskTime = selenium.findElement(By.name("taskTime"));
+        taskTime.sendKeys(inputTaskTime);
 
-  @Test
-  public void testNavigationDeleteSubproject(){
-    selenium.navigate().to("http://localhost:8080/project?id=46");
-    WebElement deleteSubproject = selenium.findElement(By.name("deleteSubproject"));
-    deleteSubproject.click();
-    deleteSubproject = selenium.findElement(By.name("subprojectname")); //Tror ikke det her vil virke da vi sletter på id, men ved ikke hvordan vi får fat i id
-    deleteSubproject.sendKeys("SeleniumSubprojectTest");
+        taskTime.submit();
 
-    deleteSubproject.submit();
+        assertEquals("Project", selenium.getTitle());
+    }
 
-    assertEquals("Project", selenium.getTitle());
-  }
+ */
 
-  @Test
-  public void testNavigationValidtTask(){
-    selenium.navigate().to("http://localhost:8080/project?id=46");
-    WebElement taskName = selenium.findElement(By.name("taskName"));
-    taskName.sendKeys("SeleniumTaskTest");
-    WebElement taskTime = selenium.findElement(By.name("taskTime"));
-    taskTime.sendKeys("2");
+    @AfterAll
+    public static void tearDown() {
+        // delete project
+       /* ProjectRepository projectRepository = new ProjectRepository();
+        projectRepository.deleteProject(id);
+        selenium.navigate().to("http://localhost:8080/profile");
+        WebElement project = selenium.findElement(By.className("projectbox"));
+        project.
+                project.findElement(By.className("deletebtn"));
+        project.click();
+        project.submit();
 
-    taskTime.submit();
+        */
 
-    assertEquals("Project", selenium.getTitle());
-  }
-
-  @ParameterizedTest
-  @CsvSource(value = {"Task name cannot be longer then 45 characters this is the test:1",
-      "Test Task:Have to be a number"}, delimiter = ':')
-  public void testNavigationInvalidtTask(String inputTaskName, String inputTaskTime){
-
-    selenium.navigate().to("http://localhost:8080/project?id=46");
-    WebElement taskName = selenium.findElement(By.name("taskName"));
-    taskName.sendKeys(inputTaskName);
-    WebElement taskTime = selenium.findElement(By.name("taskTime"));
-    taskTime.sendKeys(inputTaskTime);
-
-    taskTime.submit();
-
-    assertEquals("Project", selenium.getTitle());
-  }
-
-  @Test
-  public void testNavigationDeleteTask(){
-    selenium.navigate().to("http://localhost:8080/project?id=46");
-    WebElement deleteTask = selenium.findElement(By.name("deleteTask"));
-    deleteTask.click();
-    deleteTask = selenium.findElement(By.name("taskName"));
-    deleteTask.sendKeys("SeleniumTaskTest");
-
-    deleteTask.submit();
-
-    assertEquals("Project", selenium.getTitle());
-  }
-
-  @AfterAll
-  public static void tearDown(){
-    selenium.quit();
-  }
-
+        // tear down browser
+        selenium.quit();
+    }
 }

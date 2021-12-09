@@ -29,13 +29,13 @@
         <div class="project-data" th:each="sp: ${project.getSubProjects()}">
             <div class="subproject-data clearfix">
                 <ul>
-                    <li th:text="${sp.name}"></li>
+                    <li th:text="${sp.name}" name="subprojectname"></li>
                     <li th:text="'Workdays: ' + ${sp.getWorkdays()}"></li>
                     <li>
-                        <a th:href="'editSubproject?subprojectID=' + ${sp.getSubProjectID()} + '&projectID=' + ${project.projectID}">Edit</a>
+                        <a th:href="'editSubproject?subprojectID=' + ${sp.getSubProjectID()} + '&projectID=' + ${project.projectID}" class="editbtn">Edit</a>
                     </li>
                     <li>
-                        <a th:href="'deleteSubproject?subprojectID=' + ${sp.getSubProjectID()} + '&projectID=' + ${project.projectID}">Delete</a>
+                        <a th:href="'deleteSubproject?subprojectID=' + ${sp.getSubProjectID()} + '&projectID=' + ${project.projectID}" class="deletebtn">Delete</a>
                     </li>
                     <li>
                         <form action="addTask" method="POST">
@@ -52,8 +52,8 @@
                 <ul>
                     <li class="task-name" th:text="${task.name} "></li>
                     <li class="task-time" th:text="' Hours: ' + ${task.getTimeHours()}"></li>
-                    <li><a th:href="'/editTask?id=' + ${task.taskID}">Edit Task</a></li>
-                    <li><a th:href="'/deleteTask?id=' + ${task.getTaskID()}">Delete Task</a></li>
+                    <li><a th:href="'/editTask?id=' + ${task.taskID}" class="editbtn">Edit Task</a></li>
+                    <li><a th:href="'/deleteTask?id=' + ${task.getTaskID()}" class="deletebtn">Delete Task</a></li>
 
                 </ul>
             </div>
