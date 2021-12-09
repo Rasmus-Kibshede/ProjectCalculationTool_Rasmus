@@ -56,6 +56,7 @@ public class SubProject {
     calculateWorkdays(daySubTotal);
   }
 
+  // Kilde: https://www.baeldung.com/java-round-up-nearest-hundred
   public void calculateWorkdays(int time) {
     double calcWorkdays = (double)time/8;
     int workdays = (int) Math.ceil(calcWorkdays);
