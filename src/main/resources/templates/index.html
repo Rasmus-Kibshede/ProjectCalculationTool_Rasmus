@@ -4,6 +4,7 @@
     <title>Home</title>
     <th:block th:include="fragments/general :: headfiles"></th:block>
     <link rel="stylesheet" href="/index.css">
+    <script src="https://kit.fontawesome.com/1a9ff76d50.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -25,15 +26,19 @@
 
     <div id="content">
         <div id="head">
-        <h1>Project Calculation Tool</h1>
+            <h1>Project Calculation Tool</h1>
         </div>
         <p th:text="${message}" class="error"></p>
 
         <div id="login">
             <p>To view projects - log in</p>
             <form action="login" method="post">
+                <span class="fas fa-user">
                 <input type="email" placeholder="example@mail.com" name="email" class="textfield" required>
+                </span>
+                <span class="fas fa-key">
                 <input type="password" name="password" placeholder="Enter password" class="textfield" required>
+                </span>
                 <input type="submit" value="Sign In" class="submit">
             </form>
         </div>
