@@ -76,8 +76,13 @@ public class ProjectController {
       return "redirect:index";
     }
 
-    // henter projekt fra session
-    Project project = (Project) webRequest.getAttribute("project", WebRequest.SCOPE_SESSION);
+    int projectID = Integer.parseInt(webRequest.getParameter("id"));
+
+    // send hele projektet videre --> ikke hent id i næste controller (evt i webrequest eller session?)
+    Project project = PROJECT_SERVICE.readProject(projectID);
+
+    //sæt projekt i session
+    webRequest.setAttribute("project", project, WebRequest.SCOPE_SESSION);
 
     model.addAttribute("project", project);
 

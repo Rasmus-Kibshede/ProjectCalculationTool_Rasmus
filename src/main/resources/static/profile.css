@@ -51,17 +51,17 @@
     margin-left: 5px;
 }
 
-.fa-edit{
-    color: #59869d;
+#boxbottom {
+    display: inline-block;
+    width: 100%;
 }
-
 
 .deletebtn{
-    padding: 5px;
-    width: 730px;
-
+    width: 60px;
+    float: right;
 }
 
-.fa-trash-alt{
-    color: #FF325A;
+.overview {
+    width: 60px;
+    float: left;
 }

@@ -28,18 +28,32 @@
         <!-- project box-->
         <div class="projectbox" th:each="project: ${projects}">
             <ul>
-                <li><a th:href="'/project?id=' + ${project.projectID}" th:text="${project.name}"
+                <li>
+                    <a th:href="'/project?id=' + ${project.projectID}" th:text="${project.name}"
                        class="projectName"></a>
-                    <a class="editbtn" th:href="'/editProject?id=' + ${project.projectID}">
+                    <a class="editbtn" th:href="'/project?id=' + ${project.projectID}">
                         <span class="far fa-edit fa-2x"></span>
                     </a>
                 </li>
-                <li><p th:text="'Workdays: ' + ${project.getProjectDaysTotal()}"></p></li>
-                <li><p th:text="'Subprojects: ' + ${project.getSubProjects().size()}"></p></li>
-                <li class="deletebtn"><a onclick="" th:href="'/deleteProject?id=' + ${project.projectID}">
-                    <span class="far fa-trash-alt fa-2x"></span>
-                </a>
+                <li>
+                    <p th:text="'Workdays: ' + ${project.getProjectDaysTotal()}"></p>
                 </li>
+                <li>
+                    <p th:text="'Subprojects: ' + ${project.getSubProjects().size()}">
+                    </p>
+                </li>
+                <div id="boxbottom clearfix">
+                    <li class="overview">
+                        <a th:href="'/projectoverview?id=' + ${project.projectID}">
+                            <span class="far fa-eye fa-2x"></span>
+                        </a>
+                    </li>
+                    <li class="deletebtn">
+                        <a onclick="" th:href="'/deleteProject?id=' + ${project.projectID}">
+                            <span class="far fa-trash-alt fa-2x"></span>
+                        </a>
+                    </li>
+                </div>
             </ul>
         </div>
         <!-- project box-->

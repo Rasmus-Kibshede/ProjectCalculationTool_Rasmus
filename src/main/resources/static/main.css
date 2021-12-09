@@ -73,12 +73,16 @@ a {
     color: black;
 }
 
-.editbtn {
-
+.fa-trash-alt{
+    color: #FF325A;
 }
 
-.deletebtn {
+.fa-edit{
+    color: #59869d;
+}
 
+.fa-eye {
+    color: #e7eef1;
 }
 
 /* Header */
