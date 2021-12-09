@@ -1,3 +1,7 @@
+#add{
+    margin-bottom: 15px;
+}
+
 .projecthead {
     list-style-type: none;
     text-align: center;
@@ -9,6 +13,18 @@
 .project-data {
     margin-bottom: 10px;
 }
+
+.editbtn {
+    display: inline-block;
+    margin-left: 5px;
+}
+
+.projecthead li{
+    list-style-type: none;
+    display: inline-block;
+    width: 100%;
+}
+
 
 .subproject-data {
     width: 100%;
@@ -25,8 +41,8 @@
 
 .subproject-data li {
     padding: 10px;
-    width: 15%;
-    max-width: 18%;
+    width: 23%;
+    max-width: 23%;
     list-style-type: none;
     display: inline-block;
     font-size: 20px;
@@ -49,8 +65,8 @@
 
 .task-data li {
     padding: 10px;
-    width: 19.5%;
-    max-width: 20%;
+    width: 23%;
+    max-width: 23%;
     list-style-type: none;
     display: inline-block;
 

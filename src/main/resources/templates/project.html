@@ -12,14 +12,15 @@
 
     <div id="content">
         <div class="projecthead">
-            <li><h2 th:text="${project.name}"></h2></li>
-            <li class="editbtn">
-                <a th:href="'/editProject?id=' + ${project.projectID}">
-                    <span class="far fa-edit fa-2x"></span>
-                </a>
-            </li>
-            <li><h2 th:text="'Workdays: ' + ${project.getProjectDaysTotal()}"></h2></li>
-            <li><h3>SubProjects</h3></li>
+            <ul>
+                <li class="proj-name"><h2 th:text="${project.name}"></h2>
+                    <a class="editbtn" th:href="'/editProject?id=' + ${project.projectID}">
+                        <span class="far fa-edit fa-2x"></span>
+                    </a>
+                </li>
+                <li><h2 th:text="'Workdays: ' + ${project.getProjectDaysTotal()}"></h2></li>
+                <li><h3>SubProjects</h3></li>
+            </ul>
         </div>
 
         <div id="add">
@@ -35,47 +36,48 @@
         <div class="project-data" th:each="sp: ${project.getSubProjects()}">
             <div class="subproject-data clearfix">
                 <ul>
-                    <li th:text="${sp.name}" name="subprojectname"></li>
-                    <li th:text="'Workdays: ' + ${sp.getWorkdays()}"></li>
                     <li class="editbtn">
                         <a th:href="'editSubproject?subprojectID=' + ${sp.getSubProjectID()} + '&projectID=' + ${project.projectID}">
                             <span class="far fa-edit fa-2x"></span>
                         </a>
                     </li>
+                    <li th:text="${sp.name}" name="subprojectname"></li>
+                    <li th:text="'Workdays: ' + ${sp.getWorkdays()}"></li>
+
                     <li class="deletebtn">
                         <a onclick=""
                            th:href="'deleteSubproject?subprojectID=' + ${sp.getSubProjectID()} + '&projectID=' + ${project.projectID}">
                             <span class="far fa-trash-alt fa-2x"></span>
                         </a>
                     </li>
-                    <li>
-                        <form action="addTask" method="POST">
-                            <input type="hidden" name="subprojectID" th:value="${sp.getSubProjectID()}">
-                            <input type="text" name="taskName" placeholder="Name" class="textfield" required>
-                            <input type="text" name="taskTime" placeholder="Hours" class="textfield" required>
-                            <input type="submit" value="Add" class="submit">
-                        </form>
-                    </li>
                 </ul>
             </div>
 
             <div class="task-data" th:each="task: ${sp.getTasks()}">
                 <ul>
-                    <li class="task-name" th:text="${task.name} "></li>
-                    <li class="task-time" th:text="' Hours: ' + ${task.getTimeHours()}"></li>
                     <li>
                         <a th:href="'/editTask?id=' + ${task.taskID}" class="editbtn">
                             <span class="far fa-edit fa-2x"></span>
                         </a>
                     </li>
+                    <li class="task-name" th:text="${task.name} "></li>
+                    <li class="task-time" th:text="' Hours: ' + ${task.getTimeHours()}"></li>
+
                     <li class="deletebtn">
                         <a th:href="'/deleteTask?id=' + ${task.getTaskID()}" onclick="">
-                        <span class="far fa-trash-alt fa-2x"></span>
+                            <span class="far fa-trash-alt fa-2x"></span>
                         </a>
                     </li>
                 </ul>
             </div>
+            <form action="addTask" method="POST">
+                <input type="hidden" name="subprojectID" th:value="${sp.getSubProjectID()}">
+                <input type="text" name="taskName" placeholder="Name" class="textfield" required>
+                <input type="text" name="taskTime" placeholder="Hours" class="textfield" required>
+                <input type="submit" value="Add" class="submit">
+            </form>
         </div>
+
         <a href="/profile" class="cancel">Return</a>
     </div>
     <th:block th:insert="fragments/general :: footer"></th:block>
