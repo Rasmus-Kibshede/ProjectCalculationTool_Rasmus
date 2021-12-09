@@ -18,7 +18,7 @@
 }
 
 .projectbox {
-    width: 90%;
+    width: 30%;
     background: lightgray;
     display: inline-block;
     margin: 10px;
@@ -58,7 +58,7 @@
 
 .deletebtn{
     padding: 5px;
-    width: 10px;
+    width: 730px;
 
 }
 
