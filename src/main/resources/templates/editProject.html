@@ -28,7 +28,7 @@
 
         <div>
             <form action="saveProjectChanges" method="post">
-                <input type="text" name="projectName" th:value="${project.name}">
+                <input type="text" name="projectName" th:value="${project.name}" class="textfield">
                 <input type="hidden" name="projectID" th:value="${project.projectID}">
                 <input type="submit" value="Save" class="submit">
             </form>
