@@ -2,10 +2,12 @@ package projectCalculationTool.project;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.context.request.WebRequest;
 import projectCalculationTool.employee.Employee;
 import projectCalculationTool.util.exception.ProjectException;
+import projectCalculationTool.util.exception.ValidateException;
 
 import java.util.ArrayList;
 
@@ -33,4 +35,13 @@ public class ProfileController {
 
   }
 
+  //Referance https://stackoverflow.com/questions/804581/spring-mvc-controller-redirect-to-previous-page
+  @ExceptionHandler({ProjectException.class, ValidateException.class})
+  public String handleSQLException(Model model, Exception exception, WebRequest webRequest) {
+    String referer = webRequest.getHeader("Referer");
+
+    model.addAttribute("message", exception.getMessage());
+
+    return "redirect:" + referer;
+  }
 }
