@@ -17,30 +17,12 @@ public class ProjectController {
 
   private final ProjectService PROJECT_SERVICE = new ProjectService(new ProjectRepository());
 
-  @GetMapping("/profile")
-  // skal den throwe??
-  public String profile(WebRequest webRequest, Model model) throws ProjectException {
-    Employee employee = (Employee) webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION);
-
-    if (employee != null) {
-      ArrayList<Project> projects = PROJECT_SERVICE.readProjects(employee);
-
-      model.addAttribute("employee", employee);
-      model.addAttribute("projects", projects);
-      model.addAttribute("message", webRequest.getParameter("message"));
-
-      return "profile";
-    }
-
-    return "redirect:/";
-  }
-
   @PostMapping("/addproject")
   public String createProject(WebRequest webRequest) throws ProjectException, ValidateException {
 
     String projectName = webRequest.getParameter("projectname");
 
-    Employee employee =  (Employee) webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION);
+    Employee employee = (Employee) webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION);
 
     PROJECT_SERVICE.createProject(projectName, employee);
 
@@ -49,7 +31,7 @@ public class ProjectController {
 
   @GetMapping("/project")
   public String project(WebRequest webRequest, Model model) throws ProjectException {
-    Employee employee =  (Employee) webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION);
+    Employee employee = (Employee) webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION);
     if (employee == null) {
       return "redirect:/";
     }
@@ -72,8 +54,9 @@ public class ProjectController {
   //Bruges ikke lige nu
   @GetMapping("/projectoverview")
   public String showOverview(WebRequest webRequest, Model model) throws ProjectException {
-    if (webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION) == null) {
-      return "redirect:index";
+    Employee employee = (Employee) webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION);
+    if (employee == null) {
+      return "redirect:/";
     }
 
     int projectID = Integer.parseInt(webRequest.getParameter("id"));
