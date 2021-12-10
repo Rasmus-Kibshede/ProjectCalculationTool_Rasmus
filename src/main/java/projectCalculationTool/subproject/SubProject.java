@@ -47,7 +47,7 @@ public class SubProject {
     this.tasks.add(task);
   }
 
-  public void calculateDayTotal() {
+  public void calculateDaysTotal() {
     int daySubTotal = 0;
 
     for (int i = 0; i < this.tasks.size(); i++) {

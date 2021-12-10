@@ -9,7 +9,7 @@ public interface ProjectRepositoryInterface {
 
   void createProject(Project project) throws ProjectException;
 
-  ArrayList<Project> readProjects(Employee employee) throws ProjectException;
+  ArrayList<Project> readAllProjects(Employee employee) throws ProjectException;
 
   Project readProject(int projectID) throws ProjectException;
 

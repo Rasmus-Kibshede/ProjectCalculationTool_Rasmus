@@ -13,7 +13,7 @@ import projectCalculationTool.util.exception.ValidateException;
 
 @Controller
 public class TaskController {
-    private TaskService TASK_SERVICE = new TaskService(new TaskRepository());
+    private final TaskService TASK_SERVICE = new TaskService(new TaskRepository());
 
     @PostMapping("addTask")
     public String addTask(WebRequest webRequest) throws ValidateException, TaskException {

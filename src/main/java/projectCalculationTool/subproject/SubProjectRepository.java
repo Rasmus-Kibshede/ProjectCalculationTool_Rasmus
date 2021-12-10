@@ -61,7 +61,7 @@ public class SubProjectRepository implements SubProjectRepositoryInterface {
   }
 
   @Override
-  public Project readSubProjects(Project project) throws SubProjectException {
+  public Project readAllSubProjects(Project project) throws SubProjectException {
 
     try {
       PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM subprojects WHERE fk_project_id = ?");
@@ -91,11 +91,11 @@ public class SubProjectRepository implements SubProjectRepositoryInterface {
   }
 
   @Override
-  public void updateSubProject(int id, String name) throws SubProjectException {
+  public void updateSubProject(int subprojectID, String subprojectName) throws SubProjectException {
     try {
       PreparedStatement preparedStatement = connection.prepareStatement("UPDATE subprojects SET subproject_name = ? WHERE subproject_id = ?");
-      preparedStatement.setString(1, name);
-      preparedStatement.setInt(2, id);
+      preparedStatement.setString(1, subprojectName);
+      preparedStatement.setInt(2, subprojectID);
 
       preparedStatement.executeUpdate();
 

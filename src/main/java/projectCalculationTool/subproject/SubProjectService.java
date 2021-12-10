@@ -12,8 +12,6 @@ public class SubProjectService {
     }
 
     public void createSubProject(String subProjectName, int projectID, Project project) throws SubProjectException, ValidateException {
-        //skal ikke laves nyt project, der skal sendes et project med??
-        project = new Project();
         project.setProjectID(projectID);
         SubProject subProject = new SubProject(validateSubProjectName(subProjectName));
 
@@ -45,14 +43,4 @@ public class SubProjectService {
             throw new ValidateException("Task name cannot be null or longer than 45 characters.");
         }
     }
-
-  /*//bruger vi stadig denne??
-  public SubProject validateSubProjectIncludesTask(SubProject subProject) throws ProjectException {
-    if (subProject.getTasks() != null) {
-      return subProject;
-    } else {
-      throw new ProjectException("You can't create SubProject without at least one Task");
-    }
-  }
-   */
 }

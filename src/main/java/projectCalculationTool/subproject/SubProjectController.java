@@ -13,7 +13,7 @@ import projectCalculationTool.util.exception.ValidateException;
 
 @Controller
 public class SubProjectController {
-  private SubProjectService SUB_PROJECT_SERVICE = new SubProjectService(new SubProjectRepository());
+  private final SubProjectService SUB_PROJECT_SERVICE = new SubProjectService(new SubProjectRepository());
 
   @PostMapping("addSubProject")
   public String addSubProject(WebRequest webRequest) throws SubProjectException, ValidateException {
