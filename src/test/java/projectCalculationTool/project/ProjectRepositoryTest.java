@@ -33,7 +33,7 @@ class ProjectRepositoryTest {
   }
 
 
-  /*//-----------------------READ tests-----------------------
+  //-----------------------READ tests-----------------------
   @Test
   public void readProject() throws ProjectException {
     Project project = projectRepository.readProject(1);
@@ -46,7 +46,7 @@ class ProjectRepositoryTest {
   @Test
   public void readProjectWithException() {
     assertThrows(SQLException.class, () -> projectRepository.readProject(-1));
-  }*/
+  }
 
 
   @Test
@@ -56,7 +56,6 @@ class ProjectRepositoryTest {
 
     assertNotNull(projects);
   }
-  /*
 
   //-----------------------CREATE tests-----------------------
   @Test
@@ -92,6 +91,6 @@ class ProjectRepositoryTest {
 
    projectRepository.deleteProject(project1.getProjectID());
 
-  }*/
+  }
 
 }
