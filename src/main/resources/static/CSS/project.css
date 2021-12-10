@@ -19,7 +19,7 @@
 
 .projecthead .editbtn {
     display: inline-block;
-    margin-left: 10px;
+    margin-left: 35px;
 }
 
 .projecthead .editbtn .fa-edit {
@@ -52,6 +52,7 @@
 .subproject-data {
     width: 100%;
     background: #bcd4e6;
+    margin-bottom: 5px;
 }
 
 .subproject-data ul {

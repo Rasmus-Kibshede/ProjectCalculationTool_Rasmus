@@ -10,7 +10,7 @@ public class TaskRepository implements TaskRepositoryInterface {
     private static Connection connection = DBManager.getConnection();
 
     @Override
-    public SubProject createTask(SubProject subProject) throws TaskException {
+    public void createTask(SubProject subProject) throws TaskException {
         try {
             Task task = subProject.getTasks().get(subProject.getTasks().size() - 1);
 
@@ -28,31 +28,8 @@ public class TaskRepository implements TaskRepositoryInterface {
                 task.setTaskID(resultSet.getInt(1));
             }
 
-            return subProject;
-
         } catch (SQLException err) {
             throw new TaskException("Creating Task failed", err);
-        }
-    }
-
-    @Override
-    public SubProject readAllTasks(SubProject subProject) throws TaskException {
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM tasks WHERE fk_subproject_id = ?;");
-            preparedStatement.setInt(1, subProject.getSubProjectID());
-
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                Task task = new Task(resultSet.getInt("task_hours"), resultSet.getString("task_name"));
-                task.setTaskID(resultSet.getInt("task_id"));
-                subProject.addTask(task);
-            }
-
-            return subProject;
-
-        } catch (SQLException err) {
-            throw new TaskException("Failed reading Tasks", err);
         }
     }
 
@@ -81,20 +58,39 @@ public class TaskRepository implements TaskRepositoryInterface {
         return null;
     }
 
+    @Override
+    public SubProject readAllTasks(SubProject subProject) throws TaskException {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM tasks WHERE fk_subproject_id = ?;");
+            preparedStatement.setInt(1, subProject.getSubProjectID());
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Task task = new Task(resultSet.getInt("task_hours"), resultSet.getString("task_name"));
+                task.setTaskID(resultSet.getInt("task_id"));
+                subProject.addTask(task);
+            }
+
+            return subProject;
+
+        } catch (SQLException err) {
+            throw new TaskException("Failed reading Tasks", err);
+        }
+    }
+
 
     @Override
-    public Task updateTask(Task task) throws TaskException {
+    public void updateTask(Task task) throws TaskException {
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE tasks SET task_name = ?, task_hours = ? WHERE task_id = ?");
 
             preparedStatement.setString(1, task.getName());
             preparedStatement.setDouble(2, task.getTimeHours());
-            preparedStatement.setInt(3,task.getTaskID());
+            preparedStatement.setInt(3, task.getTaskID());
 
             preparedStatement.executeUpdate();
-
-            return task;
 
         } catch (SQLException err) {
             throw new TaskException("Task wasn't updated", err);

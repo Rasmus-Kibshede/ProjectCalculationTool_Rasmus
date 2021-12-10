@@ -49,7 +49,7 @@ public class ProjectRepository implements ProjectRepositoryInterface {
         project.setName(name);
         project.setProjectID(id);
 
-        project = SUBPROJECT_REPOSITORY.readSubProjects(project);
+        project = SUBPROJECT_REPOSITORY.readAllSubProjects(project);
         project.calculateWorkdaysDaysTotal();
         return project;
       } else {
@@ -63,7 +63,7 @@ public class ProjectRepository implements ProjectRepositoryInterface {
     }
   }
 
-  public ArrayList<Project> readProjects(Employee employee) throws ProjectException {
+  public ArrayList<Project> readAllProjects(Employee employee) throws ProjectException {
 
     try {
       PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM projects WHERE fk_employee_id = ?;");
@@ -81,7 +81,7 @@ public class ProjectRepository implements ProjectRepositoryInterface {
         project.setName(name);
         project.setProjectID(id);
         projects.add(project);
-        project.setSubProjects(SUBPROJECT_REPOSITORY.readSubProjects(project).getSubProjects());
+        project.setSubProjects(SUBPROJECT_REPOSITORY.readAllSubProjects(project).getSubProjects());
         project.calculateWorkdaysDaysTotal();
       }
 

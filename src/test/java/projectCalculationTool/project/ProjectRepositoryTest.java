@@ -52,7 +52,7 @@ class ProjectRepositoryTest {
   @Test
   public void readAllProjectNotNull() throws ProjectException {
 
-    ArrayList<Project> projects = projectRepository.readProjects(employee);
+    ArrayList<Project> projects = projectRepository.readAllProjects(employee);
 
     assertNotNull(projects);
   }

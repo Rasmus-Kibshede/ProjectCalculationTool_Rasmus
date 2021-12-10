@@ -21,8 +21,8 @@ public class ProjectService {
         projectRepositoryInterface.createProject(project);
     }
 
-    public ArrayList<Project> readProjects(Employee employee) throws ProjectException {
-        return projectRepositoryInterface.readProjects(employee);
+    public ArrayList<Project> readAllProjects(Employee employee) throws ProjectException {
+        return projectRepositoryInterface.readAllProjects(employee);
     }
 
     public Project readProject(int projectID) throws ProjectException {

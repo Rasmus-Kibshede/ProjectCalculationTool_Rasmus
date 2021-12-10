@@ -60,7 +60,7 @@ public class Project {
         int workdaysTotal = 0;
 
         for (int i = 0; i < this.subProjects.size(); i++) {
-            this.subProjects.get(i).calculateDayTotal();
+            this.subProjects.get(i).calculateDaysTotal();
             workdaysTotal += this.subProjects.get(i).getWorkdays();
         }
         this.projectDaysTotal = workdaysTotal;

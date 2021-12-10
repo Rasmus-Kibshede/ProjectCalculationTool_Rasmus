@@ -13,7 +13,7 @@ class EmployeeRepositoryTest {
         String Email = "test@yes.com";
         String wrongpw = "nottherigtone";
 
-        Throwable exception = assertThrows(LoginException.class, () -> employeeRepository.read(Email, wrongpw));
+        Throwable exception = assertThrows(LoginException.class, () -> employeeRepository.readEmployee(Email, wrongpw));
 
         assertEquals("Invalid email or password", exception.getMessage());
 

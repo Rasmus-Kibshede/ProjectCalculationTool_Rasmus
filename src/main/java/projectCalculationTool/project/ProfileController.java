@@ -25,7 +25,7 @@ public class ProfileController {
       return "redirect:/";
     }
 
-    ArrayList<Project> projects = PROJECT_SERVICE.readProjects(employee);
+    ArrayList<Project> projects = PROJECT_SERVICE.readAllProjects(employee);
 
     model.addAttribute("employee", employee);
     model.addAttribute("projects", projects);

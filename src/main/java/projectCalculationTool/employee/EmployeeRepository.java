@@ -12,7 +12,7 @@ public class EmployeeRepository implements EmployeeRepositoryInterface {
     private static Connection connection = DBManager.getConnection();
 
     @Override
-    public Employee read(String employeeEmail, String employeePassword) throws LoginException {
+    public Employee readEmployee(String employeeEmail, String employeePassword) throws LoginException {
         try {
             PreparedStatement ps = connection.prepareStatement("SELECT * FROM employees WHERE employee_email = ? and employee_password = ?;");
             ps.setString(1, employeeEmail);

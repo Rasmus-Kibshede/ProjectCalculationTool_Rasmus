@@ -11,7 +11,7 @@ public class EmployeeService {
     }
 
     public Employee readEmployee(String employeeEmail, String employeePassword) throws ValidateException, LoginException {
-        return employeeRepositoryInterface.read
+        return employeeRepositoryInterface.readEmployee
             (validateEmail(employeeEmail), validatePasswordLength(employeePassword));
     }
 

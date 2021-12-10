@@ -3,8 +3,8 @@
 <head>
     <th:block th:include="fragments/general :: headfiles"></th:block>
     <title>Project</title>
-    <link rel="stylesheet" href="/project.css">
     <script src="https://kit.fontawesome.com/1a9ff76d50.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/CSS/project.css">
 </head>
 <body>
 <div id="wrapper">
@@ -72,7 +72,7 @@
             <div class="addTask">
                 <form action="addTask" method="POST">
                     <input type="hidden" name="subprojectID" th:value="${sp.getSubProjectID()}">
-                    <input type="text" name="taskName" placeholder="Name" class="textfield" required>
+                    <input type="text" name="taskName" placeholder="Task Name" class="textfield" required>
                     <input type="text" name="taskTime" placeholder="Hours" class="textfield" required>
                     <input type="submit" value="Add" class="submit">
                 </form>

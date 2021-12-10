@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 public class LoginController {
-  private EmployeeService employeeService = new EmployeeService(new EmployeeRepository());
+  private final EmployeeService EMPLOYEE_SERVICE = new EmployeeService(new EmployeeRepository());
 
   @GetMapping("/")
   public String index(Model model, WebRequest webRequest) {
@@ -25,7 +25,7 @@ public class LoginController {
   public String login(WebRequest webRequest) throws LoginException, ValidateException {
     String email = webRequest.getParameter("email");
     String password = webRequest.getParameter("password");
-    Employee employee = employeeService.readEmployee(email, password);
+    Employee employee = EMPLOYEE_SERVICE.readEmployee(email, password);
 
     if (employee != null) {
       webRequest.setAttribute("employee", employee, WebRequest.SCOPE_SESSION);
