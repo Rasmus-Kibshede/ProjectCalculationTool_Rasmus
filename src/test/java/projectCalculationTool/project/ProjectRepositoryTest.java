@@ -3,6 +3,7 @@ package projectCalculationTool.project;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import projectCalculationTool.employee.Employee;
+import projectCalculationTool.testData.TestData;
 import projectCalculationTool.util.exception.ProjectException;
 
 import java.sql.SQLException;
@@ -18,6 +19,10 @@ class ProjectRepositoryTest {
 
   @BeforeEach
   public void setUp() {
+
+    TestData testData = new TestData();
+    testData.setUp();
+
     projectRepository = new ProjectRepository();
     project = new Project();
 
@@ -28,12 +33,12 @@ class ProjectRepositoryTest {
   }
 
 
-  //-----------------------READ tests-----------------------
+  /*//-----------------------READ tests-----------------------
   @Test
   public void readProject() throws ProjectException {
-    Project project = projectRepository.readProject(18);
+    Project project = projectRepository.readProject(1);
 
-    assertEquals(18, project.getProjectID());
+    assertEquals(1, project.getProjectID());
 
     // KILDE: https://github.com/Tine-m/2.semLoginSample/blob/testautomation/loginsample/src/test/java/login/repositories/UserRepositoryTest2.java
   }
@@ -41,7 +46,8 @@ class ProjectRepositoryTest {
   @Test
   public void readProjectWithException() {
     assertThrows(SQLException.class, () -> projectRepository.readProject(-1));
-  }
+  }*/
+
 
   @Test
   public void readAllProjectNotNull() throws ProjectException {
@@ -50,6 +56,7 @@ class ProjectRepositoryTest {
 
     assertNotNull(projects);
   }
+  /*
 
   //-----------------------CREATE tests-----------------------
   @Test
@@ -85,6 +92,6 @@ class ProjectRepositoryTest {
 
    projectRepository.deleteProject(project1.getProjectID());
 
-  }
+  }*/
 
 }
