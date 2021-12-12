@@ -42,3 +42,11 @@
     margin-bottom: 21px;
     font-size: 18px;
 }
+
+#projectname{
+    width: 12%;
+    display: inline-block;
+    margin-bottom: 21px;
+    font-size: 18px;
+    margin-right: 90px;
+}
