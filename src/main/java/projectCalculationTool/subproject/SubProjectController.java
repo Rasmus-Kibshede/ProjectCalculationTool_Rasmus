@@ -23,7 +23,7 @@ public class SubProjectController {
     int projectID = Integer.parseInt(webRequest.getParameter("projectID"));
 
     SUB_PROJECT_SERVICE.createSubProject(subProjectName, projectID,
-        (Project) webRequest.getAttribute("Project", WebRequest.SCOPE_SESSION));
+        (Project) webRequest.getAttribute("project", WebRequest.SCOPE_SESSION));
 
     return "redirect:/project?id=" + projectID;
   }
