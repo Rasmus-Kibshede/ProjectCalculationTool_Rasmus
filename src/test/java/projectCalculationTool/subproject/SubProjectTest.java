@@ -1,39 +1,74 @@
 package projectCalculationTool.subproject;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import projectCalculationTool.task.Task;
+
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class SubProjectTest {
 
-    @Test
-    void correctHoursToWorkDays() {
-        //8 hours = 1 workday
-        //9 hours = 2 workdays
-        //arrange
-        int time=9;
+  private SubProject subProject;
 
-        //act
-        double calcWorkdays = (double)time/8;
-        int workdays = (int) Math.ceil(calcWorkdays);
+  @BeforeEach
+  public void setup() {
 
-        int expected = 9;//number is in workdays
-        //assert
-        assertEquals(expected, workdays);
-    }
+    //Act
+    subProject = new SubProject("JUnit");
 
-    @Test
-    void zeroTimeToWorkdays(){
-        int time = 0;
+    ArrayList<Task> tasks = new ArrayList<>();
+    tasks.add(new Task(4, "JUnit_1"));
+    tasks.add(new Task(4, "JUnit_2"));
+    tasks.add(new Task(1, "JUnit_3"));
 
-        //act
-        double calcWorkdays = (double)time/8;
-        int workdays = (int) Math.ceil(calcWorkdays);
+    subProject.setTasks(tasks);
+    subProject.calculateDaysTotal();
 
-        int expected = 0;//number is in workdays
-        //assert
-        assertEquals(expected, workdays);
-    }
+  }
+
+  @Test
+  public void correctHoursToWorkDaysSuccessfully() {
+
+    //Arrange
+    int workDays = 2;
+
+    //Assert
+    assertEquals(workDays, subProject.getWorkdays());
+  }
+
+  @Test
+  public void calculateWorkdaysSuccessfully(){
+
+    //Arrange
+    subProject.calculateWorkdays(9);
+
+    //Assert
+    assertEquals(2, subProject.getWorkdays());
+  }
+
+  //--------------------- Tests with Wrong Inputs ---------------------
+
+  @Test
+  public void correctHoursToWorkDaysWithWrongInput() {
+
+    //Arrange
+    int workDays = 1;
+
+    //Assert
+    assertNotEquals(workDays, subProject.getWorkdays());
+  }
+
+  @Test
+  public void calculateWorkdaysWithWrongInput(){
+
+    //Arrange
+    subProject.calculateWorkdays(1);
+
+    //Assert
+    assertNotEquals(2, subProject.getWorkdays());
+  }
 
 
 }

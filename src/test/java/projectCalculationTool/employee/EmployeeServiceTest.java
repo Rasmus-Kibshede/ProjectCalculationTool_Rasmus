@@ -20,7 +20,7 @@ class EmployeeServiceTest {
     @ParameterizedTest
     @CsvSource(value = {"test@", "test", "@hej.dk", ".", "hej.dk"})
     public void invalidEmailTest(String email) {
-        assertThrows(LoginException.class, () -> employeeService.validateEmail(email));
+        assertThrows(ValidateException.class, () -> employeeService.validateEmail(email));
     }
 
     @Test
