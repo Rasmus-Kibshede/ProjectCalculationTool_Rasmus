@@ -57,7 +57,7 @@ public class ProjectRepository implements ProjectRepositoryInterface {
       }
 
     } catch (SQLException err) {
-      throw new ProjectException("Read project failed", err);
+      throw new ProjectException("Failed read project", err);
     } catch (SubProjectException err) {
       throw new ProjectException("Failed read subproject", err);
     }
@@ -114,11 +114,7 @@ public class ProjectRepository implements ProjectRepositoryInterface {
       PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM projects WHERE project_id = ?;");
       preparedStatement.setInt(1, projectID);
 
-      int i = preparedStatement.executeUpdate();
-
-      if (i == 0) {
-        throw new ProjectException("Could not delete project");
-      }
+      preparedStatement.executeUpdate();
 
     } catch (SQLException e) {
       throw new ProjectException("Deleting project failed", e);

@@ -32,7 +32,7 @@ public class EmployeeRepository implements EmployeeRepositoryInterface {
             }
 
         } catch (SQLException err) {
-            throw new LoginException(err.getMessage());
+            throw new LoginException("Failed read employee", err);
         }
     }
 }

@@ -30,8 +30,8 @@ public class SubProjectRepository implements SubProjectRepositoryInterface {
         subProject.setSubProjectID(resultSet.getInt(1));
       }
 
-    } catch (SQLException e) {
-      throw new SubProjectException("Failed creating subproject", e);
+    } catch (SQLException err) {
+      throw new SubProjectException("Failed creating subproject", err);
     }
   }
 
@@ -82,8 +82,8 @@ public class SubProjectRepository implements SubProjectRepositoryInterface {
 
       return project;
 
-    } catch (SQLException e) {
-      throw new SubProjectException("Read subproject failed", e);
+    } catch (SQLException err) {
+      throw new SubProjectException("Read subproject failed", err);
 
     }catch (TaskException err) {
       throw new SubProjectException("Read tasks failed", err);
