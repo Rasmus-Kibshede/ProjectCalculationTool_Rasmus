@@ -27,4 +27,13 @@ class SubProjectServiceTest {
         assertThrows(ValidateException.class, () -> subProjectService.validateSubProjectName(name));
 
     }
+
+    @Test
+    void validateSuccessfully() {
+        //Arrange
+        String name = "Test";
+
+        //Assert
+        assertDoesNotThrow(() -> subProjectService.validateSubProjectName(name));
+    }
 }
