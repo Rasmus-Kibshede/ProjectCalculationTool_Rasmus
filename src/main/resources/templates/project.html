@@ -36,11 +36,12 @@
             <div class="subproject-data clearfix">
                 <ul>
                     <li class="editbtn">
-                        <a th:href="'editSubproject?subprojectID=' + ${sp.getSubProjectID()} + '&projectID=' + ${project.projectID}">
+                        <a th:href="'editSubproject?subprojectID=' + ${sp.getSubProjectID()} +
+                        '&projectID=' + ${project.projectID}">
                             <span class="far fa-edit fa-2x"></span>
                         </a>
                     </li>
-                    <li th:text="${sp.name}" name="subprojectname"></li>
+                    <li th:text="${sp.name}"></li>
                     <li th:text="'Workdays: ' + ${sp.getWorkdays()}"></li>
 
                     <li class="deletebtn">

@@ -29,7 +29,8 @@ public class PageNavigationTest {
     // Load selenium driver
     // download chromeDriver.exe fra http://chromedriver.storage.googleapis.com/index.html?path=96.0.4664.45/
 
-    System.setProperty("webdriver.chrome.driver", "src/test/java/webDriver/chromedriver.exe");
+    //System.setProperty("webdriver.chrome.driver", "src/test/java/webDriver/chromedriver.exe");
+    System.setProperty("webdriver.chrome.driver", "/Users/kamillenikolajsen/Desktop/Chromedriver/chromedriver");
     selenium = new ChromeDriver();
 
     selenium.navigate().to("http://localhost:8080");
@@ -79,6 +80,7 @@ public class PageNavigationTest {
     subprojectName.submit();
 
     assertEquals("Project", selenium.getTitle());
+    assertEquals("SeleniumSubprojectTest", selenium.findElement(By.name("SeleniumSubprojectTest")).getText());
   }
 
   /*@ParameterizedTest
