@@ -17,16 +17,17 @@ public class PageNavigationTest {
 
   private static WebDriver selenium;
 
-  //Det viker ikke med min path...
-  // Så måske vi lige skal afprøve det med en anden ellers er det måske bare helt forkert...
-
   @BeforeAll
   public static void setUp() {
     // Load selenium driver
     // download chromeDriver.exe fra http://chromedriver.storage.googleapis.com/index.html?path=96.0.4664.45/
 
+    //Windows chromedriver
     System.setProperty("webdriver.chrome.driver", "src/test/java/webDriver/chromedriverWindows.exe");
+
+    //Mac chromedriver
     //System.setProperty("webdriver.chrome.driver", "src/test/java/webDriver/chromedriverMac");
+
     selenium = new ChromeDriver();
 
     selenium.navigate().to("http://localhost:8080");

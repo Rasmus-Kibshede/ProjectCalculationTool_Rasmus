@@ -9,6 +9,14 @@ class EmployeeRepositoryTest {
     private final EmployeeRepository employeeRepository = new EmployeeRepository();
 
     @Test
+    public void loginSuccess(){
+        String email = "test@yes.com";
+        String password = "123";
+
+        assertDoesNotThrow(() -> employeeRepository.readEmployee(email, password));
+    }
+
+    @Test
     void wrongLoginException() {
         String Email = "test@yes.com";
         String wrongpw = "nottherigtone";
