@@ -43,10 +43,18 @@
     font-size: 18px;
 }
 
+#subprojectname{
+    width: 12%;
+    display: inline-block;
+    margin-bottom: 21px;
+    font-size: 18px;
+    margin-right: 80px;
+}
+
 #projectname{
     width: 12%;
     display: inline-block;
     margin-bottom: 21px;
     font-size: 18px;
-    margin-right: 65px;
+    margin-right: 60px;
 }

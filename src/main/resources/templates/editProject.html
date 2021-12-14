@@ -3,7 +3,8 @@
 <head>
     <th:block th:include="fragments/general :: headfiles"></th:block>
     <title>Edit Project</title>
-    <link rel="stylesheet" href="/CSS/task.css">
+   <!-- <link rel="stylesheet" href="/CSS/task.css"> -->
+    <link rel="stylesheet" href="/CSS/edit.css">
 </head>
 <body>
 <div id="wrapper">
@@ -37,7 +38,7 @@
             <h4>Press save when finished</h4>
         </div>
 
-        <a th:href="'/profile?id=' + ${project.projectID}" class="cancel">Cancel</a>
+        <a th:href="'/project?id=' + ${project.projectID}" class="cancel">Cancel</a>
 
     </div>
     <th:block th:insert="fragments/general :: footer"></th:block>

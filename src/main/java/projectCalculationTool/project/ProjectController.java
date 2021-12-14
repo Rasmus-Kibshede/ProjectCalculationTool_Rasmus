@@ -102,7 +102,7 @@ public class ProjectController {
 
     PROJECT_SERVICE.updateProject(project, projectName);
 
-    return "redirect:profile?id=" + projectID;
+    return "redirect:project?id=" + projectID;
   }
 
   @GetMapping("deleteProject")
