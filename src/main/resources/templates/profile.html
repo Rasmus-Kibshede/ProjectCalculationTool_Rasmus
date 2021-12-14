@@ -30,7 +30,7 @@
             <ul>
                 <li>
                     <a th:href="'/project?id=' + ${project.projectID}" th:text="${project.name}"
-                       class="projectName"></a>
+                       class="projectName" th:name="${project.name}"></a>
                     <a class="editbtn" th:href="'/project?id=' + ${project.projectID}">
                         <span class="far fa-edit fa-2x"></span>
                     </a>
@@ -49,7 +49,7 @@
                         </a>
                     </li>
                     <li class="deletebtn">
-                        <a onclick="" th:href="'/deleteProject?id=' + ${project.projectID}">
+                        <a onclick="" th:href="'/deleteProject?id=' + ${project.projectID}" th:name="${project.name} + delete">
                             <span class="far fa-trash-alt fa-2x"></span>
                         </a>
                     </li>
