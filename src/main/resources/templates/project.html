@@ -41,7 +41,7 @@
                             <span class="far fa-edit fa-2x"></span>
                         </a>
                     </li>
-                    <li th:text="${sp.name}"></li>
+                    <li th:text="${sp.name}" th:name="${sp.name}"></li>
                     <li th:text="'Workdays: ' + ${sp.getWorkdays()}"></li>
 
                     <li class="deletebtn">
@@ -60,8 +60,8 @@
                             <span class="far fa-edit fa-2x"></span>
                         </a>
                     </li>
-                    <li class="task-name" th:text="${task.name} "></li>
-                    <li class="task-time" th:text="' Hours: ' + ${task.getTimeHours()}"></li>
+                    <li class="task-name" th:text="${task.name}" th:name="${task.name}"></li>
+                    <li class="task-time" th:text="' Hours: ' + ${task.getTimeHours()}" th:name="${task.getTimeHours()}"></li>
 
                     <li class="deletebtn">
                         <a th:href="'/deleteTask?id=' + ${task.getTaskID()}" onclick="">

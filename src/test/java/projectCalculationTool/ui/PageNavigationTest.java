@@ -1,9 +1,6 @@
 package projectCalculationTool.ui;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.openqa.selenium.By;
@@ -17,6 +14,8 @@ import java.util.concurrent.TimeUnit;
 import static org.junit.jupiter.api.Assertions.*;
 
 // Referance til https://github.com/Tine-m/2.semUITestAutomation/blob/main/SystemTestAutomation/src/test/java/GoogleDemoTest.java
+// Ordered Test Reference til https://www.vogella.com/tutorials/JUnit/article.html#test-execution-order
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class PageNavigationTest {
 
   private static WebDriver selenium;
@@ -29,8 +28,8 @@ public class PageNavigationTest {
     // Load selenium driver
     // download chromeDriver.exe fra http://chromedriver.storage.googleapis.com/index.html?path=96.0.4664.45/
 
-    //System.setProperty("webdriver.chrome.driver", "src/test/java/webDriver/chromedriver.exe");
-    System.setProperty("webdriver.chrome.driver", "/Users/kamillenikolajsen/Desktop/Chromedriver/chromedriver");
+    //System.setProperty("webdriver.chrome.driver", "src/test/java/webDriver/chromedriverWindows.exe");
+    System.setProperty("webdriver.chrome.driver", "src/test/java/webDriver/chromedriverMac");
     selenium = new ChromeDriver();
 
     selenium.navigate().to("http://localhost:8080");
@@ -43,24 +42,21 @@ public class PageNavigationTest {
   }
 
   @Test
+  @Order(1)
   public void testNavigationValidtProject() {
-    //selenium.navigate().to("http://localhost:8080/profile");
     WebElement projectName = selenium.findElement(By.name("projectname"));
     projectName.sendKeys("SeleniumProjectTest");
-    // Få fat i id på projekt
+
     projectName.submit();
 
-    //assertEquals("Profile", selenium.getTitle());
     assertEquals("SeleniumProjectTest", selenium.findElement(By.name("SeleniumProjectTest")).getText());
   }
 
-  @ParameterizedTest
-  @CsvSource(value = {"Project name cannot be longer then 45 characters this is the test"})
-  public void testNavigationInvalidtProject(String inputProjectName) {
-
-    //selenium.navigate().to("http://localhost:8080/profile");
+  @Test
+  @Order(2)
+  public void testNavigationInvalidtProject() {
     WebElement projectName = selenium.findElement(By.name("projectname"));
-    projectName.sendKeys(inputProjectName);
+    projectName.sendKeys("Project name cannot be longer then 45 characters this is the test");
 
     projectName.submit();
 
@@ -68,9 +64,8 @@ public class PageNavigationTest {
   }
 
   @Test
+  @Order(3)
   public void testNavigationValidtSubProject() {
-    // Sætte id dynamisk ind nedenfor
-    //selenium.navigate().to("http://localhost:8080/project?id=");
     WebElement project = selenium.findElement(By.name("SeleniumProjectTest"));
     project.click();
 
@@ -79,42 +74,41 @@ public class PageNavigationTest {
 
     subprojectName.submit();
 
-    assertEquals("Project", selenium.getTitle());
     assertEquals("SeleniumSubprojectTest", selenium.findElement(By.name("SeleniumSubprojectTest")).getText());
   }
 
-  /*@ParameterizedTest
-  @CsvSource(value = {"Subproject name cannot be longer then 45 characters this is the test"})
-  public void testNavigationInvalidtSubproject(String inputSubprojectName) {
+  @Test
+  @Order(4)
+  public void testNavigationInvalidtSubproject() {
+    WebElement subprojectName = selenium.findElement(By.name("subprojectname"));
+    subprojectName.sendKeys("Subproject name cannot be longer then 45 characters this is the test");
 
-    selenium.navigate().to("http://localhost:8080/project?id=46");
-    WebElement subProjectName = selenium.findElement(By.name("subprojectname"));
-    subProjectName.sendKeys(inputSubprojectName);
-
-    subProjectName.submit();
+    subprojectName.submit();
 
     assertEquals("Project", selenium.getTitle());
   }
 
+
   @Test
+  @Order(5)
   public void testNavigationValidtTask() {
-    selenium.navigate().to("http://localhost:8080/project?id=46");
     WebElement taskName = selenium.findElement(By.name("taskName"));
     taskName.sendKeys("SeleniumTaskTest");
+
     WebElement taskTime = selenium.findElement(By.name("taskTime"));
     taskTime.sendKeys("2");
 
     taskTime.submit();
 
-    assertEquals("Project", selenium.getTitle());
+    assertEquals("SeleniumTaskTest", selenium.findElement(By.name("SeleniumTaskTest")).getText());
   }
+
 
   @ParameterizedTest
   @CsvSource(value = {"Task name cannot be longer then 45 characters this is the test:1",
       "Test Task:Have to be a number"}, delimiter = ':')
+  @Order(6)
   public void testNavigationInvalidtTask(String inputTaskName, String inputTaskTime) {
-
-    selenium.navigate().to("http://localhost:8080/project?id=46");
     WebElement taskName = selenium.findElement(By.name("taskName"));
     taskName.sendKeys(inputTaskName);
     WebElement taskTime = selenium.findElement(By.name("taskTime"));
@@ -123,15 +117,14 @@ public class PageNavigationTest {
     taskTime.submit();
 
     assertEquals("Project", selenium.getTitle());
-  }*/
+
+  }
 
   @AfterAll
   public static void tearDown() {
-
-    //selenium.navigate().to("http://localhost:8080/profile");
+    selenium.navigate().to("http://localhost:8080/profile");
     WebElement project = selenium.findElement(By.name("SeleniumProjectTestdelete"));
     project.click();
-
 
     // tear down browser
     selenium.quit();
