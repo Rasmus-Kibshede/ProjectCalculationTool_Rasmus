@@ -32,10 +32,6 @@ public class Project {
         return projectDaysTotal;
     }
 
-    public void setProjectDaysTotal(int projectDaysTotal) {
-        this.projectDaysTotal = projectDaysTotal;
-    }
-
     public int getProjectID() {
         return projectID;
     }

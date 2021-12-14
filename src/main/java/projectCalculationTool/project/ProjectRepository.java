@@ -32,7 +32,6 @@ public class ProjectRepository implements ProjectRepositoryInterface {
     }
   }
 
-
   public Project readProject(int projectID) throws ProjectException {
     try {
       PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM projects WHERE project_id = ?;");
@@ -69,7 +68,6 @@ public class ProjectRepository implements ProjectRepositoryInterface {
       PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM projects WHERE fk_employee_id = ?;");
       preparedStatement.setInt(1, employee.getEmployeeID());
       ResultSet resultSet = preparedStatement.executeQuery();
-
 
       ArrayList<Project> projects = new ArrayList<>();
 

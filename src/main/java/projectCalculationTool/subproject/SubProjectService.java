@@ -20,7 +20,6 @@ public class SubProjectService {
         subProjectRepositoryInterface.createSubProject(project);
     }
 
-    //Edit method name in class diagram
     public SubProject readSubProject(int subProjectID) throws SubProjectException {
         SubProject subProject = subProjectRepositoryInterface.readSubProject(subProjectID);
         return subProject;
@@ -35,7 +34,6 @@ public class SubProjectService {
         subProjectRepositoryInterface.deleteSubProject(subProjectID);
     }
 
-    //ER DET DEN RIGTIGE EXCEPTION???
     public String validateSubProjectName(String subprojectName) throws ValidateException {
         if (subprojectName != null && !subprojectName.isEmpty() && subprojectName.length() <= 45) {
             return subprojectName;

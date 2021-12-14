@@ -7,9 +7,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import projectCalculationTool.project.ProjectRepository;
-
-import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -28,8 +25,8 @@ public class PageNavigationTest {
     // Load selenium driver
     // download chromeDriver.exe fra http://chromedriver.storage.googleapis.com/index.html?path=96.0.4664.45/
 
-    //System.setProperty("webdriver.chrome.driver", "src/test/java/webDriver/chromedriverWindows.exe");
-    System.setProperty("webdriver.chrome.driver", "src/test/java/webDriver/chromedriverMac");
+    System.setProperty("webdriver.chrome.driver", "src/test/java/webDriver/chromedriverWindows.exe");
+    //System.setProperty("webdriver.chrome.driver", "src/test/java/webDriver/chromedriverMac");
     selenium = new ChromeDriver();
 
     selenium.navigate().to("http://localhost:8080");

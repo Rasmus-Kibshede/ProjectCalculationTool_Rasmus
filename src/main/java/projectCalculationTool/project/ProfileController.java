@@ -18,7 +18,6 @@ public class ProfileController {
 
 
   @GetMapping("/profile")
-  // skal den throwe??
   public String profile(WebRequest webRequest, Model model) throws ProjectException {
     Employee employee = (Employee) webRequest.getAttribute("employee", WebRequest.SCOPE_SESSION);
     if (employee == null) {
@@ -32,7 +31,6 @@ public class ProfileController {
     model.addAttribute("message", webRequest.getParameter("message"));
 
     return "profile";
-
   }
 
   //Referance https://stackoverflow.com/questions/804581/spring-mvc-controller-redirect-to-previous-page

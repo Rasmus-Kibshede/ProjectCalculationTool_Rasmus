@@ -10,8 +10,6 @@ import projectCalculationTool.employee.Employee;
 import projectCalculationTool.util.exception.ProjectException;
 import projectCalculationTool.util.exception.ValidateException;
 
-import java.util.ArrayList;
-
 @Controller
 public class ProjectController {
 
@@ -38,10 +36,8 @@ public class ProjectController {
 
     int projectID = Integer.parseInt(webRequest.getParameter("id"));
 
-    // send hele projektet videre --> ikke hent id i næste controller (evt i webrequest eller session?)
     Project project = PROJECT_SERVICE.readProject(projectID);
 
-    //sæt projekt i session
     webRequest.setAttribute("project", project, WebRequest.SCOPE_SESSION);
     project.setEmployee(employee);
 
@@ -61,10 +57,8 @@ public class ProjectController {
 
     int projectID = Integer.parseInt(webRequest.getParameter("id"));
 
-    // send hele projektet videre --> ikke hent id i næste controller (evt i webrequest eller session?)
     Project project = PROJECT_SERVICE.readProject(projectID);
 
-    //sæt projekt i session
     webRequest.setAttribute("project", project, WebRequest.SCOPE_SESSION);
 
     model.addAttribute("project", project);
@@ -80,12 +74,10 @@ public class ProjectController {
 
     int projectID = Integer.parseInt(webRequest.getParameter("id"));
 
-    //skal laves om, så vi ikke skal kalde ned til database igen
     Project project = PROJECT_SERVICE.readProject(projectID);
 
     model.addAttribute("message", webRequest.getParameter("message"));
     model.addAttribute("project", project);
-
 
     return "editProject";
   }
@@ -95,7 +87,6 @@ public class ProjectController {
 
     int projectID = Integer.parseInt(webRequest.getParameter("projectID"));
 
-    //skal laves om, så vi ikke skal kalde ned til database igen
     Project project = PROJECT_SERVICE.readProject(projectID);
 
     String projectName = webRequest.getParameter("projectName");

@@ -8,7 +8,7 @@ public class Employee {
     private String password;
     private String email;
     private int employeeID;
-    private ArrayList<Project> projects; // Add to diagram!!!!!!!
+    private ArrayList<Project> projects;
 
     public ArrayList<Project> getProjects() {
         return projects;

@@ -31,7 +31,7 @@ public class LoginController {
       webRequest.setAttribute("employee", employee, WebRequest.SCOPE_SESSION);
       return "redirect:/profile";
     }
-    //Set session with user obj
+
     return "redirect:/";
   }
 

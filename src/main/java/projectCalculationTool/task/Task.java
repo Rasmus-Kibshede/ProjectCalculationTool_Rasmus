@@ -14,10 +14,6 @@ public class Task {
     return timeHours;
   }
 
-  public void setTimeHours(int timeHours) {
-    this.timeHours = timeHours;
-  }
-
   public String getName() {
     return name;
   }
