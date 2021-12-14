@@ -1,6 +1,6 @@
 # ProjectCalculationTool
 
-ProjectCalculationTool is a tool that allows users from alpha solutions to create projects, subprojects and tasks and assign hours to tasks.
+ProjectCalculationTool is a tool that allows employees from alpha solutions to create projects, subprojects and tasks and assign hours to tasks.
 The hours will be calculated into days and give an estimate for how long the project is going. 
 
 ## Prerequisites
