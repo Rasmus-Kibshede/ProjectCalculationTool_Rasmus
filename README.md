@@ -32,7 +32,7 @@ To contribut to ProjectCalculationTool do the following:
 - Fork the repository
 - Create a branch: git checkout -b banchName
 - Make your contribution and commit them: git commit -m"message"
-- Push to origin branch: git push origin <ProjectCalculationTool>/<location>
+- Push to origin branch: git push origin ProjectCalculationTool/location
 - Create pull request
 
 # Contributors
