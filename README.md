@@ -22,6 +22,7 @@ To use this project:
 - Clone locally
 - Create database using the sql scripts from the program in your local database maneger. starting with the start.sql and thereafter the testdata.sql
 - Set your envierment variables: user(username for local database), password(password for local database), url(jdbc:mysql://hostname:3306/projectcalculationtool?      reconnect=true&autoReconnect=true) change hostname to local hostname
+- Go into the ui testclasses and select the webdriver that suits you, Mac or Windows. 
 - Run program and open the webbrowser to localhost:8080
 - Login to the program using the login username: test@yes.com and password: 123
 - Herafter you can create projects.
@@ -30,9 +31,9 @@ To use this project:
 ## Contributing to ProjectCalculationTool
 To contribut to ProjectCalculationTool do the following:
 - Fork the repository
-- Create a branch: git checkout -b <banchName>
-- Make your contribution and commit them: git commit -m"<message>"
-- Push to origin branch: git push origin <ProjectCalculationTool>/<location>
+- Create a branch: git checkout -b banchName
+- Make your contribution and commit them: git commit -m"message"
+- Push to origin branch: git push origin ProjectCalculationTool/location
 - Create pull request
 
 # Contributors
